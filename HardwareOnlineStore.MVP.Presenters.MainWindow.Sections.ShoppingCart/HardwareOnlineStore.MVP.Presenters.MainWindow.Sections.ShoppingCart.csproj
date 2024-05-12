@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HardwareOnlineStore.Entities\HardwareOnlineStore.Entities.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.MVP.Presenters.Contracts\HardwareOnlineStore.MVP.Presenters.Contracts.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.MVP.Views.Abstractions.MainWindow\HardwareOnlineStore.MVP.Views.Abstractions.MainWindow.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.Services.Entity.Contracts\HardwareOnlineStore.Services.Entity.Contracts.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.Services.Entity.SqlServerService\HardwareOnlineStore.Services.Entity.SqlServerService.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.Services.Utilities.Caching.Abstractions\HardwareOnlineStore.Services.Utilities.Caching.Abstractions.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.Services.Utilities.Caching.Memory\HardwareOnlineStore.Services.Utilities.Caching.Memory.csproj" />
+  </ItemGroup>
+
+</Project>

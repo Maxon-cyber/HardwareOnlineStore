@@ -1,0 +1,15 @@
+﻿Databases:
+    SqlServer:
+        Server: localhost\SQLEXPRESS
+        Port: 1433 #default
+        Database: Hardware_Online_Store
+        IntegratedSecurity: true
+        UserName: null
+        Password: null
+        TrustedConnection: true
+        TrustServerCertificate: true
+        ConnectionTimeout: 00:00:15 #default
+        MaxPoolSize: 100 #default
+Logging:
+    Path: C:\Users\рс\AppData\Local\Temp\HardwareOnlineStore.Logging
+    ReadOnly: true

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HardwareOnlineStore.MVP.Presenters.Contracts\HardwareOnlineStore.MVP.Presenters.Contracts.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ProductShowcase\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ProductShowcase.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.UserAccount\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.UserAccount.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.MVP.Views.Abstractions.MainWindow\HardwareOnlineStore.MVP.Views.Abstractions.MainWindow.csproj" />
+  </ItemGroup>
+
+</Project>

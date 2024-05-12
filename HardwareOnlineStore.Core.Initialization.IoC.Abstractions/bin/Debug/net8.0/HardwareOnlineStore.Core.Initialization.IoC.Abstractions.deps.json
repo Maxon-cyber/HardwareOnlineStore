@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "HardwareOnlineStore.Core.Initialization.IoC.Abstractions/1.0.0": {
+        "runtime": {
+          "HardwareOnlineStore.Core.Initialization.IoC.Abstractions.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "HardwareOnlineStore.Core.Initialization.IoC.Abstractions/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

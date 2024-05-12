@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HardwareOnlineStore.MVP.ViewModels.MainWindow\HardwareOnlineStore.MVP.ViewModels.MainWindow.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.MVP.Views.Abstractions.Shared\HardwareOnlineStore.MVP.Views.Abstractions.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

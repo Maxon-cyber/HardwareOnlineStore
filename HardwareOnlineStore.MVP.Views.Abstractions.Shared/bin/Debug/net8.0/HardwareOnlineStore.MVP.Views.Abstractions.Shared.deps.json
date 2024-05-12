@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "HardwareOnlineStore.MVP.Views.Abstractions.Shared/1.0.0": {
+        "runtime": {
+          "HardwareOnlineStore.MVP.Views.Abstractions.Shared.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "HardwareOnlineStore.MVP.Views.Abstractions.Shared/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

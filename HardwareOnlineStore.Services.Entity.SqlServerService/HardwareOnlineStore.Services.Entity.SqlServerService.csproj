@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HardwareOnlineStore.DataAccess.Providers.Relational.Models\HardwareOnlineStore.DataAccess.Providers.Relational.Models.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.DataAccess.Repositories.Relational.Abstractions\HardwareOnlineStore.DataAccess.Repositories.Relational.Abstractions.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer\HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.Entities\HardwareOnlineStore.Entities.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.Services.Entity.Contracts\HardwareOnlineStore.Services.Entity.Contracts.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.Services.Utilities.Logger.Abstractions\HardwareOnlineStore.Services.Utilities.Logger.Abstractions.csproj" />
+    <ProjectReference Include="..\HardwareOnlineStore.Services.Utilities.Logger.File\HardwareOnlineStore.Services.Utilities.Logger.File.csproj" />
+  </ItemGroup>
+
+</Project>

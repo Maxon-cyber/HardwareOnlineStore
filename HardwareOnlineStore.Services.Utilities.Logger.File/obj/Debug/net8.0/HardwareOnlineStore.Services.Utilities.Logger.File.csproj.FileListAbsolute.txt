@@ -1,0 +1,17 @@
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.File.deps.json
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.File.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.File.pdb
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.Abstractions.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Templates.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.Abstractions.pdb
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Templates.pdb
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\obj\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.File.csproj.AssemblyReference.cache
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\obj\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.File.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\obj\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.File.AssemblyInfoInputs.cache
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\obj\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.File.AssemblyInfo.cs
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\obj\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.File.csproj.CoreCompileInputs.cache
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\obj\Debug\net8.0\Hardware.3E445FBD.Up2Date
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\obj\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.File.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\obj\Debug\net8.0\refint\HardwareOnlineStore.Services.Utilities.Logger.File.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\obj\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.File.pdb
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\obj\Debug\net8.0\ref\HardwareOnlineStore.Services.Utilities.Logger.File.dll
