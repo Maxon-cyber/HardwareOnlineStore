@@ -59,3 +59,10 @@ C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenter
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.MainWindow\obj\Debug\net8.0\refint\HardwareOnlineStore.MVP.Presenters.MainWindow.dll
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.MainWindow\obj\Debug\net8.0\HardwareOnlineStore.MVP.Presenters.MainWindow.pdb
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.MainWindow\obj\Debug\net8.0\ref\HardwareOnlineStore.MVP.Presenters.MainWindow.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.MainWindow\obj\Debug\net8.0\HardwareOnlineStore.MVP.Presenters.MainWindow.sourcelink.json
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.MainWindow\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Caching.File.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.MainWindow\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Caching.Support.Serializer.Abstractions.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.MainWindow\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Caching.Support.Serializer.Yaml.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.MainWindow\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Caching.File.pdb
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.MainWindow\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Caching.Support.Serializer.Abstractions.pdb
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.MainWindow\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Caching.Support.Serializer.Yaml.pdb

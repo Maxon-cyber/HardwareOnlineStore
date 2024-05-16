@@ -2,9 +2,11 @@
 
 public sealed class OrderModel()
 {
+    public Guid Id { get; init; }
+    
     public required Guid UserId { get; init; }
 
-    public required IList<ProductModel> Products { get; init; }
+    public required ICollection<ProductModel> Products { get; init; }
 
     public required decimal TotalAmount { get; init; }
 

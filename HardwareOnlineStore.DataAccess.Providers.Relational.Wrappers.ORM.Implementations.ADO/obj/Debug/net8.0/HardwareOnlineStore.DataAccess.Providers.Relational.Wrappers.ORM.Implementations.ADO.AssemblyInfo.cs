@@ -15,7 +15,7 @@ using System.Reflection;
     "ADO")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6d66c9aa04d7bb0b23c690bf0dfb69ddfd709674")]
 [assembly: System.Reflection.AssemblyProductAttribute("HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations." +
     "ADO")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations." +

@@ -4,7 +4,7 @@ using HardwareOnlineStore.MVP.Presenters.Contracts;
 using HardwareOnlineStore.MVP.ViewModels.UserIdentification;
 using HardwareOnlineStore.MVP.Views.Abstractions.Shared;
 using HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification;
-using HardwareOnlineStore.Services.Entity.Contracts.Abstractions;
+using HardwareOnlineStore.Services.Entity.Contracts;
 using HardwareOnlineStore.Services.Entity.SqlServerService;
 using HardwareOnlineStore.Services.Entity.SqlServerService.DataProcessing;
 using System.Text;

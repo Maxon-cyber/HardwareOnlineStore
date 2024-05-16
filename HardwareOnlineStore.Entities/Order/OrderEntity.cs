@@ -1,23 +1,31 @@
 ﻿using HardwareOnlineStore.Entities.Common.Attributes;
-using HardwareOnlineStore.Entities.Product;
 using System.Data;
 
 namespace HardwareOnlineStore.Entities.Order;
 
-public sealed class OrderEntity : Entity
+public sealed class OrderEntity() : Entity
 {
-    [ColumnData(ColumnName = "user_id", DbType = DbType.Guid)]
+    [ColumnData(Name = "user_id", DbType = DbType.Guid)]
     public Guid UserId { get; init; }
 
-    [ColumnData(ColumnName = "products", DbType = DbType.Xml)]
-    public IList<ProductEntity> Products { get; init; }
+    [ColumnData(Name = "order_details_table", DbType = DbType.Object)]
+    public ICollection<OrderItem> Items { get; init; }
 
-    [ColumnData(ColumnName = "total_amount", DbType = DbType.Decimal)]
+    [ColumnData(Name = "total_amount", DbType = DbType.Decimal)]
     public decimal TotalAmount { get; init; }
 
-    [ColumnData(ColumnName = "order_date", DbType = DbType.DateTime2)]
-    public DateTime OrderDate { get; init; }
+    [ColumnData(Name = "delivery_date", DbType = DbType.DateTime2)]
+    public DateTime DeliveryDate { get; init; }
 
-    [ColumnData(ColumnName = "status", DbType = DbType.String)]
+    [ColumnData(Name = "status", DbType = DbType.String)]
     public Status Status { get; init; }
+}
+
+public sealed class OrderItem() : Entity
+{
+    [ColumnData(Name = "product_id", DbType = DbType.Guid)]
+    public Guid ProductId { get; init; }
+
+    [ColumnData(Name = "number_of_products", DbType = DbType.Int32)]
+    public int NumberOfProducts { get; init; }
 }

@@ -9,3 +9,4 @@ C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.Abs
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.Abstractions.Shared\obj\Debug\net8.0\refint\HardwareOnlineStore.MVP.Views.Abstractions.Shared.dll
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.Abstractions.Shared\obj\Debug\net8.0\HardwareOnlineStore.MVP.Views.Abstractions.Shared.pdb
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.Abstractions.Shared\obj\Debug\net8.0\ref\HardwareOnlineStore.MVP.Views.Abstractions.Shared.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.Abstractions.Shared\obj\Debug\net8.0\HardwareOnlineStore.MVP.Views.Abstractions.Shared.sourcelink.json

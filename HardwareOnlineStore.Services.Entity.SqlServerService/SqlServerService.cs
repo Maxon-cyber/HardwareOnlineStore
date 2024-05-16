@@ -1,6 +1,5 @@
 ﻿using HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer;
 using HardwareOnlineStore.Services.Entity.SqlServerService.DataProcessing;
-using HardwareOnlineStore.Services.Utilities.Logger.File;
 
 namespace HardwareOnlineStore.Services.Entity.SqlServerService;
 

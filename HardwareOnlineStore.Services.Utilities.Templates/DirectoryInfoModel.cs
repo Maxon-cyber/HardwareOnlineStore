@@ -22,6 +22,8 @@ public sealed class DirectoryInfoModel
 
         foreach (FileInfo file in files)
             _files.Add(new FileInfoModel(file.FullName));
+
+        _directoryInfo.Refresh();
     }
 
     public FileInfoModel? this[string shortFileName]
@@ -32,7 +34,12 @@ public sealed class DirectoryInfoModel
                 if (string.Equals(file.Name, shortFileName, StringComparison.CurrentCultureIgnoreCase))
                     return file;
 
+            _directoryInfo.Refresh();
+
             return null;
         }
     }
+
+    public IReadOnlyCollection<FileInfoModel> GetFiles()
+        => _files.AsReadOnly();
 }

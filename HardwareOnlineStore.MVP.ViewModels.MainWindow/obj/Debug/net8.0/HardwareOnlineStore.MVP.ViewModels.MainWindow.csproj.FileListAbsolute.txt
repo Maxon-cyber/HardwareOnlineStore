@@ -9,3 +9,4 @@ C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.ViewModel
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.ViewModels.MainWindow\obj\Debug\net8.0\refint\HardwareOnlineStore.MVP.ViewModels.MainWindow.dll
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.ViewModels.MainWindow\obj\Debug\net8.0\HardwareOnlineStore.MVP.ViewModels.MainWindow.pdb
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.ViewModels.MainWindow\obj\Debug\net8.0\ref\HardwareOnlineStore.MVP.ViewModels.MainWindow.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.ViewModels.MainWindow\obj\Debug\net8.0\HardwareOnlineStore.MVP.ViewModels.MainWindow.sourcelink.json

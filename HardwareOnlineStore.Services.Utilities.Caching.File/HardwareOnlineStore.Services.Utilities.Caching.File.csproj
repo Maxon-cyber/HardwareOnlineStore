@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HardwareOnlineStore.Services.Utilities.Caching.Abstractions\HardwareOnlineStore.Services.Utilities.Caching.Abstractions.csproj" />
     <ProjectReference Include="..\HardwareOnlineStore.Services.Utilities.Caching.Support.Serializer.Yaml\HardwareOnlineStore.Services.Utilities.Caching.Support.Serializer.Yaml.csproj" />
     <ProjectReference Include="..\HardwareOnlineStore.Services.Utilities.Templates\HardwareOnlineStore.Services.Utilities.Templates.csproj" />

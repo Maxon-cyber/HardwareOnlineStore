@@ -1,17 +1,27 @@
 ﻿using HardwareOnlineStore.DataAccess.Providers.Relational.Models;
 using HardwareOnlineStore.DataAccess.Repositories.Relational.Abstractions;
-using HardwareOnlineStore.Services.Entity.Contracts.Abstractions;
 using HardwareOnlineStore.Services.Utilities.Logger.Abstractions;
 using System.Collections.Immutable;
 
+using EntityObject = HardwareOnlineStore.Entities.Entity;
+
 namespace HardwareOnlineStore.Services.Entity.Contracts;
 
-public abstract class EntityService<TEntity>(IRepository<TEntity> repository, ILogger logger) : IEntityService<TEntity>
-    where TEntity : Entities.Entity, new()
+public enum TypeOfUpdateCommand
+{
+    Insert = 0,
+    Update = 1,
+    Delete = 2
+}
+
+public abstract class EntityService<TEntity>(IRepository<TEntity> repository, ILogger logger)
+    where TEntity : EntityObject, new()
 {
     private CancellationToken _token;
+
     private readonly string _entityReflectionName = typeof(TEntity).Name;
     private readonly string _dbProviderReflectionName = repository.DbProviderName;
+
     private readonly ILogger _logger = logger;
     private readonly IRepository<TEntity> _repository = repository;
 
@@ -26,11 +36,11 @@ public abstract class EntityService<TEntity>(IRepository<TEntity> repository, IL
         }
     }
 
-    public async Task<TEntity?> GetByAsync(TEntity condition, QueryParameters query)
+    protected virtual async Task<TEntity?> GetByIdAsync(Guid id, QueryParameters query)
     {
         await _logger.LogInfoAsync($"Запрос на получение сущности {_entityReflectionName} из {_dbProviderReflectionName}".ToUpper());
 
-        DbResponse<TEntity> response = await _repository.GetByAsync(query, condition, _token);
+        DbResponse<TEntity> response = await _repository.GetByIdAsync(query, id, _token);
 
         if (response.Error != null)
         {
@@ -46,7 +56,7 @@ public abstract class EntityService<TEntity>(IRepository<TEntity> repository, IL
 
         if (entity == null)
         {
-            await _logger.LogInfoAsync($"Сущность {typeof(TEntity).Name} не найдена\nДоп.Данные: {response.Message}");
+            await _logger.LogInfoAsync($"Сущность {_entityReflectionName} не найдена\nДоп.Данные: {response.Message}");
             return await Task.FromResult<TEntity?>(null);
         }
 
@@ -68,7 +78,49 @@ public abstract class EntityService<TEntity>(IRepository<TEntity> repository, IL
         return entity;
     }
 
-    public async Task<IEnumerable<TEntity>?> SelectAsync(QueryParameters query)
+    protected virtual async Task<TEntity?> GetByAsync(TEntity condition, QueryParameters query)
+    {
+        await _logger.LogInfoAsync($"Запрос на получение сущности {_entityReflectionName} из {_dbProviderReflectionName}".ToUpper());
+
+        DbResponse<TEntity> response = await _repository.GetByAsync(query, condition, _token);
+
+        if (response.Error != null)
+        {
+            await _logger.LogErrorAsync(response.Error, response.Message);
+            await _logger.LogSeparatorAsync();
+
+            return await Task.FromResult<TEntity?>(null);
+        }
+
+        await _logger.LogInfoAsync("Запрос выполнен");
+
+        TEntity? entity = response.QueryResult.Count == 0 ? null : response.QueryResult.Peek();
+
+        if (entity == null)
+        {
+            await _logger.LogInfoAsync($"Сущность {_entityReflectionName} не найдена\nДоп.Данные: {response.Message}");
+            return await Task.FromResult<TEntity?>(null);
+        }
+
+        await _logger.LogInfoAsync("Сущность получена:");
+        await _logger.LogInfoAsync($"\tId сущности: {entity.Id}\n");
+
+        await _logger.LogInfoAsync("Дополнительные данные:");
+        if (response.AdditionalData.Count != 0)
+        {
+            string content = null!;
+            foreach (KeyValuePair<object, object> additionalData in response.AdditionalData)
+                content += $"\t{additionalData.Key}: {additionalData.Value}\n";
+
+            await _logger.LogMessageAsync(content);
+        }
+
+        await _logger.LogSeparatorAsync();
+
+        return entity;
+    }
+
+    protected virtual async Task<IEnumerable<TEntity>?> SelectAsync(QueryParameters query)
     {
         await _logger.LogInfoAsync($"Запрос на получение сущностей {_entityReflectionName} из {_dbProviderReflectionName}".ToUpper());
 
@@ -112,7 +164,7 @@ public abstract class EntityService<TEntity>(IRepository<TEntity> repository, IL
         return response.QueryResult;
     }
 
-    public async Task<IEnumerable<TEntity>?> SelectByAsync(TEntity condition, QueryParameters query)
+    protected virtual async Task<IEnumerable<TEntity>?> SelectByAsync(TEntity condition, QueryParameters query)
     {
         await _logger.LogInfoAsync($"Запрос на получение сущностей {_entityReflectionName} из {_dbProviderReflectionName}".ToUpper());
 
@@ -159,7 +211,7 @@ public abstract class EntityService<TEntity>(IRepository<TEntity> repository, IL
         return response.QueryResult;
     }
 
-    public async Task<object?> ChangeAsync(TEntity entity, QueryParameters query)
+    protected virtual async Task<object?> ChangeAsync(TEntity entity, QueryParameters query)
     {
         await _logger.LogInfoAsync($"Запрос на изменение cущности {_entityReflectionName} из {_dbProviderReflectionName}".ToUpper());
         await _logger.LogInfoAsync("Количество сущностей на изменение: 1");
@@ -195,7 +247,7 @@ public abstract class EntityService<TEntity>(IRepository<TEntity> repository, IL
         return response.ReturnedValue;
     }
 
-    public async Task<ImmutableDictionary<string, object?>> ChangeAsync(IEnumerable<TEntity> entities, QueryParameters query)
+    protected virtual async Task<ImmutableDictionary<string, object?>> ChangeAsync(IEnumerable<TEntity> entities, QueryParameters query)
     {
         await _logger.LogInfoAsync($"Запрос на изменение cущности {_entityReflectionName} из {_dbProviderReflectionName}".ToUpper());
         await _logger.LogInfoAsync($"Количество сущностей на изменение: {entities.Count()}");

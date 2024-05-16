@@ -1,18 +1,23 @@
-﻿using HardwareOnlineStore.DataAccess.Providers.Relational.Models;
-using HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.Product;
-using HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.Queries;
+﻿using HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.Product;
 using HardwareOnlineStore.Entities.Product;
-using HardwareOnlineStore.Services.Entity.Contracts;
-using HardwareOnlineStore.Services.Entity.Contracts.Abstractions;
-using HardwareOnlineStore.Services.Utilities.Logger.File;
-using System.Collections.Immutable;
-using System.Data;
 
 namespace HardwareOnlineStore.Services.Entity.SqlServerService.DataProcessing;
 
 public sealed class ProductService(ProductRepository repository, FileLogger logger) : EntityService<ProductEntity>(repository, logger)
 {
-    public async Task<ProductEntity?> GetProductAsync(ProductEntity productCondition)
+    public async Task<ProductEntity?> GetProductByIdAsync(Guid id)
+    {
+        ProductEntity? product = await GetByIdAsync(id, new QueryParameters()
+        {
+            CommandText = SqlServerStoredProcedureList.GetProductByCondition,
+            CommandType = CommandType.StoredProcedure,
+            TransactionManagementOnDbServer = true,
+        });
+
+        return product;
+    }
+
+    public async Task<ProductEntity?> GetProductByAsync(ProductEntity productCondition)
     {
         ProductEntity? product = await GetByAsync(productCondition, new QueryParameters()
         {

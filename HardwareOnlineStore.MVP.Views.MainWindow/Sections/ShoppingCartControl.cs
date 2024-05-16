@@ -49,9 +49,10 @@ public sealed partial class ShoppingCartControl : UserControl, IShoppingCartView
                     int row = orderIndex / columnTPL;
                     OrderModel currentOrder = orders[orderIndex];
 
-                    for (int productIndex = 0; productIndex < currentOrder.Products.Count; productIndex++)
+                    ProductModel[] products = currentOrder.Products.ToArray();
+                    for (int productIndex = 0; productIndex < products.Length; productIndex++)
                     {
-                        ProductModel currentProduct = currentOrder.Products[productIndex];
+                        ProductModel currentProduct = products[productIndex];
 
                         ProductControl productControl = new ProductControl(new Size(411, 179), currentProduct);
                         productControl.DeleteButtonClicked += (s, e) =>
@@ -127,7 +128,7 @@ public sealed partial class ShoppingCartControl : UserControl, IShoppingCartView
             return;
         }
 
-        Control? needControl = viewProductsTLP.Controls.OfType<ProductControl>().Where(p => p.Tag == searchTextBox.Text).FirstOrDefault();
+        Control? needControl = viewProductsTLP.Controls.OfType<ProductControl>().FirstOrDefault(p => searchTextBox.Text.Equals(p.Tag?.ToString(), StringComparison.CurrentCultureIgnoreCase));
 
         if (needControl == null)
         {

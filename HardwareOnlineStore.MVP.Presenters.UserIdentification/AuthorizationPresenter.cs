@@ -29,7 +29,7 @@ public sealed class AuthorizationPresenter : Presenter<IAuthorizationView>
 
     private async Task LoginAsync(AuthorizationViewModel model)
     {
-        UserEntity? user = await _userService.GetUserAsync(new UserEntity
+        UserEntity? user = await _userService.GetUserByAsync(new UserEntity
         {
             Login = model.Login,
             Password = Encoding.UTF8.GetBytes(model.Password)

@@ -1,7 +1,7 @@
 ﻿using HardwareOnlineStore.DataAccess.Providers.Relational.Abstractions;
 using HardwareOnlineStore.DataAccess.Providers.Relational.Models;
+using HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO;
 using HardwareOnlineStore.Entities;
-using HardwareStore.Providers.Relational.DataTools.ADO;
 using Microsoft.Data.SqlClient;
 
 namespace HardwareOnlineStore.DataAccess.Providers.Relational.Implementations.SqlServer;
@@ -22,6 +22,9 @@ public sealed class SqlServerProvider<TEntity> : DbProvider<TEntity>
     {
         get
         {
+            if (_dbConnection != null)
+                return (_dbConnection as SqlConnection)!;
+
             SqlConnectionStringBuilder sqlConnectionBuilder = new SqlConnectionStringBuilder
             {
                 DataSource = $"{_connectionParameters.Server}",
@@ -52,8 +55,7 @@ public sealed class SqlServerProvider<TEntity> : DbProvider<TEntity>
     {
         get
         {
-            if (_dbConnection == null)
-                throw new Exception();
+            ArgumentNullException.ThrowIfNull(_dbConnection);
 
             _dbCommand = new SqlCommand()
             {
@@ -65,20 +67,23 @@ public sealed class SqlServerProvider<TEntity> : DbProvider<TEntity>
         }
     }
 
-    public async override Task<DbResponse<TEntity>> GetValueByAsync(QueryParameters queryParameters, TEntity entityCondition, CancellationToken token)
-        => await _ado.GetEntityByAsync(queryParameters, entityCondition, token);
+    public async override Task<DbResponse<TEntity>> GetByIdAsync(QueryParameters queryParameters, string columnName, Guid id, CancellationToken token)
+        => await _ado.GetByIdAsync(queryParameters, columnName, id, token);
 
-    public async override Task<DbResponse<TEntity>> SelectValuesAsync(QueryParameters queryParameters, CancellationToken token)
-        => await _ado.SelectEntitiesAsync(queryParameters, token);
+    public async override Task<DbResponse<TEntity>> GetByAsync(QueryParameters queryParameters, TEntity entityCondition, CancellationToken token)
+        => await _ado.GetByAsync(queryParameters, entityCondition, token);
 
-    public async override Task<DbResponse<TEntity>> SelectValuesByAsync(QueryParameters queryParameters, TEntity entityCondition, CancellationToken token)
-        => await _ado.SelectEntitiesByAsync(queryParameters, entityCondition, token);
+    public async override Task<DbResponse<TEntity>> SelectAsync(QueryParameters queryParameters, CancellationToken token)
+        => await _ado.SelectAsync(queryParameters, token);
 
-    public async override Task<DbResponse<TEntity>> ChangeValueAsync(QueryParameters queryParameters, TEntity entity, CancellationToken token)
-        => await _ado.UpdateEntityAsync(queryParameters, entity, token);
+    public async override Task<DbResponse<TEntity>> SelectByAsync(QueryParameters queryParameters, TEntity entityCondition, CancellationToken token)
+        => await _ado.SelectByAsync(queryParameters, entityCondition, token);
 
-    public async override Task<IEnumerable<DbResponse<TEntity>>> ChangeValuesAsync(QueryParameters queryParameters, IEnumerable<TEntity> entities, CancellationToken token)
-        => await _ado.ChangeEntityAsync(queryParameters, entities, token);
+    public async override Task<DbResponse<TEntity>> UpdateAsync(QueryParameters queryParameters, TEntity entity, CancellationToken token)
+        => await _ado.UpdateAsync(queryParameters, entity, token);
+
+    public async override Task<IEnumerable<DbResponse<TEntity>>> UpdateAsync(QueryParameters queryParameters, IEnumerable<TEntity> entities, CancellationToken token)
+        => await _ado.UpdateAsync(queryParameters, entities, token);
 
     public override void Dispose()
         => _ado.Dispose();

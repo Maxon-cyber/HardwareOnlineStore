@@ -6,13 +6,15 @@ namespace HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Abstr
 public interface IEntityWrapper<TEntity> : IDisposable, IAsyncDisposable
     where TEntity : Entity
 {
-    Task<DbResponse<TEntity>> GetEntityByAsync(QueryParameters query, TEntity entityCondition, CancellationToken token);
+    Task<DbResponse<TEntity>> GetByIdAsync(QueryParameters query, string columnName, Guid id, CancellationToken token);
 
-    Task<DbResponse<TEntity>> SelectEntitiesAsync(QueryParameters query, CancellationToken token);
+    Task<DbResponse<TEntity>> GetByAsync(QueryParameters query, TEntity entityCondition, CancellationToken token);
 
-    Task<DbResponse<TEntity>> SelectEntitiesByAsync(QueryParameters query, TEntity entityCondition, CancellationToken token);
+    Task<DbResponse<TEntity>> SelectAsync(QueryParameters query, CancellationToken token);
 
-    Task<DbResponse<TEntity>> UpdateEntityAsync(QueryParameters query, TEntity entity, CancellationToken token);
+    Task<DbResponse<TEntity>> SelectByAsync(QueryParameters query, TEntity entityCondition, CancellationToken token);
 
-    Task<IEnumerable<DbResponse<TEntity>>> ChangeEntityAsync(QueryParameters query, IEnumerable<TEntity> entities, CancellationToken token);
+    Task<DbResponse<TEntity>> UpdateAsync(QueryParameters query, TEntity entity, CancellationToken token);
+
+    Task<IEnumerable<DbResponse<TEntity>>> UpdateAsync(QueryParameters query, IEnumerable<TEntity> entities, CancellationToken token);
 }

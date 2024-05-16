@@ -1,11 +1,7 @@
 ﻿using HardwareOnlineStore.DataAccess.Providers.Relational.Abstractions;
-using HardwareOnlineStore.DataAccess.Providers.Relational.Implementations.SqlServer;
 using HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.Order;
 using HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.Product;
 using HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.User;
-using HardwareOnlineStore.Entities.Order;
-using HardwareOnlineStore.Entities.Product;
-using HardwareOnlineStore.Entities.User;
 
 namespace HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer;
 

@@ -1,6 +1,9 @@
 ﻿using HardwareOnlineStore.Services.Utilities.Caching.Abstractions;
 using HardwareOnlineStore.Services.Utilities.Caching.Support.Serializer.Yaml;
 using HardwareOnlineStore.Services.Utilities.Templates;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Immutable;
 
 namespace HardwareOnlineStore.Services.Utilities.Caching.File;
@@ -22,12 +25,21 @@ public sealed class CachedFileManager<TValue> : ICache<string, TValue>
     public CachedFileManager(string path)
         => Directory = new DirectoryInfoModel(path);
 
-    public async Task<CachedFileManager<TValue>> SetFile(string fileName)
+    public CachedFileManager<TValue> SetFile(string fileName)
     {
         _fileInfo = Directory[fileName]
             ?? throw new FileNotFoundException($"Файл {Path.Combine(Directory.FullName, fileName)} не найден");
 
         return this;
+    }
+
+    public IEnumerable<FileInfoModel> Of(string extension)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(extension);
+
+        IReadOnlyCollection<FileInfoModel> files = Directory.GetFiles();
+
+        return files.Where(f => f.Extension == extension);
     }
 
     public async Task<IImmutableDictionary<string, TValue>?> ReadAsync()
@@ -86,7 +98,7 @@ public sealed class CachedFileManager<TValue> : ICache<string, TValue>
         string[] content = await _fileInfo.ReadByAsync(key, Separator);
 
         bool isContains = content.Length == 0;
-            
+
         _semaphore.Release();
 
         return isContains;
@@ -114,5 +126,26 @@ public sealed class CachedFileManager<TValue> : ICache<string, TValue>
         //await _fileInfo.WriteAsync(serializedValues, WriteMode.WriteAll);
 
         //_semaphore.Release();
+    }
+
+    public string SaveImage(byte[] imageBytes, string imageName, bool compress)
+    {
+        using Image<Rgba32> image = Image.Load<Rgba32>(imageBytes);
+
+        string path = Directory.FullName + @$"\{imageName}.jpeg";
+
+        if (compress)
+        {
+            JpegEncoder encoder = new JpegEncoder()
+            {
+                Quality = 75
+            };
+
+            image.Save(path, encoder);
+        }
+        else
+            image.Save(path);
+
+        return path;
     }
 }

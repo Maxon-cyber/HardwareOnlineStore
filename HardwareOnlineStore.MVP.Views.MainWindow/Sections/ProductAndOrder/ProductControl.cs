@@ -22,7 +22,7 @@ public sealed partial class ProductControl : UserControl
         if (AddButtonClicked == null && DeleteButtonClicked == null)
             throw new ArgumentNullException("Перед созданием представления продукта необходимо подписаться хотя бы на одно свойство: AddButtonClicked или DeleteButtonClicked");
 
-        await using MemoryStream memoryStream = new MemoryStream(_product.Image);
+        await using MemoryStream memoryStream = new MemoryStream((_product.Image as byte[])!);
 
         productPictureBox.Name = $"{_product.Name}PictureBox";
         productPictureBox.Image = Image.FromStream(memoryStream);

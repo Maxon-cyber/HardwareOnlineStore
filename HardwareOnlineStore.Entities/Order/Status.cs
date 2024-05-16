@@ -2,9 +2,10 @@
 
 public enum Status
 {
-    InProcessing = 0,
-    SubmittedForAssembly = 1,
-    Sorted = 2,
-    DeliveredToTheCourier = 3,
-    Delivered = 4
+    None = 0,
+    InProcessing = 1,
+    SubmittedForAssembly = 2,
+    Sorted = 3,
+    DeliveredToTheCourier = 4,
+    Delivered = 5
 }

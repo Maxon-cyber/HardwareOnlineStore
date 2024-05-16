@@ -18,6 +18,7 @@ using HardwareOnlineStore.MVP.Views.MainWindow.Sections;
 using HardwareOnlineStore.MVP.Views.UserIdentification.Authorization;
 using HardwareOnlineStore.MVP.Views.UserIdentification.Registration;
 using HardwareOnlineStore.Services.Entity.SqlServerService;
+using HardwareOnlineStore.Services.Utilities.Caching.File;
 using HardwareOnlineStore.Services.Utilities.Logger.File;
 using Microsoft.Extensions.Configuration;
 
@@ -79,6 +80,7 @@ internal static class Program
                                        .RegisterView<IAuthorizationView, AuthorizationForm>(Lifetime.Singleton)
                                        .RegisterWithConstructor<SqlServerRepository>("connectionParameters", parametersOfAllDatabases["SqlServer"])
                                        .RegisterWithConstructor<FileLogger>("path", applicationController.Configuration.Root.GetSection("Logging:Path").Value!, Lifetime.Singleton)
+                                       .RegisterGenericWithConstructor(typeof(CachedFileManager<>), "path", applicationController.Configuration.Root.GetSection("Caching:Path").Value!, Lifetime.Singleton)
                                        .Register<SqlServerService>(Lifetime.Singleton)
                                        .RegisterInstance(_context, Lifetime.Singleton)
                                        .RegisterInstance<IApplicationController>(applicationController)

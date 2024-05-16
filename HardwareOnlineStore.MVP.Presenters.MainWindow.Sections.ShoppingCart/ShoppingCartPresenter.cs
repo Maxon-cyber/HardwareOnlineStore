@@ -5,10 +5,13 @@ using HardwareOnlineStore.Entities.User;
 using HardwareOnlineStore.MVP.Presenters.Contracts;
 using HardwareOnlineStore.MVP.ViewModels.MainWindow;
 using HardwareOnlineStore.MVP.Views.Abstractions.MainWindow.Sections;
+using HardwareOnlineStore.Services.Entity.Contracts;
 using HardwareOnlineStore.Services.Entity.SqlServerService;
 using HardwareOnlineStore.Services.Entity.SqlServerService.DataProcessing;
 using HardwareOnlineStore.Services.Utilities.Caching.Abstractions;
+using HardwareOnlineStore.Services.Utilities.Caching.File;
 using HardwareOnlineStore.Services.Utilities.Caching.Memory;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 
 namespace HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart;
@@ -16,13 +19,18 @@ namespace HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart;
 public sealed class ShoppingCartPresenter : Presenter<IShoppingCartView>
 {
     private readonly MemoryCache<ProductModel> _cache;
-    private readonly OrderService _service;
+    private readonly CachedFileManager<OrderModel> _cachedFile;
+    private readonly OrderService _orderService;
+    private readonly ProductService _productService;
 
-    public ShoppingCartPresenter(IApplicationController controller, IShoppingCartView view, SqlServerService service)
+    public ShoppingCartPresenter(IApplicationController controller, IShoppingCartView view, SqlServerService service, CachedFileManager<OrderModel> cachedFile)
         : base(controller, view)
     {
-        _service = service.Order;
+        _orderService = service.Order;
+        _productService = service.Product;
+
         _cache = MemoryCache<ProductModel>.Instance;
+        _cachedFile = cachedFile.SetFile("Order");
 
         _cache.CacheChanged += Cache_Changed!;
 
@@ -32,48 +40,109 @@ public sealed class ShoppingCartPresenter : Presenter<IShoppingCartView>
 
     private async Task<ReadOnlyCollection<OrderModel>?> LoadOrders()
     {
-        IEnumerable<OrderEntity>? orders = await _service.SelectOrdersAsync();
+        if (!UserParameters.Internet.IsAvailable())
+        {
+            IImmutableDictionary<string, OrderModel>? orderModels = await _cachedFile.ReadAsync();
+            
+            if (orderModels == null)
+                return await Task.FromResult<ReadOnlyCollection<OrderModel>?>(null);
+
+            return await Task.FromResult<ReadOnlyCollection<OrderModel>?>(orderModels.Values.ToList().AsReadOnly());
+        }
+
+        IEnumerable<OrderEntity>? orders = await _orderService.SelectOrdersAsync();
 
         if (orders == null)
             return await Task.FromResult<ReadOnlyCollection<OrderModel>?>(null);
 
-        ReadOnlyCollection<OrderModel> ordersList = new ReadOnlyCollection<OrderModel>(
-                 orders.Select(order => new OrderModel
-                 {
-                     UserId = order.UserId,
-                     TotalAmount = order.TotalAmount,
-                     Products = order.Products.Select(product => new ProductModel()
-                     {
-                         Name = product.Name,
-                         Image = product.Image,
-                         Price = product.Price,
-                         Category = product.Category,
-                         Quantity = product.Quantity
-                     }).ToList(),
-                     OrderDate = order.OrderDate,
-                     Status = order.Status.ToString()
-                 }).ToList());
-       
-        return ordersList;
+        List<OrderModel> orderList = new List<OrderModel>();
+
+        foreach (OrderEntity order in orders)
+        {
+            List<ProductModel> productModels = new List<ProductModel>();
+
+            foreach (OrderItem item in order.Items)
+            {
+                ProductEntity? product = await _productService.GetProductByIdAsync(item.ProductId);
+                productModels.Add(new ProductModel()
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Image = product.Image,
+                    Price = product.Price,
+                    Category = product.Category,
+                    Quantity = product.Quantity
+                });
+            }
+
+            orderList.Add(new OrderModel
+            {
+                Id = order.Id,
+                UserId = order.UserId,
+                TotalAmount = order.TotalAmount,
+                Products = productModels,
+                OrderDate = order.TimeCreated,
+                Status = order.Status.ToString()
+            });
+        }
+
+        return orderList.AsReadOnly();
     }
 
     private async Task Order(ICollection<ProductModel> products)
     {
-        object? result = await _service.ChangeOrderAsync(Services.Entity.Contracts.Abstractions.TypeOfUpdateCommand.Insert, new OrderEntity()
+        var groupedProducts = products.GroupBy(p => p.Id)
+                                      .Select(g => new 
+                                      { 
+                                          ProductId = g.Key,
+                                          NumberOfProducts = g.Count() 
+                                      });
+
+        OrderEntity orderEntity = new OrderEntity()
         {
             UserId = _cache.Of<UserEntity>().FirstOrDefault().Id,
-            Products = products.Select(product => new ProductEntity()
+            Items = groupedProducts.Select(gp => new OrderItem()
             {
-                Name = product.Name,
-                Image = product.Image,
-                Price = product.Price,
-                Category = product.Category,
-                Quantity = product.Quantity
+                ProductId = gp.ProductId,
+                NumberOfProducts = gp.NumberOfProducts
             }).ToList(),
             TotalAmount = products.Sum(p => p.Price),
-            OrderDate = DateTime.Now,
+            DeliveryDate = DateTime.Now.AddDays(5),
             Status = Status.InProcessing
-        });
+        };
+
+        if (UserParameters.Internet.IsAvailable())
+        {
+            object? result = await _orderService.ChangeOrderAsync(TypeOfUpdateCommand.Insert, orderEntity);
+            
+            View.ShowMessage("Заказ успешно оформлен", "Успех", Views.Abstractions.Shared.MessageLevel.Info);
+        }
+
+        OrderModel orderModel = new OrderModel()
+        {
+            UserId = orderEntity.UserId,
+            Products = new List<ProductModel>(),
+            TotalAmount = orderEntity.TotalAmount,
+            OrderDate = orderEntity.TimeCreated,
+            Status = orderEntity.Status.ToString()
+        };
+
+        foreach (ProductModel product in products)
+        {
+            string path = _cachedFile.SaveImage((product.Image as byte[])!, product.Name, true);
+
+            orderModel.Products.Add(new ProductModel()
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Image = path,
+                Category = product.Category,
+                Price = product.Price,
+                Quantity = product.Quantity
+            });
+        }
+
+        await _cachedFile.WriteAsync($"Order.Date: {orderModel.OrderDate}", orderModel);
     }
 
     private void Cache_Changed(object sender, CacheChangedEventArgs<string, ProductModel> cacheChanged)

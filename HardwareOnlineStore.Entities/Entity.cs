@@ -5,15 +5,15 @@ namespace HardwareOnlineStore.Entities;
 
 public abstract class Entity()
 {
-    [ColumnData(ColumnName = "id", DbType = DbType.Guid)]
+    [ColumnData(Name = "id", DbType = DbType.Guid)]
     public Guid Id { get; }
 
-    [ColumnData(ColumnName = "time_created", DbType = DbType.DateTime2)]
+    [ColumnData(Name = "time_created", DbType = DbType.DateTime2)]
     public DateTime TimeCreated { get; }
 
-    [ColumnData(ColumnName = "last_access_time", DbType = DbType.DateTime2)]
+    [ColumnData(Name = "last_access_time", DbType = DbType.DateTime2)]
     public DateTime LastAccessTime { get; }
 
-    [ColumnData(ColumnName = "last_update_time", DbType = DbType.DateTime2)]
+    [ColumnData(Name = "last_update_time", DbType = DbType.DateTime2)]
     public DateTime LastUpdateTime { get; }
 }

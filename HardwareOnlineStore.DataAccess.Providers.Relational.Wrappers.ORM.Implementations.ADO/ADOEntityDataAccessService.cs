@@ -1,11 +1,11 @@
 ﻿using HardwareOnlineStore.DataAccess.Providers.Relational.Models;
 using HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Abstractions;
+using HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO.Exceptions;
+using HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO.Extensions;
 using HardwareOnlineStore.Entities;
-using HardwareStore.Providers.Relational.DataTools.ADO.Exceptions;
-using HardwareStore.Providers.Relational.DataTools.ADO.Extensions;
 using System.Data.Common;
 
-namespace HardwareStore.Providers.Relational.DataTools.ADO;
+namespace HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO;
 
 file enum ListOfSupportedDbProviders
 {
@@ -46,7 +46,82 @@ public sealed class ADOEntityDataAccessService<TEntity> : IEntityWrapper<TEntity
         _dbCommand = dbCommand ?? throw new ArgumentNullException(nameof(dbCommand));
     }
 
-    public async Task<DbResponse<TEntity>> GetEntityByAsync(QueryParameters query, TEntity condition, CancellationToken token)
+    public async Task<DbResponse<TEntity>> GetByIdAsync(QueryParameters query, string columnName, Guid id, CancellationToken token)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(columnName);
+
+        DbResponse<TEntity> response = new DbResponse<TEntity>();
+
+        DbTransaction? dbTransaction = null;
+
+        try
+        {
+            await _dbConnection.OpenConnectionAsync(token);
+
+            _dbCommand.CommandText = query.CommandText;
+            _dbCommand.CommandType = query.CommandType;
+
+            DbParameter? outputDbParameter = null;
+            DbParameter? returnedDbParameter = null;
+
+            if (!query.TransactionManagementOnDbServer)
+            {
+                dbTransaction = await _dbConnection.BeginTransactionAsync(token);
+                _dbCommand.Transaction = dbTransaction;
+            }
+
+            if (query.OutputParameter != null)
+                outputDbParameter = _dbCommand.AddWithValue(query.OutputParameter.Name, _prefix, query.OutputParameter.DbType, parameterDirection: query.OutputParameter.ParameterDirection, size: query.OutputParameter.Size);
+
+            if (query.ReturnedValue != null)
+                returnedDbParameter = _dbCommand.AddWithValue(query.ReturnedValue.Name, _prefix, query.ReturnedValue.DbType, parameterDirection: query.ReturnedValue.ParameterDirection, size: query.ReturnedValue.Size);
+
+            _dbCommand.AddWithValue(columnName, _prefix, System.Data.DbType.Guid, id);
+            
+            await using DbDataReader reader = await _dbCommand.ExecuteReaderAsync(token);
+
+            if (reader.HasRows)
+                while (await reader.ReadAsync(token))
+                    response.QueryResult.Enqueue(await reader.MappingAsync<TEntity>());
+
+            response.AdditionalData.TryAdd("Сущнотсть", typeof(TEntity).Name);
+            response.AdditionalData.TryAdd("Количество полученных сущностей", response.QueryResult.Count);
+
+            response.OutputValue = outputDbParameter?.Value;
+            response.ReturnedValue = returnedDbParameter?.Value;
+
+            response.Message = "Запрос выполнен";
+
+            await dbTransaction.CommitTransactionAsync(token);
+        }
+        catch (TimeoutException ex)
+        {
+            response.Error = ex;
+            response.Message = ex.Message;
+        }
+        catch (OperationCanceledException ex)
+        {
+            response.Error = ex;
+            response.Message = ex.Message;
+        }
+        catch (Exception ex)
+        {
+            response.Error = ex;
+            response.Message = ex.Message;
+        }
+        finally
+        {
+            await _dbConnection.CloseConnectionAsync();
+
+            _dbCommand.Parameters.Clear();
+
+            await dbTransaction.DisposeAndRollbackTransactionAsync(token);
+        }
+
+        return response;
+    }
+
+    public async Task<DbResponse<TEntity>> GetByAsync(QueryParameters query, TEntity condition, CancellationToken token)
     {
         DbResponse<TEntity> response = new DbResponse<TEntity>();
 
@@ -69,10 +144,10 @@ public sealed class ADOEntityDataAccessService<TEntity> : IEntityWrapper<TEntity
             }
 
             if (query.OutputParameter != null)
-                outputDbParameter = _dbCommand.AddWithValue(query.OutputParameter.Name, query.OutputParameter.Size, query.OutputParameter.DbType, query.OutputParameter.ParameterDirection, _prefix);
+                outputDbParameter = _dbCommand.AddWithValue(query.OutputParameter.Name, _prefix, query.OutputParameter.DbType, parameterDirection: query.OutputParameter.ParameterDirection, size: query.OutputParameter.Size);
 
             if (query.ReturnedValue != null)
-                returnedDbParameter = _dbCommand.AddWithValue(query.ReturnedValue.Name, query.ReturnedValue.Size, query.ReturnedValue.DbType, query.ReturnedValue.ParameterDirection, _prefix);
+                returnedDbParameter = _dbCommand.AddWithValue(query.ReturnedValue.Name, _prefix, query.ReturnedValue.DbType, parameterDirection: query.ReturnedValue.ParameterDirection, size: query.ReturnedValue.Size);
 
             int countOfAddedValues = await _dbCommand.AddEntityValuesAsync(condition, _prefix);
 
@@ -90,32 +165,22 @@ public sealed class ADOEntityDataAccessService<TEntity> : IEntityWrapper<TEntity
 
             response.Message = "Запрос выполнен";
 
-            if (dbTransaction != null)
-                await dbTransaction.CommitAsync(token);
+            await dbTransaction.CommitTransactionAsync(token);
         }
         catch (TimeoutException ex)
         {
             response.Error = ex;
             response.Message = ex.Message;
-
-            if (dbTransaction != null)
-                await dbTransaction.RollbackAsync(token);
         }
         catch (OperationCanceledException ex)
         {
             response.Error = ex;
             response.Message = ex.Message;
-
-            if (dbTransaction != null)
-                await dbTransaction.RollbackAsync(token);
         }
         catch (Exception ex)
         {
             response.Error = ex;
             response.Message = ex.Message;
-
-            if (dbTransaction != null)
-                await dbTransaction.RollbackAsync(token);
         }
         finally
         {
@@ -123,14 +188,13 @@ public sealed class ADOEntityDataAccessService<TEntity> : IEntityWrapper<TEntity
 
             _dbCommand.Parameters.Clear();
 
-            if (dbTransaction != null)
-                await dbTransaction.DisposeAsync();
+            await dbTransaction.DisposeAndRollbackTransactionAsync(token);
         }
 
         return response;
     }
 
-    public async Task<DbResponse<TEntity>> SelectEntitiesAsync(QueryParameters query, CancellationToken token)
+    public async Task<DbResponse<TEntity>> SelectAsync(QueryParameters query, CancellationToken token)
     {
         DbResponse<TEntity> response = new DbResponse<TEntity>();
 
@@ -153,10 +217,10 @@ public sealed class ADOEntityDataAccessService<TEntity> : IEntityWrapper<TEntity
             }
 
             if (query.OutputParameter != null)
-                outputDbParameter = _dbCommand.AddWithValue(query.OutputParameter.Name, query.OutputParameter.Size, query.OutputParameter.DbType, query.OutputParameter.ParameterDirection, _prefix);
+                outputDbParameter = _dbCommand.AddWithValue(query.OutputParameter.Name, _prefix, query.OutputParameter.DbType, parameterDirection: query.OutputParameter.ParameterDirection, size: query.OutputParameter.Size);
 
             if (query.ReturnedValue != null)
-                returnedDbParameter = _dbCommand.AddWithValue(query.ReturnedValue.Name, query.ReturnedValue.Size, query.ReturnedValue.DbType, query.ReturnedValue.ParameterDirection, _prefix);
+                returnedDbParameter = _dbCommand.AddWithValue(query.ReturnedValue.Name, _prefix, query.ReturnedValue.DbType, parameterDirection: query.ReturnedValue.ParameterDirection, size: query.ReturnedValue.Size);
 
             await using DbDataReader reader = await _dbCommand.ExecuteReaderAsync(token);
 
@@ -172,34 +236,22 @@ public sealed class ADOEntityDataAccessService<TEntity> : IEntityWrapper<TEntity
 
             response.Message = "Запрос выполнен";
 
-            if (dbTransaction != null)
-                await dbTransaction.CommitAsync(token);
+            await dbTransaction.CommitTransactionAsync(token);
         }
         catch (TimeoutException ex)
         {
             response.Error = ex;
             response.Message = ex.Message;
-
-            if (dbTransaction != null)
-                await dbTransaction.RollbackAsync(token);
         }
         catch (OperationCanceledException ex)
         {
             response.Error = ex;
             response.Message = ex.Message;
-
-            if (dbTransaction != null)
-                await dbTransaction.RollbackAsync(token);
-
         }
         catch (Exception ex)
         {
             response.Error = ex;
             response.Message = ex.Message;
-
-            if (dbTransaction != null)
-                await dbTransaction.RollbackAsync(token);
-
         }
         finally
         {
@@ -207,14 +259,13 @@ public sealed class ADOEntityDataAccessService<TEntity> : IEntityWrapper<TEntity
 
             _dbCommand.Parameters.Clear();
 
-            if (dbTransaction != null)
-                await dbTransaction.DisposeAsync();
+            await dbTransaction.DisposeAndRollbackTransactionAsync(token);
         }
 
         return response;
     }
 
-    public async Task<DbResponse<TEntity>> SelectEntitiesByAsync(QueryParameters query, TEntity condition, CancellationToken token)
+    public async Task<DbResponse<TEntity>> SelectByAsync(QueryParameters query, TEntity condition, CancellationToken token)
     {
         DbResponse<TEntity> response = new DbResponse<TEntity>();
 
@@ -237,10 +288,10 @@ public sealed class ADOEntityDataAccessService<TEntity> : IEntityWrapper<TEntity
             }
 
             if (query.OutputParameter != null)
-                outputDbParameter = _dbCommand.AddWithValue(query.OutputParameter.Name, query.OutputParameter.Size, query.OutputParameter.DbType, query.OutputParameter.ParameterDirection, _prefix);
+                outputDbParameter = _dbCommand.AddWithValue(query.OutputParameter.Name, _prefix, query.OutputParameter.DbType, parameterDirection: query.OutputParameter.ParameterDirection, size: query.OutputParameter.Size);
 
             if (query.ReturnedValue != null)
-                returnedDbParameter = _dbCommand.AddWithValue(query.ReturnedValue.Name, query.ReturnedValue.Size, query.ReturnedValue.DbType, query.ReturnedValue.ParameterDirection, _prefix);
+                returnedDbParameter = _dbCommand.AddWithValue(query.ReturnedValue.Name, _prefix, query.ReturnedValue.DbType, parameterDirection: query.ReturnedValue.ParameterDirection, size: query.ReturnedValue.Size);
 
             int countOfAddedValues = await _dbCommand.AddEntityValuesAsync(condition, _prefix);
 
@@ -258,33 +309,22 @@ public sealed class ADOEntityDataAccessService<TEntity> : IEntityWrapper<TEntity
 
             response.Message = "Запрос выполнен";
 
-            if (dbTransaction != null)
-                await dbTransaction.CommitAsync(token);
+            await dbTransaction.CommitTransactionAsync(token);
         }
         catch (TimeoutException ex)
         {
             response.Error = ex;
             response.Message = ex.Message;
-
-            if (dbTransaction != null)
-                await dbTransaction.RollbackAsync(token);
         }
         catch (OperationCanceledException ex)
         {
             response.Error = ex;
             response.Message = ex.Message;
-
-            if (dbTransaction != null)
-                await dbTransaction.RollbackAsync(token);
         }
         catch (Exception ex)
         {
             response.Error = ex;
             response.Message = ex.Message;
-
-            if (dbTransaction != null)
-                await dbTransaction.RollbackAsync(token);
-
         }
         finally
         {
@@ -292,14 +332,13 @@ public sealed class ADOEntityDataAccessService<TEntity> : IEntityWrapper<TEntity
 
             _dbCommand.Parameters.Clear();
 
-            if (dbTransaction != null)
-                await dbTransaction.DisposeAsync();
+            await dbTransaction.DisposeAndRollbackTransactionAsync(token);
         }
 
         return response;
     }
 
-    public async Task<DbResponse<TEntity>> UpdateEntityAsync(QueryParameters query, TEntity entity, CancellationToken token)
+    public async Task<DbResponse<TEntity>> UpdateAsync(QueryParameters query, TEntity entity, CancellationToken token)
     {
         DbResponse<TEntity> response = new DbResponse<TEntity>();
 
@@ -322,10 +361,10 @@ public sealed class ADOEntityDataAccessService<TEntity> : IEntityWrapper<TEntity
             }
 
             if (query.OutputParameter != null)
-                outputDbParameter = _dbCommand.AddWithValue(query.OutputParameter.Name, query.OutputParameter.Size, query.OutputParameter.DbType, query.OutputParameter.ParameterDirection, _prefix);
+                outputDbParameter = _dbCommand.AddWithValue(query.OutputParameter.Name, _prefix, query.OutputParameter.DbType, parameterDirection: query.OutputParameter.ParameterDirection, size: query.OutputParameter.Size);
 
             if (query.ReturnedValue != null)
-                returnedDbParameter = _dbCommand.AddWithValue(query.ReturnedValue.Name, query.ReturnedValue.Size, query.ReturnedValue.DbType, query.ReturnedValue.ParameterDirection, _prefix);
+                returnedDbParameter = _dbCommand.AddWithValue(query.ReturnedValue.Name, _prefix, query.ReturnedValue.DbType, parameterDirection: query.ReturnedValue.ParameterDirection, size: query.ReturnedValue.Size);
 
             int countOfAddedValues = await _dbCommand.AddEntityValuesAsync(entity, _prefix);
 
@@ -338,34 +377,27 @@ public sealed class ADOEntityDataAccessService<TEntity> : IEntityWrapper<TEntity
             response.OutputValue = outputDbParameter?.Value;
             response.ReturnedValue = returnedDbParameter?.Value;
 
-            response.Message = "Запрос выполнен";
+            response.AdditionalData.TryAdd("Выходной параметр", response?.OutputValue);
+            response.AdditionalData.TryAdd("Возвращаемое значение", response?.ReturnedValue);
 
-            if (dbTransaction != null)
-                await dbTransaction.CommitAsync(token);
+            response.Message = response.OutputValue.ToString();
+
+            await dbTransaction.CommitTransactionAsync(token);
         }
         catch (TimeoutException ex)
         {
             response.Error = ex;
             response.Message = ex.Message;
-
-            if (dbTransaction != null)
-                await dbTransaction.RollbackAsync(token);
         }
         catch (OperationCanceledException ex)
         {
             response.Error = ex;
             response.Message = ex.Message;
-
-            if (dbTransaction != null)
-                await dbTransaction.RollbackAsync(token);
         }
         catch (Exception ex)
         {
             response.Error = ex;
             response.Message = ex.Message;
-
-            if (dbTransaction != null)
-                await dbTransaction.RollbackAsync(token);
         }
         finally
         {
@@ -373,14 +405,13 @@ public sealed class ADOEntityDataAccessService<TEntity> : IEntityWrapper<TEntity
 
             _dbCommand.Parameters.Clear();
 
-            if (dbTransaction != null)
-                await dbTransaction.DisposeAsync();
+            await dbTransaction.DisposeAndRollbackTransactionAsync(token);
         }
 
         return response;
     }
 
-    public async Task<IEnumerable<DbResponse<TEntity>>> ChangeEntityAsync(QueryParameters query, IEnumerable<TEntity> entities, CancellationToken token)
+    public async Task<IEnumerable<DbResponse<TEntity>>> UpdateAsync(QueryParameters query, IEnumerable<TEntity> entities, CancellationToken token)
     {
         List<DbResponse<TEntity>> responses = [];
 
@@ -404,10 +435,10 @@ public sealed class ADOEntityDataAccessService<TEntity> : IEntityWrapper<TEntity
             }
 
             if (query.OutputParameter != null)
-                outputDbParameter = _dbCommand.AddWithValue(query.OutputParameter.Name, query.OutputParameter.Size, query.OutputParameter.DbType, query.OutputParameter.ParameterDirection, _prefix);
+                outputDbParameter = _dbCommand.AddWithValue(query.OutputParameter.Name, _prefix, query.OutputParameter.DbType, parameterDirection: query.OutputParameter.ParameterDirection, size: query.OutputParameter.Size);
 
             if (query.ReturnedValue != null)
-                returnedDbParameter = _dbCommand.AddWithValue(query.ReturnedValue.Name, query.ReturnedValue.Size, query.ReturnedValue.DbType, query.ReturnedValue.ParameterDirection, _prefix);
+                returnedDbParameter = _dbCommand.AddWithValue(query.ReturnedValue.Name, _prefix, query.ReturnedValue.DbType, parameterDirection: query.ReturnedValue.ParameterDirection, size: query.ReturnedValue.Size);
 
             response.AdditionalData.TryAdd("Тип сущнотсти", typeof(TEntity).Name);
             response.AdditionalData.TryAdd("Количество переданных сущностей для изменения", entities.Count());
@@ -429,34 +460,24 @@ public sealed class ADOEntityDataAccessService<TEntity> : IEntityWrapper<TEntity
                 response.Message = "Запрос выполнен";
 
                 responses.Add(response);
-            }
 
-            if (dbTransaction != null)
-                await dbTransaction.CommitAsync(token);
+                await dbTransaction.CommitTransactionAsync(token);
+            }
         }
         catch (TimeoutException ex)
         {
             response.Error = ex;
             response.Message = ex.Message;
-
-            if (dbTransaction != null)
-                await dbTransaction.RollbackAsync(token);
         }
         catch (OperationCanceledException ex)
         {
             response.Error = ex;
             response.Message = ex.Message;
-
-            if (dbTransaction != null)
-                await dbTransaction.RollbackAsync(token);
         }
         catch (Exception ex)
         {
             response.Error = ex;
             response.Message = ex.Message;
-
-            if (dbTransaction != null)
-                await dbTransaction.RollbackAsync(token);
         }
         finally
         {
@@ -464,8 +485,7 @@ public sealed class ADOEntityDataAccessService<TEntity> : IEntityWrapper<TEntity
 
             _dbCommand.Parameters.Clear();
 
-            if (dbTransaction != null)
-                await dbTransaction.DisposeAsync();
+            await dbTransaction.DisposeAndRollbackTransactionAsync(token);
         }
 
         return responses;

@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Text;
 
-namespace HardwareStore.Providers.Relational.DataTools.ADO.Sql;
+namespace HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO.Sql;
 
 internal static class SqlHelper
 {

@@ -1,18 +1,23 @@
-﻿using HardwareOnlineStore.DataAccess.Providers.Relational.Models;
-using HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.Order;
-using HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.Queries;
+﻿using HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.Order;
 using HardwareOnlineStore.Entities.Order;
-using HardwareOnlineStore.Services.Entity.Contracts;
-using HardwareOnlineStore.Services.Entity.Contracts.Abstractions;
-using HardwareOnlineStore.Services.Utilities.Logger.File;
-using System.Collections.Immutable;
-using System.Data;
 
 namespace HardwareOnlineStore.Services.Entity.SqlServerService.DataProcessing;
 
 public sealed class OrderService(OrderRepository orderRepository, FileLogger logger) : EntityService<OrderEntity>(orderRepository, logger)
 {
-    public async Task<OrderEntity?> GetOrderAsync(OrderEntity orderCondition)
+    public async Task<OrderEntity?> GetOrderByIdAsync(Guid id)
+    {
+        OrderEntity? order = await GetByIdAsync(id, new QueryParameters()
+        {
+            CommandText = SqlServerStoredProcedureList.GetProductByCondition,
+            CommandType = CommandType.StoredProcedure,
+            TransactionManagementOnDbServer = true,
+        });
+
+        return order;
+    }
+
+    public async Task<OrderEntity?> GetOrderByAsync(OrderEntity orderCondition)
     {
         OrderEntity? order = await GetByAsync(orderCondition, new QueryParameters()
         {

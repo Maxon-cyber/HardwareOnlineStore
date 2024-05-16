@@ -2,7 +2,6 @@
 using HardwareOnlineStore.Core.Initialization.Configuration.Abstractions;
 using HardwareOnlineStore.Core.Initialization.IoC.Abstractions;
 using HardwareOnlineStore.MVP.Presenters.Common;
-using System;
 
 namespace HardwareOnlineStore.Core;
 

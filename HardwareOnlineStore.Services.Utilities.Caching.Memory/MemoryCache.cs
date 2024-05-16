@@ -17,12 +17,12 @@ public sealed class MemoryCache<TValue> : ICache<string, TValue>
 {
     private uint _subscriberCount;
 
-    private static readonly Lazy<MemoryCache<TValue>> lazyInstance = new Lazy<MemoryCache<TValue>>(() => new MemoryCache<TValue>());
+    private static readonly Lazy<MemoryCache<TValue>> _lazyInstance = new Lazy<MemoryCache<TValue>>(() => new MemoryCache<TValue>());
     private static readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 20);
 
     private event EventHandler<CacheChangedEventArgs<string, TValue>> Cache_Changed;
 
-    public static MemoryCache<TValue> Instance => lazyInstance.Value;
+    public static MemoryCache<TValue> Instance => _lazyInstance.Value;
 
     private MemoryCache() { }
 
@@ -61,6 +61,9 @@ public sealed class MemoryCache<TValue> : ICache<string, TValue>
         IEnumerable<KeyValuePair<string, object>>? findDataOfType = CacheStorage.Cache.Where(kvp => kvp.Value is TType);
 
         IEnumerable<TType>? result = findDataOfType?.Select(kvp => (TType)kvp.Value).Where(func);
+
+        if (result == null)
+            return default;
 
         return result.FirstOrDefault();
     }

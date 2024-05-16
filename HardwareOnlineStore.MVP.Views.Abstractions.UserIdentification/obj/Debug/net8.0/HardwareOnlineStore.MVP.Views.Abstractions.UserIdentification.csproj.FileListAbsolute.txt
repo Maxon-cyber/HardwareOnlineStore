@@ -15,3 +15,4 @@ C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.Abs
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification\obj\Debug\net8.0\refint\HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification.dll
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification\obj\Debug\net8.0\HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification.pdb
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification\obj\Debug\net8.0\ref\HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification\obj\Debug\net8.0\HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification.sourcelink.json

@@ -105,5 +105,8 @@ public sealed class FileInfoModel
     }
 
     public async Task ClearAsync()
-        => await File.WriteAllTextAsync(FullName, string.Empty);
+    { 
+        await File.WriteAllTextAsync(FullName, string.Empty);
+        _fileInfo.Refresh();
+    }
 }

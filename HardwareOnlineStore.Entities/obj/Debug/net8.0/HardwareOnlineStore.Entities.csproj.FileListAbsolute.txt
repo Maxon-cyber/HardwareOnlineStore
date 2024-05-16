@@ -9,3 +9,4 @@ C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Entities\obj\
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Entities\obj\Debug\net8.0\refint\HardwareOnlineStore.Entities.dll
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Entities\obj\Debug\net8.0\HardwareOnlineStore.Entities.pdb
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Entities\obj\Debug\net8.0\ref\HardwareOnlineStore.Entities.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Entities\obj\Debug\net8.0\HardwareOnlineStore.Entities.sourcelink.json

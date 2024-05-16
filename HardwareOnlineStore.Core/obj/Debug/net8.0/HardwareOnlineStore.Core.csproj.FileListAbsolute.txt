@@ -19,3 +19,4 @@ C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core\obj\Debu
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core\obj\Debug\net8.0\refint\HardwareOnlineStore.Core.dll
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core\obj\Debug\net8.0\HardwareOnlineStore.Core.pdb
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core\obj\Debug\net8.0\ref\HardwareOnlineStore.Core.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core\obj\Debug\net8.0\HardwareOnlineStore.Core.sourcelink.json

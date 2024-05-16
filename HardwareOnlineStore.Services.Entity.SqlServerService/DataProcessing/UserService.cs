@@ -1,18 +1,23 @@
-﻿using HardwareOnlineStore.DataAccess.Providers.Relational.Models;
-using HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.Queries;
-using HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.User;
+﻿using HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.User;
 using HardwareOnlineStore.Entities.User;
-using HardwareOnlineStore.Services.Entity.Contracts;
-using HardwareOnlineStore.Services.Entity.Contracts.Abstractions;
-using HardwareOnlineStore.Services.Utilities.Logger.File;
-using System.Collections.Immutable;
-using System.Data;
 
 namespace HardwareOnlineStore.Services.Entity.SqlServerService.DataProcessing;
 
 public sealed class UserService(UserRepository userRepository, FileLogger logger) : EntityService<UserEntity>(userRepository, logger)
 {
-    public async Task<UserEntity?> GetUserAsync(UserEntity userCondition)
+    public async Task<UserEntity?> GetUserByIdAsync(Guid id)
+    {
+        UserEntity? user = await GetByIdAsync(id, new QueryParameters()
+        {
+            CommandText = SqlServerStoredProcedureList.GetUserByCondition,
+            CommandType = CommandType.StoredProcedure,
+            TransactionManagementOnDbServer = true,
+        });
+
+        return user;
+    }
+
+    public async Task<UserEntity?> GetUserByAsync(UserEntity userCondition)
     {
         UserEntity? user = await GetByAsync(userCondition, new QueryParameters()
         {

@@ -1,28 +1,26 @@
-﻿using HardwareOnlineStore.DataAccess.Providers.Relational.Implementations.SqlServer;
-using HardwareOnlineStore.DataAccess.Providers.Relational.Models;
-using HardwareOnlineStore.DataAccess.Repositories.Relational.Abstractions;
-using HardwareOnlineStore.Entities.Product;
-
-namespace HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.Product;
+﻿namespace HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.Product;
 
 public sealed class ProductRepository(SqlServerProvider<ProductEntity> sqlServer) : IRepository<ProductEntity>
 {
     public string DbProviderName => "SqlServer";
 
+    public Task<DbResponse<ProductEntity>> GetByIdAsync(QueryParameters queryParameters, Guid id, CancellationToken token)
+       => sqlServer.GetByIdAsync(queryParameters, "id", id, token);
+
     public Task<DbResponse<ProductEntity>> GetByAsync(QueryParameters queryParameters, ProductEntity productCondition, CancellationToken token)
-        => sqlServer.GetValueByAsync(queryParameters, productCondition, token);
+        => sqlServer.GetByAsync(queryParameters, productCondition, token);
 
     public Task<DbResponse<ProductEntity>> SelectAsync(QueryParameters queryParameters, CancellationToken token)
-        => sqlServer.SelectValuesAsync(queryParameters, token);
+        => sqlServer.SelectAsync(queryParameters, token);
 
     public Task<DbResponse<ProductEntity>> SelectByAsync(QueryParameters queryParameters, ProductEntity productCondition, CancellationToken token)
-        => sqlServer.SelectValuesByAsync(queryParameters, productCondition, token);
+        => sqlServer.SelectByAsync(queryParameters, productCondition, token);
 
     public Task<DbResponse<ProductEntity>> ChangeAsync(QueryParameters queryParameters, ProductEntity product, CancellationToken token)
-        => sqlServer.ChangeValueAsync(queryParameters, product, token);
+        => sqlServer.UpdateAsync(queryParameters, product, token);
 
     public Task<IEnumerable<DbResponse<ProductEntity>>> ChangeAsync(QueryParameters queryParameters, IEnumerable<ProductEntity> products, CancellationToken token)
-        => sqlServer.ChangeValuesAsync(queryParameters, products, token);
+        => sqlServer.UpdateAsync(queryParameters, products, token);
 
     public void Dispose()
         => sqlServer.Dispose();

@@ -18,15 +18,17 @@ public abstract class DbProvider<TParameter>(ConnectionParameters connectionPara
 
     public abstract DbCommand DbCommand { get; }
 
-    public abstract Task<DbResponse<TParameter>> GetValueByAsync(QueryParameters queryParameters, TParameter parameterCondition, CancellationToken token);
+    public abstract Task<DbResponse<TParameter>> GetByIdAsync(QueryParameters queryParameters, string columnName, Guid id, CancellationToken token);
 
-    public abstract Task<DbResponse<TParameter>> SelectValuesAsync(QueryParameters queryParameters, CancellationToken token);
+    public abstract Task<DbResponse<TParameter>> GetByAsync(QueryParameters queryParameters, TParameter parameterCondition, CancellationToken token);
 
-    public abstract Task<DbResponse<TParameter>> SelectValuesByAsync(QueryParameters queryParameters, TParameter parameterCondition, CancellationToken token);
+    public abstract Task<DbResponse<TParameter>> SelectAsync(QueryParameters queryParameters, CancellationToken token);
 
-    public abstract Task<DbResponse<TParameter>> ChangeValueAsync(QueryParameters queryParameters, TParameter parameter, CancellationToken token);
+    public abstract Task<DbResponse<TParameter>> SelectByAsync(QueryParameters queryParameters, TParameter parameterCondition, CancellationToken token);
 
-    public abstract Task<IEnumerable<DbResponse<TParameter>>> ChangeValuesAsync(QueryParameters queryParameters, IEnumerable<TParameter> parameters, CancellationToken token);
+    public abstract Task<DbResponse<TParameter>> UpdateAsync(QueryParameters queryParameters, TParameter parameter, CancellationToken token);
+
+    public abstract Task<IEnumerable<DbResponse<TParameter>>> UpdateAsync(QueryParameters queryParameters, IEnumerable<TParameter> parameters, CancellationToken token);
 
     public abstract void Dispose();
 

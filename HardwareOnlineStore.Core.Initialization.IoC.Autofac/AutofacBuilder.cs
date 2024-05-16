@@ -70,7 +70,7 @@ public sealed class AutofacBuilder() : IIoCContainerBuilder
 
     public IIoCContainerBuilder RegisterView<TView, TImplementation>(Lifetime lifetime = Lifetime.Transient, bool asSelf = false)
         where TView : notnull
-        where TImplementation : TView
+        where TImplementation : notnull, TView
     {
         switch (lifetime)
         {
@@ -91,19 +91,68 @@ public sealed class AutofacBuilder() : IIoCContainerBuilder
         return this;
     }
 
-    public IIoCContainerBuilder RegisterGeneric<TService>(Lifetime lifetime)
+    public IIoCContainerBuilder RegisterGeneric(Type type, Lifetime lifetime = Lifetime.Transient)
     {
-        throw new NotImplementedException();
+        ArgumentNullException.ThrowIfNull(type);
+
+        switch (lifetime)
+        {
+            case Lifetime.Transient:
+                _containerBuilder.RegisterGeneric(type).Named($"{nameof(type)}", type)
+                    .AsSelf()
+                    .InstancePerDependency();
+                break;
+            case Lifetime.Singleton:
+                _containerBuilder.RegisterGeneric(type).Named($"{nameof(type)}", type)
+                    .AsSelf()
+                    .SingleInstance();
+                break;
+        }
+
+        return this;
     }
 
-    public IIoCContainerBuilder RegisterGeneric<TService, TImplementation>(Lifetime lifetime) where TImplementation : TService
+    public IIoCContainerBuilder RegisterGenericWithConstructor(Type type, string nameParameter, object parameter, Lifetime lifetime = Lifetime.Transient, bool aasSelf = false)
     {
-        throw new NotImplementedException();
+        switch (lifetime)
+        {
+            case Lifetime.Transient:
+                _containerBuilder.RegisterGeneric(type).Named(type.Name, type)
+                    .AsSelf()
+                    .WithParameter(nameParameter, parameter);
+                break;
+            case Lifetime.Singleton:
+                _containerBuilder.RegisterGeneric(type).Named(type.Name, type)
+                    .AsSelf()
+                    .SingleInstance()
+                    .WithParameter(nameParameter, parameter);
+                break;
+        }
+
+        return this;
     }
 
-    public IIoCContainerBuilder Register<TService, TImplementation>(Lifetime lifetime = Lifetime.Transient, bool asSelf = false) where TImplementation : TService
+    public IIoCContainerBuilder Register<TService, TImplementation>(Lifetime lifetime = Lifetime.Transient, bool asSelf = false)
+        where TService : notnull
+        where TImplementation : notnull, TService
     {
-        throw new NotImplementedException();
+        switch (lifetime)
+        {
+            case Lifetime.Transient:
+                _containerBuilder.RegisterType<TImplementation>().Named<TImplementation>($"{nameof(TService)} - {nameof(TImplementation)}")
+                    .As<TService>()
+                    .AsSelf()
+                    .InstancePerDependency();
+                break;
+            case Lifetime.Singleton:
+                _containerBuilder.RegisterType<TImplementation>().Named<TImplementation>($"{nameof(TService)} - {nameof(TImplementation)}")
+                    .As<TService>()
+                    .AsSelf()
+                    .SingleInstance();
+                break;
+        }
+
+        return this;
     }
 
     public TService Resolve<TService>()

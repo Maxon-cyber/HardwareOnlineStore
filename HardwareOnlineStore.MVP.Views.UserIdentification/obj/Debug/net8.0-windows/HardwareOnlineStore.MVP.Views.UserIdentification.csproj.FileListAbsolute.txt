@@ -144,3 +144,11 @@ C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.Use
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.UserIdentification\obj\Debug\net8.0-windows\HardwareOnlineStore.MVP.Views.UserIdentification.pdb
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.UserIdentification\obj\Debug\net8.0-windows\HardwareOnlineStore.MVP.Views.UserIdentification.genruntimeconfig.cache
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.UserIdentification\obj\Debug\net8.0-windows\ref\HardwareOnlineStore.MVP.Views.UserIdentification.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.UserIdentification\obj\Debug\net8.0-windows\HardwareOnlineStore.MVP.Views.UserIdentification.sourcelink.json
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.UserIdentification\bin\Debug\net8.0-windows\SixLabors.ImageSharp.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.UserIdentification\bin\Debug\net8.0-windows\HardwareOnlineStore.Services.Utilities.Caching.File.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.UserIdentification\bin\Debug\net8.0-windows\HardwareOnlineStore.Services.Utilities.Caching.Support.Serializer.Abstractions.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.UserIdentification\bin\Debug\net8.0-windows\HardwareOnlineStore.Services.Utilities.Caching.Support.Serializer.Yaml.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.UserIdentification\bin\Debug\net8.0-windows\HardwareOnlineStore.Services.Utilities.Caching.File.pdb
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.UserIdentification\bin\Debug\net8.0-windows\HardwareOnlineStore.Services.Utilities.Caching.Support.Serializer.Abstractions.pdb
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.UserIdentification\bin\Debug\net8.0-windows\HardwareOnlineStore.Services.Utilities.Caching.Support.Serializer.Yaml.pdb

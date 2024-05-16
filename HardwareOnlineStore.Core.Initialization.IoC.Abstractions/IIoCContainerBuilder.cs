@@ -19,19 +19,18 @@ public interface IIoCContainerBuilder
         where TImplementation : notnull, TView;
 
     IIoCContainerBuilder Register<TService, TImplementation>(Lifetime lifetime = Lifetime.Transient, bool asSelf = false)
+        where TService : notnull
         where TImplementation : notnull, TService;
 
-    TService Resolve<TService>()
-        where TService : notnull;
+    IIoCContainerBuilder RegisterGeneric(Type type, Lifetime lifetime = Lifetime.Transient);
 
-    IIoCContainerBuilder RegisterGeneric<TService>(Lifetime lifetime)
-        where TService : notnull;
+    IIoCContainerBuilder RegisterGenericWithConstructor(Type type, string nameParameter, object parameter, Lifetime lifetime = Lifetime.Transient, bool aasSelf = false);
 
     IIoCContainerBuilder RegisterWithConstructor<TService>(string nameParameter, object parameter, Lifetime lifetime = Lifetime.Transient, bool asSelf = false)
         where TService : notnull;
 
-    IIoCContainerBuilder RegisterGeneric<TService, TImplementation>(Lifetime lifetime)
-        where TImplementation : notnull, TService;
+    TService Resolve<TService>()
+       where TService : notnull;
 
     void Build();
 }

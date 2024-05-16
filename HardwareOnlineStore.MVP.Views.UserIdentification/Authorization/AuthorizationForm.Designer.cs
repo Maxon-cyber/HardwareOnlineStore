@@ -35,7 +35,7 @@ public sealed partial class AuthorizationForm
         contentPanel.Dock = DockStyle.Fill;
         contentPanel.Location = new Point(0, 0);
         contentPanel.Name = "contentPanel";
-        contentPanel.Size = new Size(303, 541);
+        contentPanel.Size = new Size(304, 541);
         contentPanel.TabIndex = 1;
         // 
         // registrationButton
@@ -84,7 +84,7 @@ public sealed partial class AuthorizationForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(303, 541);
+        ClientSize = new Size(304, 541);
         Controls.Add(contentPanel);
         Name = "AuthorizationForm";
         Text = "Form1";

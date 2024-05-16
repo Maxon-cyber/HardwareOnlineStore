@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-namespace HardwareOnlineStore.DataAccess.Providers.Relational.Models;
+﻿namespace HardwareOnlineStore.DataAccess.Providers.Relational.Models;
 
 public sealed class DbResponse<TType>()
 {
@@ -8,7 +6,7 @@ public sealed class DbResponse<TType>()
 
     public Dictionary<object, object> AdditionalData { get; } = new Dictionary<object, object>();
 
-    public string Message { get; set; } = null;
+    public string? Message { get; set; } = null;
 
     public Exception? Error { get; set; } = null;
 

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "nk9rK0zRsh/b+NKIoBJ6lq/AQbYXOLibUxxcF0W8+pikSdT7Mp4iDTNRnpICVR7apI1mzbePMufbEXBC2EMDAw==",
+  "dgSpecHash": "GrOoFGlCkOaXcTXrW80ZAOSkIqp5gxLqXp5Lc3hcAvpxt67t8YBuIX3AzGrLOgIG987pzCDDXPD/sf7wLPtvbg==",
   "success": true,
   "projectFilePath": "C:\\Users\\рс\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.MVP.Views.UserIdentification\\HardwareOnlineStore.MVP.Views.UserIdentification.csproj",
   "expectedPackageFiles": [
@@ -33,6 +33,8 @@
     "C:\\Users\\рс\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\рс\\.nuget\\packages\\microsoft.web.webview2\\1.0.864.35\\microsoft.web.webview2.1.0.864.35.nupkg.sha512",
     "C:\\Users\\рс\\.nuget\\packages\\netescapades.configuration.yaml\\3.1.0\\netescapades.configuration.yaml.3.1.0.nupkg.sha512",
+    "C:\\Users\\рс\\.nuget\\packages\\sixlabors.imagesharp\\3.1.4\\sixlabors.imagesharp.3.1.4.nupkg.sha512",
+    "C:\\Users\\рс\\.nuget\\packages\\system.collections.immutable\\8.0.0\\system.collections.immutable.8.0.0.nupkg.sha512",
     "C:\\Users\\рс\\.nuget\\packages\\system.configuration.configurationmanager\\8.0.0\\system.configuration.configurationmanager.8.0.0.nupkg.sha512",
     "C:\\Users\\рс\\.nuget\\packages\\system.diagnostics.diagnosticsource\\7.0.2\\system.diagnostics.diagnosticsource.7.0.2.nupkg.sha512",
     "C:\\Users\\рс\\.nuget\\packages\\system.diagnostics.eventlog\\8.0.0\\system.diagnostics.eventlog.8.0.0.nupkg.sha512",
@@ -51,7 +53,7 @@
     "C:\\Users\\рс\\.nuget\\packages\\system.text.encodings.web\\4.7.2\\system.text.encodings.web.4.7.2.nupkg.sha512",
     "C:\\Users\\рс\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512",
     "C:\\Users\\рс\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "C:\\Users\\рс\\.nuget\\packages\\yamldotnet\\13.0.1\\yamldotnet.13.0.1.nupkg.sha512"
+    "C:\\Users\\рс\\.nuget\\packages\\yamldotnet\\15.1.2\\yamldotnet.15.1.2.nupkg.sha512"
   ],
   "logs": []
 }

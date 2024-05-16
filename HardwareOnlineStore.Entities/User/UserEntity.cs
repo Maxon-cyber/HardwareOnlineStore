@@ -5,28 +5,28 @@ namespace HardwareOnlineStore.Entities.User;
 
 public sealed class UserEntity() : Entity
 {
-    [ColumnData(ColumnName = "name", DbType = DbType.String)]
+    [ColumnData(Name = "name", DbType = DbType.String)]
     public string Name { get; init; }
 
-    [ColumnData(ColumnName = "second_name", DbType = DbType.String)]
+    [ColumnData(Name = "second_name", DbType = DbType.String)]
     public string SecondName { get; init; }
 
-    [ColumnData(ColumnName = "patronymic", DbType = DbType.String)]
+    [ColumnData(Name = "patronymic", DbType = DbType.String)]
     public string Patronymic { get; init; }
 
-    [ColumnData(ColumnName = "gender", DbType = DbType.String)]
+    [ColumnData(Name = "gender", DbType = DbType.String)]
     public Gender Gender { get; init; }
 
-    [ColumnData(ColumnName = "age", DbType = DbType.Int32)]
+    [ColumnData(Name = "age", DbType = DbType.Int32)]
     public uint Age { get; init; }
 
-    [ColumnData(ColumnName = "login", DbType = DbType.String)]
+    [ColumnData(Name = "login", DbType = DbType.String)]
     public string Login { get; init; }
 
-    [ColumnData(ColumnName = "password", DbType = DbType.Binary)]
+    [ColumnData(Name = "password", DbType = DbType.Binary)]
     public byte[] Password { get; init; }
 
-    [ColumnData(ColumnName = "role", DbType = DbType.String)]
+    [ColumnData(Name = "role", DbType = DbType.String)]
     public Role Role { get; init; }
 
     [PointerToTable(TableName = "UserLocation")]
@@ -40,4 +40,22 @@ public sealed class UserEntity() : Entity
 
     public override int GetHashCode()
         => base.GetHashCode();
+}
+
+public sealed class Location() : Entity
+{
+    [ColumnData(Name = "house_number", DbType = DbType.String)]
+    public string HouseNumber { get; set; }
+
+    [ColumnData(Name = "street", DbType = DbType.String)]
+    public string Street { get; set; }
+
+    [ColumnData(Name = "city", DbType = DbType.String)]
+    public string City { get; init; }
+
+    [ColumnData(Name = "region", DbType = DbType.String)]
+    public string Region { get; init; }
+
+    [ColumnData(Name = "country", DbType = DbType.String)]
+    public string Country { get; init; }
 }

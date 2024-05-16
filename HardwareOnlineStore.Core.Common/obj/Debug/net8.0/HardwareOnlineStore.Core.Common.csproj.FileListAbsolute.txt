@@ -13,3 +13,4 @@ C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core.Common\o
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core.Common\obj\Debug\net8.0\refint\HardwareOnlineStore.Core.Common.dll
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core.Common\obj\Debug\net8.0\HardwareOnlineStore.Core.Common.pdb
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core.Common\obj\Debug\net8.0\ref\HardwareOnlineStore.Core.Common.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core.Common\obj\Debug\net8.0\HardwareOnlineStore.Core.Common.sourcelink.json

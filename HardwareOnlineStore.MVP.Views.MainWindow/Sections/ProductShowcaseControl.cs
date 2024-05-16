@@ -73,7 +73,7 @@ public sealed partial class ProductShowcaseControl : UserControl, IProductShowca
             return;
         }
 
-        Control? needControl = viewProductsTLP.Controls.OfType<ProductControl>().Where(p => p.Tag == searchTextBox.Text).FirstOrDefault();
+        Control? needControl = viewProductsTLP.Controls.OfType<ProductControl>().FirstOrDefault(p => searchTextBox.Text.Equals(p.Tag?.ToString(), StringComparison.CurrentCultureIgnoreCase));
 
         if (needControl == null)
         {

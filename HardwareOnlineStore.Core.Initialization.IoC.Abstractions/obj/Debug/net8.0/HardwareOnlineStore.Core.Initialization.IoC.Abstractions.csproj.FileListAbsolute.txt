@@ -9,3 +9,4 @@ C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core.Initiali
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core.Initialization.IoC.Abstractions\obj\Debug\net8.0\refint\HardwareOnlineStore.Core.Initialization.IoC.Abstractions.dll
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core.Initialization.IoC.Abstractions\obj\Debug\net8.0\HardwareOnlineStore.Core.Initialization.IoC.Abstractions.pdb
 C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core.Initialization.IoC.Abstractions\obj\Debug\net8.0\ref\HardwareOnlineStore.Core.Initialization.IoC.Abstractions.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core.Initialization.IoC.Abstractions\obj\Debug\net8.0\HardwareOnlineStore.Core.Initialization.IoC.Abstractions.sourcelink.json
