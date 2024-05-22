@@ -14,6 +14,8 @@ public sealed class FileLogger : ILogger
 
     public string Separator { get; } = new string('=', 100);
 
+    private static readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 20);
+
     public FileLogger(string path)
         => Directory = new DirectoryInfoModel(path);
 
@@ -27,6 +29,8 @@ public sealed class FileLogger : ILogger
 
     public async Task LogInfoAsync(string message)
     {
+        await _semaphore.WaitAsync();
+
         if (_fileInfo.Size >= _fileInfo.SizeLimit)
             while (_fileInfo.Size > _fileInfo.SizeLimit / 2)
             {
@@ -36,10 +40,14 @@ public sealed class FileLogger : ILogger
             }
 
         await _fileInfo.WriteAsync(string.Format(MessagePattern, DateTime.Now, "Info", message), WriteMode.Append);
+
+        _semaphore.Release();
     }
 
     public async Task LogErrorAsync(Exception exception, string message)
     {
+        await _semaphore.WaitAsync();
+
         if (_fileInfo.Size >= _fileInfo.SizeLimit)
             while (_fileInfo.Size > _fileInfo.SizeLimit / 2)
             {
@@ -59,13 +67,23 @@ public sealed class FileLogger : ILogger
             additionalData += $"\t{data.Key} - {data.Value}";
 
         await _fileInfo.WriteAsync(additionalData, WriteMode.Append);
+
+        _semaphore.Release();
     }
 
     public async Task LogSeparatorAsync()
-        => await _fileInfo.WriteAsync(Separator, WriteMode.Append);
+    {
+        await _semaphore.WaitAsync();
+
+        await _fileInfo.WriteAsync(Separator, WriteMode.Append);
+
+        _semaphore.Release();
+    }
 
     public async Task LogMessageAsync(string message)
     {
+        await _semaphore.WaitAsync();
+
         if (_fileInfo.Size >= _fileInfo.SizeLimit)
             while (_fileInfo.Size > _fileInfo.SizeLimit / 2)
             {
@@ -75,5 +93,7 @@ public sealed class FileLogger : ILogger
             }
 
         await _fileInfo.WriteAsync(message, WriteMode.Append);
+
+        _semaphore.Release();
     }
 }

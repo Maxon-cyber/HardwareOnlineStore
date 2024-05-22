@@ -1,31 +1,42 @@
-﻿using HardwareOnlineStore.Entities.Common.Attributes;
+﻿using HardwareOnlineStore.DataAccess.Attributes;
 using System.Data;
 
 namespace HardwareOnlineStore.Entities.Order;
 
 public sealed class OrderEntity() : Entity
 {
-    [ColumnData(Name = "user_id", DbType = DbType.Guid)]
+    [ColumnData("user_id", DbType.Guid)]
+    [SqlParameter("user_id", DbType.Guid)]
     public Guid UserId { get; init; }
 
-    [ColumnData(Name = "order_details_table", DbType = DbType.Object)]
+    [PointerToTable("OrderDetails")]
+    [SqlParameter("order_details_table", DbType.Object)]
     public ICollection<OrderItem> Items { get; init; }
 
-    [ColumnData(Name = "total_amount", DbType = DbType.Decimal)]
+    [ColumnData("total_amount", DbType.Decimal)]
+    [SqlParameter("total_amount", DbType.Decimal)]
     public decimal TotalAmount { get; init; }
 
-    [ColumnData(Name = "delivery_date", DbType = DbType.DateTime2)]
+    [ColumnData("delivery_date", DbType.DateTime2)]
+    [SqlParameter("delivery_date", DbType.DateTime2)]
     public DateTime DeliveryDate { get; init; }
 
-    [ColumnData(Name = "status", DbType = DbType.String)]
+    [ColumnData("status", DbType.String)]
+    [SqlParameter("status", DbType.String)]
     public Status Status { get; init; }
+
+    [ColumnData("last_access_time", DbType.DateTime2)]
+    [SqlParameter("last_access_time", DbType.DateTime2)]
+    public DateTime LastAccessTime { get; }
 }
 
-public sealed class OrderItem() : Entity
+public sealed class OrderItem()
 {
-    [ColumnData(Name = "product_id", DbType = DbType.Guid)]
+    [ColumnData("product_id", DbType.Guid)]
+    [SqlParameter("product_id", DbType.Guid)]
     public Guid ProductId { get; init; }
 
-    [ColumnData(Name = "number_of_products", DbType = DbType.Int32)]
+    [ColumnData("number_of_products", DbType.Int32)]
+    [SqlParameter("number_of_products", DbType.Int32)]
     public int NumberOfProducts { get; init; }
 }

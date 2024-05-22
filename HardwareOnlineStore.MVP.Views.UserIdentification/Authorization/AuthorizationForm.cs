@@ -20,7 +20,7 @@ public sealed partial class AuthorizationForm : Form, IAuthorizationView
         _context = context;
     }
 
-    public new void Show()
+    void IView.Show()
     {
         if (!_isRunable)
         {
@@ -33,6 +33,8 @@ public sealed partial class AuthorizationForm : Form, IAuthorizationView
 
     private async void BtnLogin_Click(object sender, EventArgs e)
     {
+        loginButton.Enabled = false;
+
         IEnumerable<TextBox> emptyTextBoxes = Controls.OfType<TextBox>().Where(tb => string.IsNullOrWhiteSpace(tb.Text));
 
         if (emptyTextBoxes.Any())
@@ -48,6 +50,8 @@ public sealed partial class AuthorizationForm : Form, IAuthorizationView
             Login = loginTextBox.Text,
             Password = passwordTextBox.Text
         });
+
+        loginButton.Enabled = true;
     }
 
     private void BtnRegistration_Click(object sender, EventArgs e)
@@ -67,7 +71,7 @@ public sealed partial class AuthorizationForm : Form, IAuthorizationView
         registrationControl.BringToFront();
     }
 
-    public void ShowMessage(string message, string caption, MessageLevel level)
+    void IView.ShowMessage(string message, string caption, MessageLevel level)
          => MessageBox.Show(message, caption, MessageBoxButtons.OKCancel, level switch
          {
              MessageLevel.Info => MessageBoxIcon.Information,
@@ -76,6 +80,6 @@ public sealed partial class AuthorizationForm : Form, IAuthorizationView
              _ => MessageBoxIcon.None,
          });
 
-    public new void Close()
+    void IView.Close()
         => base.Close();
 }

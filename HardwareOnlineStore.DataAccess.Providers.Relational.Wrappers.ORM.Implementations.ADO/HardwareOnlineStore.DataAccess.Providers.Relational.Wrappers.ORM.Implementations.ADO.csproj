@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HardwareOnlineStore.DataAccess.Attributes\HardwareOnlineStore.DataAccess.Attributes.csproj" />
     <ProjectReference Include="..\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Abstractions\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Abstractions.csproj" />
   </ItemGroup>
 

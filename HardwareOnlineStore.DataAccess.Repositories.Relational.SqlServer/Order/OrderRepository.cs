@@ -4,8 +4,11 @@ public sealed class OrderRepository(SqlServerProvider<OrderEntity> sqlServer) : 
 {
     public string DbProviderName => "SqlServer";
 
-    public Task<DbResponse<OrderEntity>> GetByIdAsync(QueryParameters queryParameters, Guid id, CancellationToken token)
+    public Task<DbResponse<OrderEntity>> GetByIdAsync(QueryParameters queryParameters, string? name, Guid? id, CancellationToken token)
        => sqlServer.GetByIdAsync(queryParameters, "id", id, token);
+
+    public Task<DbResponse<OrderEntity>> GetByIdsAsync(QueryParameters queryParameters, string? name, ICollection<Guid>? ids, CancellationToken token)
+       => sqlServer.GetByIdsAsync(queryParameters, "id", ids, token);
 
     public Task<DbResponse<OrderEntity>> GetByAsync(QueryParameters queryParameters, OrderEntity orderCondition, CancellationToken token)
         => sqlServer.GetByAsync(queryParameters, orderCondition, token);

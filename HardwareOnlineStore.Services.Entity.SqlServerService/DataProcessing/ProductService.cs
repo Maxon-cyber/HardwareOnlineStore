@@ -7,10 +7,24 @@ public sealed class ProductService(ProductRepository repository, FileLogger logg
 {
     public async Task<ProductEntity?> GetProductByIdAsync(Guid id)
     {
-        ProductEntity? product = await GetByIdAsync(id, new QueryParameters()
+        ProductEntity? product = await GetByIdAsync("id", id, new QueryParameters()
         {
             CommandText = SqlServerStoredProcedureList.GetProductByCondition,
             CommandType = CommandType.StoredProcedure,
+            TransactionManagementOnDbServer = true,
+        });
+
+        return product;
+    }
+
+    public async Task<IEnumerable<ProductEntity>?> GetProductsByIdsAsync(ICollection<Guid> ids)
+    {
+        string idsString = string.Join(",", ids.Select(id => $"'{id}'"));
+
+        IEnumerable<ProductEntity>? product = await GetByIdsAsync(null, null, new QueryParameters()
+        {
+            CommandText = $"select * from Products where id in ({idsString})",
+            CommandType = CommandType.Text,
             TransactionManagementOnDbServer = true,
         });
 
@@ -47,7 +61,7 @@ public sealed class ProductService(ProductRepository repository, FileLogger logg
         {
             CommandText = SqlServerStoredProcedureList.GetAllProductsByCondition,
             CommandType = CommandType.StoredProcedure,
-            TransactionManagementOnDbServer = true
+            TransactionManagementOnDbServer = true,
         });
 
         return products;

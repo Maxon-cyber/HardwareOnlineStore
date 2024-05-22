@@ -7,7 +7,7 @@ public sealed class OrderService(OrderRepository orderRepository, FileLogger log
 {
     public async Task<OrderEntity?> GetOrderByIdAsync(Guid id)
     {
-        OrderEntity? order = await GetByIdAsync(id, new QueryParameters()
+        OrderEntity? order = await GetByIdAsync("id", id, new QueryParameters()
         {
             CommandText = SqlServerStoredProcedureList.GetProductByCondition,
             CommandType = CommandType.StoredProcedure,

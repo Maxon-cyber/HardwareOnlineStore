@@ -6,7 +6,7 @@ public static class SqlServerStoredProcedureList
     public static string GetAllUsers => "sp_GetAllUsers";
     public static string GetUsersByCondition => "sp_GetAllUsersByCondition";
     public static string GetAllProducts => "sp_GetAllProducts";
-    public static string GetProductByCondition => "sp_GetProductByCondition";
+    public static string GetProductByCondition => "sp_SearchProductsByCondition";
     public static string GetAllProductsByCondition => "sp_GetAllProductsByCondition";
     public static string GetAllOrders => "sp_GetAllOrders";
     public static string GetOrderByCondition => "sp_GetOrderByCondition";

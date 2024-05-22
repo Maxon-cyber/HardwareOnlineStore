@@ -18,7 +18,9 @@ public abstract class DbProvider<TParameter>(ConnectionParameters connectionPara
 
     public abstract DbCommand DbCommand { get; }
 
-    public abstract Task<DbResponse<TParameter>> GetByIdAsync(QueryParameters queryParameters, string columnName, Guid id, CancellationToken token);
+    public abstract Task<DbResponse<TParameter>> GetByIdAsync(QueryParameters queryParameters, string? name, Guid? id, CancellationToken token);
+
+    public abstract Task<DbResponse<TParameter>> GetByIdsAsync(QueryParameters queryParameters, string? name, ICollection<Guid>? ids, CancellationToken token);
 
     public abstract Task<DbResponse<TParameter>> GetByAsync(QueryParameters queryParameters, TParameter parameterCondition, CancellationToken token);
 

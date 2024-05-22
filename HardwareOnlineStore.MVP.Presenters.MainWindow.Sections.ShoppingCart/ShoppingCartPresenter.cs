@@ -43,7 +43,7 @@ public sealed class ShoppingCartPresenter : Presenter<IShoppingCartView>
         if (!UserParameters.Internet.IsAvailable())
         {
             IImmutableDictionary<string, OrderModel>? orderModels = await _cachedFile.ReadAsync();
-            
+
             if (orderModels == null)
                 return await Task.FromResult<ReadOnlyCollection<OrderModel>?>(null);
 
@@ -55,15 +55,22 @@ public sealed class ShoppingCartPresenter : Presenter<IShoppingCartView>
         if (orders == null)
             return await Task.FromResult<ReadOnlyCollection<OrderModel>?>(null);
 
-        List<OrderModel> orderList = new List<OrderModel>();
+        List<OrderModel> orderList = [];
 
         foreach (OrderEntity order in orders)
         {
-            List<ProductModel> productModels = new List<ProductModel>();
+            List<Guid> ids = order.Items.Select(o => o.ProductId).ToList();
+            IEnumerable<ProductEntity>? products = await _productService.GetProductsByIdsAsync(ids);
 
-            foreach (OrderItem item in order.Items)
+            if (products == null)
             {
-                ProductEntity? product = await _productService.GetProductByIdAsync(item.ProductId);
+                View.ShowMessage("Не удалось загрузить данные о продуктов", "Ошибка", Views.Abstractions.Shared.MessageLevel.Error);
+                return await Task.FromResult<ReadOnlyCollection<OrderModel>?>(null);
+            }
+
+            List<ProductModel> productModels = [];
+
+            foreach (ProductEntity product in products)
                 productModels.Add(new ProductModel()
                 {
                     Id = product.Id,
@@ -73,7 +80,6 @@ public sealed class ShoppingCartPresenter : Presenter<IShoppingCartView>
                     Category = product.Category,
                     Quantity = product.Quantity
                 });
-            }
 
             orderList.Add(new OrderModel
             {
@@ -92,15 +98,15 @@ public sealed class ShoppingCartPresenter : Presenter<IShoppingCartView>
     private async Task Order(ICollection<ProductModel> products)
     {
         var groupedProducts = products.GroupBy(p => p.Id)
-                                      .Select(g => new 
-                                      { 
+                                      .Select(g => new
+                                      {
                                           ProductId = g.Key,
-                                          NumberOfProducts = g.Count() 
-                                      });
+                                          NumberOfProducts = g.Count()
+                                      }).ToList();
 
         OrderEntity orderEntity = new OrderEntity()
         {
-            UserId = _cache.Of<UserEntity>().FirstOrDefault().Id,
+            UserId = _cache.Of<UserEntity>()!.FirstOrDefault()!.Id,
             Items = groupedProducts.Select(gp => new OrderItem()
             {
                 ProductId = gp.ProductId,
@@ -114,35 +120,31 @@ public sealed class ShoppingCartPresenter : Presenter<IShoppingCartView>
         if (UserParameters.Internet.IsAvailable())
         {
             object? result = await _orderService.ChangeOrderAsync(TypeOfUpdateCommand.Insert, orderEntity);
-            
+
             View.ShowMessage("Заказ успешно оформлен", "Успех", Views.Abstractions.Shared.MessageLevel.Info);
         }
 
         OrderModel orderModel = new OrderModel()
         {
             UserId = orderEntity.UserId,
-            Products = new List<ProductModel>(),
+            Products = [],
             TotalAmount = orderEntity.TotalAmount,
             OrderDate = orderEntity.TimeCreated,
             Status = orderEntity.Status.ToString()
         };
 
         foreach (ProductModel product in products)
-        {
-            string path = _cachedFile.SaveImage((product.Image as byte[])!, product.Name, true);
-
             orderModel.Products.Add(new ProductModel()
             {
                 Id = product.Id,
                 Name = product.Name,
-                Image = path,
+                Image = _cachedFile.SaveImage((product.Image as byte[])!, product.Name, true),
                 Category = product.Category,
                 Price = product.Price,
                 Quantity = product.Quantity
             });
-        }
 
-        await _cachedFile.WriteAsync($"Order.Date: {orderModel.OrderDate}", orderModel);
+        await _cachedFile.WriteAsync($"{orderModel.UserId}. Order Date: {orderModel.OrderDate}", orderModel);
     }
 
     private void Cache_Changed(object sender, CacheChangedEventArgs<string, ProductModel> cacheChanged)

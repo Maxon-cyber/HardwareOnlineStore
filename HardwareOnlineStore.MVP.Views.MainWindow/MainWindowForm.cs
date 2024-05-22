@@ -23,7 +23,7 @@ public sealed partial class MainWindowForm : Form, IMainWindowView
         _context = context;
     }
 
-    public new void Show()
+    void IView.Show()
     {
         _context.MainForm = this;
 
@@ -31,7 +31,7 @@ public sealed partial class MainWindowForm : Form, IMainWindowView
         _productShowcase = OpenProductShowcase.Invoke();
         _shoppingCart = OpenShoppingCart.Invoke();
 
-        base.Show();
+        Show();
     }
 
     private void BtnOpenUserAccount_Click(object sender, EventArgs e)
@@ -58,7 +58,7 @@ public sealed partial class MainWindowForm : Form, IMainWindowView
         AddSection(_shoppingCart as ShoppingCartControl);
     }
 
-    public void ShowMessage(string message, string caption, MessageLevel level)
+    void IView.ShowMessage(string message, string caption, MessageLevel level)
         => MessageBox.Show(message, caption, MessageBoxButtons.OKCancel, level switch
         {
             MessageLevel.Info => MessageBoxIcon.Information,
@@ -67,6 +67,6 @@ public sealed partial class MainWindowForm : Form, IMainWindowView
             _ => MessageBoxIcon.None,
         });
 
-    public new void Close()
+    void IView.Close()
         => base.Close();
 }

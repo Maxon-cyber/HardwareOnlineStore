@@ -1,39 +1,51 @@
-﻿using HardwareOnlineStore.Entities.Common.Attributes;
+﻿using HardwareOnlineStore.DataAccess.Attributes;
 using System.Data;
 
 namespace HardwareOnlineStore.Entities.User;
 
 public sealed class UserEntity() : Entity
 {
-    [ColumnData(Name = "name", DbType = DbType.String)]
+    [ColumnData("name", DbType.String)]
+    [SqlParameter("name", DbType.String)]
     public string Name { get; init; }
 
-    [ColumnData(Name = "second_name", DbType = DbType.String)]
+    [ColumnData("second_name", DbType.String)]
+    [SqlParameter("second_name", DbType.String)]
     public string SecondName { get; init; }
 
-    [ColumnData(Name = "patronymic", DbType = DbType.String)]
+    [ColumnData("patronymic", DbType.String)]
+    [SqlParameter("patronymic", DbType.String)]
     public string Patronymic { get; init; }
 
-    [ColumnData(Name = "gender", DbType = DbType.String)]
+    [ColumnData("gender", DbType.String)]
+    [SqlParameter("gender", DbType.String)]
     public Gender Gender { get; init; }
 
-    [ColumnData(Name = "age", DbType = DbType.Int32)]
+    [ColumnData("age", DbType.Int32)]
+    [SqlParameter("age", DbType.Int32)]
     public uint Age { get; init; }
 
-    [ColumnData(Name = "login", DbType = DbType.String)]
+    [ColumnData("login",  DbType.String)]
+    [SqlParameter("login",  DbType.String)]
     public string Login { get; init; }
 
-    [ColumnData(Name = "password", DbType = DbType.Binary)]
+    [ColumnData("password", DbType.Binary)]
+    [SqlParameter("password", DbType.Binary)]
     public byte[] Password { get; init; }
 
-    [ColumnData(Name = "role", DbType = DbType.String)]
+    [ColumnData("role", DbType.String)]
+    [SqlParameter("role", DbType.String)]
     public Role Role { get; init; }
 
-    [PointerToTable(TableName = "UserLocation")]
+    [ColumnData("last_access_time", DbType.DateTime2)]
+    [SqlParameter("last_access_time", DbType.DateTime2)]
+    public DateTime LastAccessTime { get; }
+
+    [PointerToTable("UserLocation")]
     public Location Location { get; init; }
 
     public override string ToString()
-       => $"{Name} {SecondName} {Patronymic}";
+       => $"{SecondName} {Name} {Patronymic}";
 
     public override bool Equals(object? obj)
         => base.Equals(obj);
@@ -42,20 +54,25 @@ public sealed class UserEntity() : Entity
         => base.GetHashCode();
 }
 
-public sealed class Location() : Entity
+public sealed class Location()
 {
-    [ColumnData(Name = "house_number", DbType = DbType.String)]
+    [ColumnData("house_number", DbType.String)]
+    [SqlParameter("house_number", DbType.String)]
     public string HouseNumber { get; set; }
 
-    [ColumnData(Name = "street", DbType = DbType.String)]
+    [ColumnData("street", DbType.String)]
+    [SqlParameter("street", DbType.String)]
     public string Street { get; set; }
 
-    [ColumnData(Name = "city", DbType = DbType.String)]
+    [ColumnData("city", DbType.String)]
+    [SqlParameter("city", DbType.String)]
     public string City { get; init; }
 
-    [ColumnData(Name = "region", DbType = DbType.String)]
+    [ColumnData("region", DbType.String)]
+    [SqlParameter("region", DbType.String)]
     public string Region { get; init; }
 
-    [ColumnData(Name = "country", DbType = DbType.String)]
+    [ColumnData("country", DbType.String)]
+    [SqlParameter("country", DbType.String)]
     public string Country { get; init; }
 }

@@ -6,8 +6,8 @@ public sealed partial class ProductControl : UserControl
 {
     private readonly ProductModel _product;
 
-    public event EventHandler AddButtonClicked;
-    public event EventHandler DeleteButtonClicked;
+    public event EventHandler? AddButtonClicked;
+    public event EventHandler? DeleteButtonClicked;
 
     public ProductControl(Size size, ProductModel product)
     {
@@ -22,10 +22,16 @@ public sealed partial class ProductControl : UserControl
         if (AddButtonClicked == null && DeleteButtonClicked == null)
             throw new ArgumentNullException("Перед созданием представления продукта необходимо подписаться хотя бы на одно свойство: AddButtonClicked или DeleteButtonClicked");
 
-        await using MemoryStream memoryStream = new MemoryStream((_product.Image as byte[])!);
-
         productPictureBox.Name = $"{_product.Name}PictureBox";
-        productPictureBox.Image = Image.FromStream(memoryStream);
+
+        if (!Path.IsPathRooted(_product.Image.ToString()))
+        {
+            await using MemoryStream memoryStream = new MemoryStream((_product.Image as byte[])!);
+            productPictureBox.Image = Image.FromStream(memoryStream);
+        }
+        else
+            productPictureBox.Image = Image.FromFile(_product.Image.ToString()!);
+
         productPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
 
         SuspendLayout();

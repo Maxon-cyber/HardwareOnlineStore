@@ -1,27 +1,29 @@
-﻿using HardwareOnlineStore.Entities.Common.Attributes;
+﻿using HardwareOnlineStore.DataAccess.Attributes;
 using System.Data;
 
 namespace HardwareOnlineStore.Entities.Product;
 
 public sealed class ProductEntity() : Entity
 {
-    [ColumnData(Name = "name", DbType = DbType.String)]
+    [ColumnData("name", DbType.String)]
+    [SqlParameter("name", DbType.String)]
     public string Name { get; init; }
 
-    [ColumnData(Name = "image", DbType = DbType.Binary)]
+    [ColumnData("image", DbType.Binary)]
+    [SqlParameter("image", DbType.Binary)]
     public byte[] Image { get; init; }
 
-    [ColumnData(Name = "quantity", DbType = DbType.Int32)]
+    [ColumnData("quantity", DbType.Int32)]
+    [SqlParameter("quantity", DbType.Int32)]
     public int Quantity { get; init; }
 
-    [ColumnData(Name = "category", DbType = DbType.String)]
+    [ColumnData("category", DbType.String)]
+    [SqlParameter("category", DbType.String)]
     public string Category { get; init; }
 
-    [ColumnData(Name = "price", DbType = DbType.Decimal)]
+    [ColumnData("price", DbType.Decimal)]
+    [SqlParameter("price", DbType.Decimal)]
     public decimal Price { get; init; }
-
-    public string ToString(string message)
-        => $"{Name}-{Price}({message})";
 
     public override string ToString()
         => $"{Name}-{Price}";

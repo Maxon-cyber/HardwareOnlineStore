@@ -12,17 +12,8 @@ public sealed partial class RegistrationControl : UserControl, IRegistrationView
     public RegistrationControl()
        => InitializeComponent();
 
-    public new void Show()
-        => base.Show();
-
-    public void ShowMessage(string message, string caption, MessageLevel level)
-        => MessageBox.Show(message, caption, MessageBoxButtons.OKCancel, level switch
-        {
-            MessageLevel.Info => MessageBoxIcon.Information,
-            MessageLevel.Warning => MessageBoxIcon.Warning,
-            MessageLevel.Error => MessageBoxIcon.Error,
-            _ => MessageBoxIcon.None,
-        });
+    void IView.Show()
+        => Show();
 
     private async void BtnRegistration_Click(object sender, EventArgs e)
     {
@@ -67,7 +58,7 @@ public sealed partial class RegistrationControl : UserControl, IRegistrationView
     }
 
     private void BtnReturnToAuthorization_Click(object sender, EventArgs e)
-        => Close();
+        => ReturnToAuthorization.Invoke();
 
     private void FullnameTextBox_KeyPress(object sender, KeyPressEventArgs e)
     {
@@ -99,6 +90,15 @@ public sealed partial class RegistrationControl : UserControl, IRegistrationView
             e.Handled = true;
     }
 
-    public void Close()
+    void IView.ShowMessage(string message, string caption, MessageLevel level)
+        => MessageBox.Show(message, caption, MessageBoxButtons.OKCancel, level switch
+        {
+            MessageLevel.Info => MessageBoxIcon.Information,
+            MessageLevel.Warning => MessageBoxIcon.Warning,
+            MessageLevel.Error => MessageBoxIcon.Error,
+            _ => MessageBoxIcon.None,
+        });
+
+    void IView.Close()
         => Parent?.Controls.Remove(this);
 }

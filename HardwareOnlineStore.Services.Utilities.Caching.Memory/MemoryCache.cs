@@ -1,10 +1,9 @@
 ﻿using HardwareOnlineStore.Services.Utilities.Caching.Abstractions;
 using System.Collections.Immutable;
-using System.Formats.Tar;
 
 namespace HardwareOnlineStore.Services.Utilities.Caching.Memory;
 
-file class CacheStorage
+file static class CacheStorage
 {
     public static Dictionary<string, object> Cache { get; }
 
@@ -93,7 +92,7 @@ public sealed class MemoryCache<TValue> : ICache<string, TValue>
         await _semaphore.WaitAsync();
 
         ImmutableDictionary<string, TValue> cache = CacheStorage.Cache
-                                                                .Where(kvp => kvp.Value is TValue) 
+                                                                .Where(kvp => kvp.Value is TValue)
                                                                 .ToImmutableDictionary(kvp => kvp.Key, kvp => (TValue)kvp.Value);
         _semaphore.Release();
 

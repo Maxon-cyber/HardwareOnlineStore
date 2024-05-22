@@ -19,11 +19,11 @@ public sealed partial class ShoppingCartControl : UserControl, IShoppingCartView
 
         viewProductsTLP.Padding = new Padding(0, 0, SystemInformation.VerticalScrollBarWidth, 0);
 
-        _products = new List<ProductModel>();
+        _products = [];
     }
 
-    public new void Show()
-        => base.Show();
+    void IView.Show()
+        => Show();
 
     private async void LoadOrderProducts(object sender, EventArgs e)
     {
@@ -142,7 +142,7 @@ public sealed partial class ShoppingCartControl : UserControl, IShoppingCartView
         needControl.Select();
     }
 
-    public void ShowMessage(string message, string caption, MessageLevel level)
+    void IView.ShowMessage(string message, string caption, MessageLevel level)
        => MessageBox.Show(message, caption, MessageBoxButtons.OKCancel, level switch
        {
            MessageLevel.Info => MessageBoxIcon.Information,
@@ -151,6 +151,6 @@ public sealed partial class ShoppingCartControl : UserControl, IShoppingCartView
            _ => MessageBoxIcon.None,
        });
 
-    public void Close()
+    void IView.Close()
         => Parent?.Controls.Remove(this);
 }

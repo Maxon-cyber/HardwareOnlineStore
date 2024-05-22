@@ -4,8 +4,11 @@ public sealed class ProductRepository(SqlServerProvider<ProductEntity> sqlServer
 {
     public string DbProviderName => "SqlServer";
 
-    public Task<DbResponse<ProductEntity>> GetByIdAsync(QueryParameters queryParameters, Guid id, CancellationToken token)
-       => sqlServer.GetByIdAsync(queryParameters, "id", id, token);
+    public Task<DbResponse<ProductEntity>> GetByIdAsync(QueryParameters queryParameters, string? name, Guid? id, CancellationToken token)
+       => sqlServer.GetByIdAsync(queryParameters, name, id, token);
+
+    public Task<DbResponse<ProductEntity>> GetByIdsAsync(QueryParameters queryParameters, string? name, ICollection<Guid>? ids, CancellationToken token)
+      => sqlServer.GetByIdsAsync(queryParameters, name, ids, token);
 
     public Task<DbResponse<ProductEntity>> GetByAsync(QueryParameters queryParameters, ProductEntity productCondition, CancellationToken token)
         => sqlServer.GetByAsync(queryParameters, productCondition, token);

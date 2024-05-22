@@ -7,12 +7,12 @@ using Microsoft.Data.SqlClient;
 namespace HardwareOnlineStore.DataAccess.Providers.Relational.Implementations.SqlServer;
 
 public sealed class SqlServerProvider<TEntity> : DbProvider<TEntity>
-    where TEntity : Entity
+    where TEntity : Entity, new()
 {
-    private readonly ADOEntityDataAccessService<TEntity> _ado;
+    private readonly ADOEntityWrapper<TEntity> _ado;
 
     public SqlServerProvider(ConnectionParameters connectionParameters) : base(connectionParameters)
-        => _ado = new ADOEntityDataAccessService<TEntity>(Provider, Prefix, DbConnection, DbCommand);
+        => _ado = new ADOEntityWrapper<TEntity>(Provider, Prefix, DbConnection, DbCommand);
 
     public override string Prefix => "@";
 
@@ -67,8 +67,11 @@ public sealed class SqlServerProvider<TEntity> : DbProvider<TEntity>
         }
     }
 
-    public async override Task<DbResponse<TEntity>> GetByIdAsync(QueryParameters queryParameters, string columnName, Guid id, CancellationToken token)
-        => await _ado.GetByIdAsync(queryParameters, columnName, id, token);
+    public async override Task<DbResponse<TEntity>> GetByIdAsync(QueryParameters queryParameters, string? name, Guid? id, CancellationToken token)
+        => await _ado.GetByIdAsync(queryParameters, name, id, token);
+
+    public async override Task<DbResponse<TEntity>> GetByIdsAsync(QueryParameters queryParameters, string? name, ICollection<Guid>? ids, CancellationToken token)
+        => await _ado.GetByIdsAsync(queryParameters, name, ids, token);
 
     public async override Task<DbResponse<TEntity>> GetByAsync(QueryParameters queryParameters, TEntity entityCondition, CancellationToken token)
         => await _ado.GetByAsync(queryParameters, entityCondition, token);

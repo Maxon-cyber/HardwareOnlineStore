@@ -14,12 +14,15 @@ public sealed partial class ProductShowcaseControl : UserControl, IProductShowca
     public ProductShowcaseControl()
         => InitializeComponent();
 
-    public new void Show()
-        => base.Show();
+    void IView.Show()
+        => Show();
 
     private async void LoadAsync(object sender, EventArgs e)
     {
-        ReadOnlyCollection<ProductModel> products = await LoadProducts.Invoke()!;
+        ReadOnlyCollection<ProductModel>? products = await LoadProducts.Invoke()!;
+
+        if (products == null)
+            return;
 
         viewProductsTLP.Padding = new Padding(0, 0, SystemInformation.VerticalScrollBarWidth, 0);
 
@@ -65,6 +68,11 @@ public sealed partial class ProductShowcaseControl : UserControl, IProductShowca
         });
     }
 
+    private void BtnUpdate_Click(object sender, EventArgs e)
+    {
+
+    }
+
     private void BtnSearch_Click(object sender, EventArgs e)
     {
         if (string.IsNullOrEmpty(searchTextBox.Text))
@@ -87,7 +95,7 @@ public sealed partial class ProductShowcaseControl : UserControl, IProductShowca
         needControl.Select();
     }
 
-    public void ShowMessage(string message, string caption, MessageLevel level)
+    void IView.ShowMessage(string message, string caption, MessageLevel level)
         => MessageBox.Show(message, caption, MessageBoxButtons.OKCancel, level switch
         {
             MessageLevel.Info => MessageBoxIcon.Information,
@@ -96,6 +104,6 @@ public sealed partial class ProductShowcaseControl : UserControl, IProductShowca
             _ => MessageBoxIcon.None,
         });
 
-    public void Close()
+    void IView.Close()
        => Parent?.Controls.Remove(this);
 }

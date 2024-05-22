@@ -68,8 +68,6 @@ public sealed class FileInfoModel
 
     public async Task WriteAsync(string content, WriteMode writeMode)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(content);
-
         switch (writeMode)
         {
             case WriteMode.Append:
@@ -87,8 +85,6 @@ public sealed class FileInfoModel
 
     public async Task WriteAsync(string[] content, WriteMode writeMode)
     {
-        ArgumentNullException.ThrowIfNull(content);
-
         switch (writeMode)
         {
             case WriteMode.Append:

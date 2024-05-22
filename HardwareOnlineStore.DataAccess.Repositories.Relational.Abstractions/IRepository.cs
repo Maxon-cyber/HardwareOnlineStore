@@ -8,7 +8,9 @@ public interface IRepository<TEntity> : IDisposable, IAsyncDisposable
 {
     string DbProviderName { get; }
 
-    Task<DbResponse<TEntity>> GetByIdAsync(QueryParameters queryParameters, Guid id, CancellationToken token);
+    Task<DbResponse<TEntity>> GetByIdAsync(QueryParameters queryParameters, string? name, Guid? id, CancellationToken token);
+    
+    Task<DbResponse<TEntity>> GetByIdsAsync(QueryParameters queryParameters, string? name, ICollection<Guid>? ids, CancellationToken token);
 
     Task<DbResponse<TEntity>> GetByAsync(QueryParameters queryParameters, TEntity entityCondition, CancellationToken token);
 

@@ -6,7 +6,9 @@ namespace HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Abstr
 public interface IEntityWrapper<TEntity> : IDisposable, IAsyncDisposable
     where TEntity : Entity
 {
-    Task<DbResponse<TEntity>> GetByIdAsync(QueryParameters query, string columnName, Guid id, CancellationToken token);
+    Task<DbResponse<TEntity>> GetByIdAsync(QueryParameters query, string? name, Guid? id, CancellationToken token);
+
+    Task<DbResponse<TEntity>> GetByIdsAsync(QueryParameters query, string? name, ICollection<Guid>? ids, CancellationToken token);
 
     Task<DbResponse<TEntity>> GetByAsync(QueryParameters query, TEntity entityCondition, CancellationToken token);
 

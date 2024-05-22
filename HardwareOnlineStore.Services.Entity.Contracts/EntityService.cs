@@ -36,11 +36,11 @@ public abstract class EntityService<TEntity>(IRepository<TEntity> repository, IL
         }
     }
 
-    protected virtual async Task<TEntity?> GetByIdAsync(Guid id, QueryParameters query)
+    protected virtual async Task<TEntity?> GetByIdAsync(string? name, Guid? id, QueryParameters query)
     {
-        await _logger.LogInfoAsync($"Запрос на получение сущности {_entityReflectionName} из {_dbProviderReflectionName}".ToUpper());
+        await _logger.LogInfoAsync($"Запрос на получение сущности {_entityReflectionName.ToUpper()} из {_dbProviderReflectionName}");
 
-        DbResponse<TEntity> response = await _repository.GetByIdAsync(query, id, _token);
+        DbResponse<TEntity> response = await _repository.GetByIdAsync(query, name, id, _token);
 
         if (response.Error != null)
         {
@@ -67,7 +67,7 @@ public abstract class EntityService<TEntity>(IRepository<TEntity> repository, IL
         if (response.AdditionalData.Count != 0)
         {
             string content = null!;
-            foreach (KeyValuePair<object, object> additionalData in response.AdditionalData)
+            foreach (KeyValuePair<object, object?> additionalData in response.AdditionalData)
                 content += $"\t{additionalData.Key}: {additionalData.Value}\n";
 
             await _logger.LogMessageAsync(content);
@@ -78,9 +78,48 @@ public abstract class EntityService<TEntity>(IRepository<TEntity> repository, IL
         return entity;
     }
 
+    protected virtual async Task<IEnumerable<TEntity>?> GetByIdsAsync(string? name, ICollection<Guid>? ids, QueryParameters query)
+    {
+        DbResponse<TEntity> response = await _repository.GetByIdsAsync(query, name, ids, _token);
+
+        if (response.Error != null)
+        {
+            await _logger.LogErrorAsync(response.Error, response.Message);
+            await _logger.LogSeparatorAsync();
+
+            return await Task.FromResult<IEnumerable<TEntity>?>(null);
+        }
+
+        await _logger.LogInfoAsync("Запрос выполнен");
+
+        if (response.QueryResult.Count == 0)
+        {
+            await _logger.LogInfoAsync($"Сущность {_entityReflectionName} не найдена\nДоп.Данные: {response.Message}");
+            return await Task.FromResult<IEnumerable<TEntity>?>(null);
+        }
+
+        await _logger.LogInfoAsync("Сущности получены:");
+        foreach (TEntity entity in response.QueryResult)
+            await _logger.LogInfoAsync($"\tId сущности: {entity.Id}\n");
+
+        await _logger.LogInfoAsync("Дополнительные данные:");
+        if (response.AdditionalData.Count != 0)
+        {
+            string content = null!;
+            foreach (KeyValuePair<object, object?> additionalData in response.AdditionalData)
+                content += $"\t{additionalData.Key}: {additionalData.Value}\n";
+
+            await _logger.LogMessageAsync(content);
+        }
+
+        await _logger.LogSeparatorAsync();
+
+        return response.QueryResult;
+    }
+
     protected virtual async Task<TEntity?> GetByAsync(TEntity condition, QueryParameters query)
     {
-        await _logger.LogInfoAsync($"Запрос на получение сущности {_entityReflectionName} из {_dbProviderReflectionName}".ToUpper());
+        await _logger.LogInfoAsync($"Запрос на получение сущности {_entityReflectionName.ToUpper()} из {_dbProviderReflectionName}");
 
         DbResponse<TEntity> response = await _repository.GetByAsync(query, condition, _token);
 
@@ -109,7 +148,7 @@ public abstract class EntityService<TEntity>(IRepository<TEntity> repository, IL
         if (response.AdditionalData.Count != 0)
         {
             string content = null!;
-            foreach (KeyValuePair<object, object> additionalData in response.AdditionalData)
+            foreach (KeyValuePair<object, object?> additionalData in response.AdditionalData)
                 content += $"\t{additionalData.Key}: {additionalData.Value}\n";
 
             await _logger.LogMessageAsync(content);
@@ -151,7 +190,7 @@ public abstract class EntityService<TEntity>(IRepository<TEntity> repository, IL
         if (response.AdditionalData.Count != 0)
         {
             content = null!;
-            foreach (KeyValuePair<object, object> additionalData in response.AdditionalData)
+            foreach (KeyValuePair<object, object?> additionalData in response.AdditionalData)
                 content += $"\t{additionalData.Key}: {additionalData.Value}\n";
 
             await _logger.LogMessageAsync(content);
@@ -198,7 +237,7 @@ public abstract class EntityService<TEntity>(IRepository<TEntity> repository, IL
         if (response.AdditionalData.Count != 0)
         {
             content = null!;
-            foreach (KeyValuePair<object, object> additionalData in response.AdditionalData)
+            foreach (KeyValuePair<object, object?> additionalData in response.AdditionalData)
                 content += $"\t{additionalData.Key}: {additionalData.Value}\n";
 
             await _logger.LogMessageAsync(content);
@@ -233,7 +272,7 @@ public abstract class EntityService<TEntity>(IRepository<TEntity> repository, IL
         if (response.AdditionalData.Count != 0)
         {
             string content = null!;
-            foreach (KeyValuePair<object, object> additionalData in response.AdditionalData)
+            foreach (KeyValuePair<object, object?> additionalData in response.AdditionalData)
                 content += $"\t{additionalData.Key}: {additionalData.Value}\n";
 
             await _logger.LogMessageAsync(content);
@@ -260,6 +299,8 @@ public abstract class EntityService<TEntity>(IRepository<TEntity> repository, IL
 
         for (int index = 0; index < responsesArray.Length; index++)
         {
+            DbResponse<TEntity> current = responsesArray[index];
+
             result.Add($"Сущность: {index}", null);
 
             DbResponse<TEntity> response = responsesArray[index];
@@ -279,7 +320,7 @@ public abstract class EntityService<TEntity>(IRepository<TEntity> repository, IL
             if (response.AdditionalData.Count != 0)
             {
                 string content = null!;
-                foreach (KeyValuePair<object, object> additionalData in response.AdditionalData)
+                foreach (KeyValuePair<object, object?> additionalData in response.AdditionalData)
                     content += $"\t{additionalData.Key}: {additionalData.Value}\n";
 
                 await _logger.LogMessageAsync(content);

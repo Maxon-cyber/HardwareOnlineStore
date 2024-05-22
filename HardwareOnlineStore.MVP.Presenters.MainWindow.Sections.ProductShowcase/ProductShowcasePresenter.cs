@@ -38,7 +38,10 @@ public sealed class ProductShowcasePresenter : Presenter<IProductShowcaseView>
             IImmutableDictionary<string, ProductModel>? productFromCache = await _cachedFile.ReadAsync();
 
             if (productFromCache == null)
+            {
+                View.ShowMessage("Не удалось загрузить продукты", "Ошибка", MessageLevel.Error);
                 return await Task.FromResult<ReadOnlyCollection<ProductModel>?>(null);
+            }
 
             return await Task.FromResult<ReadOnlyCollection<ProductModel>?>(productFromCache.Values.ToList().AsReadOnly());
         }

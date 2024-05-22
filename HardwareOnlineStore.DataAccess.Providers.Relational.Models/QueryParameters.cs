@@ -56,5 +56,7 @@ public sealed class Parameter()
         init => _size = value;
     }
 
+    public object? Value { get; init; }
+
     public required ParameterDirection ParameterDirection { get; init; }
 }

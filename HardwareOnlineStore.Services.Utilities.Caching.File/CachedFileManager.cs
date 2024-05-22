@@ -48,10 +48,10 @@ public sealed class CachedFileManager<TValue> : ICache<string, TValue>
 
         string[] content = await _fileInfo.ReadAsync();
 
-        if (content == null)
+        if (content.Length == 0)
             return null;
 
-        ImmutableDictionary<string, TValue> data = _serializer.Deserialize<Dictionary<string, TValue>>(string.Join("\n", content)).ToImmutableDictionary();
+        ImmutableDictionary<string, TValue> data = _serializer.Deserialize<Dictionary<string, TValue>>(content).ToImmutableDictionary();
 
         _semaphore.Release();
 

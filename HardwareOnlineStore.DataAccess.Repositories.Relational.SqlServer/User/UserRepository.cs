@@ -5,8 +5,11 @@ public sealed class UserRepository(SqlServerProvider<UserEntity> sqlServer) : IR
 {
     public string DbProviderName => "SqlServer";
 
-    public Task<DbResponse<UserEntity>> GetByIdAsync(QueryParameters queryParameters, Guid id, CancellationToken token)
+    public Task<DbResponse<UserEntity>> GetByIdAsync(QueryParameters queryParameters, string? name, Guid? id, CancellationToken token)
         => sqlServer.GetByIdAsync(queryParameters, "id", id, token);
+    
+    public Task<DbResponse<UserEntity>> GetByIdsAsync(QueryParameters queryParameters, string? name, ICollection<Guid>? ids, CancellationToken token)
+        => sqlServer.GetByIdsAsync(queryParameters, "id", ids, token);
 
     public Task<DbResponse<UserEntity>> GetByAsync(QueryParameters queryParameters, UserEntity userCondition, CancellationToken token)
         => sqlServer.GetByAsync(queryParameters, userCondition, token);

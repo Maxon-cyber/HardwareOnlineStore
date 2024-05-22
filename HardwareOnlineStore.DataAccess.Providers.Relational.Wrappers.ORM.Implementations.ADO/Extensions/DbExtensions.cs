@@ -1,6 +1,8 @@
-﻿using HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO.Sql;
+﻿using HardwareOnlineStore.DataAccess.Attributes;
+using HardwareOnlineStore.DataAccess.Providers.Relational.Models;
+using HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO.Sql;
 using HardwareOnlineStore.Entities;
-using HardwareOnlineStore.Entities.Common.Attributes;
+using System.Collections;
 using System.Data;
 using System.Data.Common;
 using System.Reflection;
@@ -36,26 +38,60 @@ internal static class DbExtensions
             await transaction.CommitAsync(token);
     }
 
-    internal static DbParameter AddWithValue(this DbCommand command, string nameOfVariable, string prefix, DbType dbType, object? value = null, ParameterDirection parameterDirection = ParameterDirection.Input, int size = -1)
+    internal static int AddValue(this DbCommand command, object? value, string prefix, string? name, out DbParameter dbParameter)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(nameOfVariable);
+        dbParameter = null!;
+
+        if (value == null)
+            return command.Parameters.Count;
+
         ArgumentException.ThrowIfNullOrWhiteSpace(prefix);
 
-        if (!nameOfVariable.Contains(prefix))
-            nameOfVariable = nameOfVariable.Insert(0, prefix);
+        dbParameter = command.CreateParameter();
 
-        DbParameter dbParameter = command.CreateParameter();
-        dbParameter.ParameterName = nameOfVariable;
-        dbParameter.DbType = dbType;
-        dbParameter.Direction = parameterDirection;
-        dbParameter.Size = size;
+        if (name != null)
+            if (!name.Contains(prefix))
+                dbParameter.ParameterName = name.Insert(0, prefix);
 
-        if (value != null && parameterDirection == ParameterDirection.Input)
-            dbParameter.Value = value;
+        dbParameter.DbType = SqlHelper.ConvertToDbType(value);
+        dbParameter.Direction = ParameterDirection.Input;
+        dbParameter.Size = -1;
+        dbParameter.Value = value;
 
         command.Parameters.Add(dbParameter);
 
-        return dbParameter;
+        return command.Parameters.Count;
+    }
+
+    internal static int AddParameter(this DbCommand command, Parameter? parameter, string prefix, out DbParameter dbParameter)
+    {
+        dbParameter = null!;
+
+        if (parameter == null)
+            return command.Parameters.Count;
+
+        ArgumentException.ThrowIfNullOrWhiteSpace(parameter.Name);
+        ArgumentException.ThrowIfNullOrWhiteSpace(prefix);
+
+        string name = string.Empty;
+
+        if (!parameter.Name.Contains(prefix))
+            name = parameter.Name.Insert(0, prefix);
+
+        dbParameter = command.CreateParameter();
+        dbParameter.ParameterName = name;
+        dbParameter.Direction = parameter.ParameterDirection;
+        dbParameter.Size = -1;
+
+        if (parameter.Value != null)
+        {
+            dbParameter.Value = parameter.Value;
+            dbParameter.DbType = parameter.DbType;
+        }
+
+        command.Parameters.Add(dbParameter);
+
+        return command.Parameters.Count;
     }
 
     internal static async Task<int> AddEntityValuesAsync<TEntity>(this DbCommand command, TEntity entity, string parameterPrefix)
@@ -88,27 +124,29 @@ internal static class DbExtensions
             if (value.Equals(propertyType.IsValueType ? Activator.CreateInstance(propertyType) : null))
                 continue;
 
-            if (property.GetCustomAttribute<PointerToTable>() != null)
+            if (property.GetCustomAttribute<PointerToTable>() != null && property.GetCustomAttribute<SqlParameterAttribute>() == null)
                 AddEntityValuesRecursive(command, value, parameterPrefix, ref countOfAddedValues);
-            else if (value is IEnumerable<Entity> entities)
+            else if (value.GetType() == typeof(IEnumerable<Entity>))
             {
+                IEnumerable<Entity> entities = ((IEnumerable<Entity>)value);
+                
                 DataTable productTable = new DataTable();
                 PropertyInfo[] propertyInfos = entities.First().GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty);
 
                 PropertyInfo[] entityPropertiesWithSetAccessor = propertyInfos.Where(p => p.CanWrite).ToArray();
                 foreach (PropertyInfo propertyInfo in entityPropertiesWithSetAccessor)
                 {
-                    ColumnDataAttribute? column = propertyInfo.GetCustomAttribute<ColumnDataAttribute>();
+                    SqlParameterAttribute? column = propertyInfo.GetCustomAttribute<SqlParameterAttribute>();
 
                     if (column == null)
                         continue;
 
-                    productTable.Columns.Add($"{parameterPrefix}{column.Name}", propertyInfo.PropertyType);
+                    productTable.Columns.Add($"{parameterPrefix}{column.ParameterName}", propertyInfo.PropertyType);
                 }
 
                 foreach (Entity obj in entities)
                 {
-                    List<object?> values = new List<object?>();
+                    List<object?> values = [];
 
                     foreach (PropertyInfo propertyInfo in propertyInfos.Where(p => p.CanWrite))
                         values.Add(propertyInfo.GetValue(obj));
@@ -117,9 +155,9 @@ internal static class DbExtensions
 
                     Interlocked.Increment(ref countOfAddedValues);
                 }
-                    
+
                 DbParameter productParam = command.CreateParameter();
-                productParam.ParameterName = property.GetCustomAttribute<ColumnDataAttribute>().Name;
+                productParam.ParameterName = property.GetCustomAttribute<SqlParameterAttribute>()!.ParameterName;
                 productParam.Direction = ParameterDirection.Input;
                 productParam.Value = productTable;
 
@@ -127,14 +165,14 @@ internal static class DbExtensions
             }
             else
             {
-                ColumnDataAttribute? columnDataAttribute = property.GetCustomAttribute<ColumnDataAttribute>();
+                SqlParameterAttribute? sqlParameter = property.GetCustomAttribute<SqlParameterAttribute>();
 
-                if (columnDataAttribute == null)
+                if (sqlParameter == null)
                     continue;
 
                 DbParameter parameter = command.CreateParameter();
-                parameter.ParameterName = @$"{parameterPrefix}{columnDataAttribute.Name}";
-                parameter.DbType = columnDataAttribute.DbType;
+                parameter.ParameterName = @$"{parameterPrefix}{sqlParameter.ParameterName}";
+                parameter.DbType = sqlParameter.DbType;
                 parameter.Direction = ParameterDirection.Input;
                 parameter.Value = value;
 
@@ -145,75 +183,93 @@ internal static class DbExtensions
         }
     }
 
-    internal static async Task<TEntity> MappingAsync<TEntity>(this DbDataReader dbDataReader)
-        where TEntity : Entity
+    internal static async Task<List<TEntity>> MappingAsync<TEntity>(this DbDataReader dbDataReader, CancellationToken token)
+        where TEntity : Entity, new()
     {
-        TEntity entity = Activator.CreateInstance<TEntity>();
+        Dictionary<string, TEntity> entities = [];
 
-        await Task.Run(() =>
+        while (await dbDataReader.ReadAsync(token))
         {
-            Dictionary<string, object> columnNamesAndValues = [];
+            try
+            {
+                string id = dbDataReader["id"].ToString();
 
-            for (int index = 0; index < dbDataReader.VisibleFieldCount; index++)
-                columnNamesAndValues.Add(dbDataReader.GetName(index), dbDataReader.GetValue(index));
+                if (!entities.TryGetValue(id, out TEntity? value))
+                {
+                    value = new TEntity();
+                    entities[id] = value;
+                }
 
-            MappingRecursive(entity, columnNamesAndValues);
-        });
+                TEntity currentEntity = value;
 
-        return entity;
+                List<Tuple<string, object>> columnNamesAndValues = [];
+
+                for (int index = 0; index < dbDataReader.FieldCount; index++)
+                    columnNamesAndValues.Add(new Tuple<string, object>(dbDataReader.GetName(index), dbDataReader.GetValue(index)));
+
+                MappingRecursive(currentEntity, columnNamesAndValues);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                continue;
+            }
+        }
+
+        return [.. entities.Values];
     }
 
-    private static void MappingRecursive(object entity, Dictionary<string, object> columnNamesAndValues)
+    private static void MappingRecursive(object entity, List<Tuple<string, object>> columnNamesAndValues)
     {
         PropertyInfo[] properties = entity.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
 
         foreach (PropertyInfo property in properties)
         {
-            ColumnDataAttribute? attribute = property.GetCustomAttribute<ColumnDataAttribute>();
+            SqlParameterAttribute? attribute = property.GetCustomAttribute<SqlParameterAttribute>();
 
             Type propertyType = property.PropertyType;
 
-            if (attribute != null)
-                if (columnNamesAndValues.TryGetValue(attribute.Name, out object? value))
-                {
-                    if (property.GetSetMethod() == null)
-                    {
-                        FieldInfo? backingField = property.DeclaringType.GetField($"<{property.Name}>k__BackingField", BindingFlags.Instance | BindingFlags.NonPublic);
-                        backingField.SetValue(entity, SqlHelper.ConvertToCLRType(value, propertyType));
-                    }
-                    else
-                        property.SetValue(entity, SqlHelper.ConvertToCLRType(value, propertyType));
+            if (columnNamesAndValues.Any(t => t.Item1 == attribute?.ParameterName))
+            {
+                object value = columnNamesAndValues.FirstOrDefault(t => t.Item1 == attribute?.ParameterName)?.Item2!;
+                object convertedValue = SqlHelper.ConvertToCLRType(value, propertyType);
 
-                    continue;
+                if (!property.CanWrite)
+                {
+                    FieldInfo? backingField = property.DeclaringType?.GetField($"<{property.Name}>k__BackingField", BindingFlags.Instance | BindingFlags.NonPublic);
+                    backingField?.SetValue(entity, convertedValue);
+                }
+                else
+                    property.SetValue(entity, convertedValue);
+
+                continue;
+            }
+
+            if (typeof(IEnumerable).IsAssignableFrom(property.PropertyType) && property.GetCustomAttribute<PointerToTable>() != null)
+            {
+                Type? elementType = property.PropertyType.IsArray
+                       ? property.PropertyType.GetElementType()
+                       : property.PropertyType.GetGenericArguments().FirstOrDefault();
+
+                if (elementType != null)
+                {
+                    IList collection = (IList)property.GetValue(entity) ?? (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(elementType))!;
+
+                    object collectionParameter = Activator.CreateInstance(elementType)!;
+                    MappingRecursive(collectionParameter, columnNamesAndValues);
+
+                    collection.Add(collectionParameter);
+                    property.SetValue(entity, collection);
                 }
 
-            if (propertyType.IsClass && propertyType != typeof(string) && !propertyType.IsArray && property.GetCustomAttribute<PointerToTable>() != null)
+                continue;
+            }
+            else if (property.GetCustomAttribute<PointerToTable>() != null)
             {
                 object nestedEntity = Activator.CreateInstance(propertyType)!;
 
                 MappingRecursive(nestedEntity, columnNamesAndValues);
 
                 property.SetValue(entity, nestedEntity);
-
-                continue;
-            }
-
-            else if (typeof(IEnumerable<>).IsAssignableFrom(property.PropertyType))
-            {
-                Type? elementType = property.PropertyType.IsArray
-                                   ? property.PropertyType.GetElementType()
-                                   : property.PropertyType.GetGenericArguments().FirstOrDefault();
-
-                if (elementType != null)
-                {
-                    IList<object> collection = (IList<object>)Activator.CreateInstance(typeof(List<>).MakeGenericType(elementType));
-
-                    object collectionParameter = Activator.CreateInstance(elementType);
-                    MappingRecursive(collectionParameter, columnNamesAndValues);
-                    collection.Add(collectionParameter);
-
-                    property.SetValue(entity, collection);
-                }
 
                 continue;
             }

@@ -637,6 +637,16 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
+      "HardwareOnlineStore.DataAccess.Attributes/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/HardwareOnlineStore.DataAccess.Attributes.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HardwareOnlineStore.DataAccess.Attributes.dll": {}
+        }
+      },
       "HardwareOnlineStore.DataAccess.Providers.Relational.Abstractions/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -693,6 +703,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "HardwareOnlineStore.DataAccess.Attributes": "1.0.0",
           "HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Abstractions": "1.0.0"
         },
         "compile": {
@@ -719,6 +730,9 @@
       "HardwareOnlineStore.Entities/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "HardwareOnlineStore.DataAccess.Attributes": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/HardwareOnlineStore.Entities.dll": {}
         },
@@ -1966,6 +1980,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "HardwareOnlineStore.DataAccess.Attributes/1.0.0": {
+      "type": "project",
+      "path": "../HardwareOnlineStore.DataAccess.Attributes/HardwareOnlineStore.DataAccess.Attributes.csproj",
+      "msbuildProject": "../HardwareOnlineStore.DataAccess.Attributes/HardwareOnlineStore.DataAccess.Attributes.csproj"
     },
     "HardwareOnlineStore.DataAccess.Providers.Relational.Abstractions/1.0.0": {
       "type": "project",
