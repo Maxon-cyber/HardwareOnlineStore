@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{7C816D2C-F602-43EC-9900-5A05008A6315}|HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO.csproj|solutionrelative:hardwareonlinestore.dataaccess.providers.relational.wrappers.orm.implementations.ado\\extensions\\dbextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{4738C6A8-6AC9-4588-8A60-F609621E8A3A}|HardwareOnlineStore.Entities\\HardwareOnlineStore.Entities.csproj|c:\\users\\\u0440\u0441\\source\\repos\\hardwareonlinestore\\hardwareonlinestore.entities\\order\\orderentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4738C6A8-6AC9-4588-8A60-F609621E8A3A}|HardwareOnlineStore.Entities\\HardwareOnlineStore.Entities.csproj|solutionrelative:hardwareonlinestore.entities\\order\\orderentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7C816D2C-F602-43EC-9900-5A05008A6315}|HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO.csproj|c:\\users\\\u0440\u0441\\source\\repos\\hardwareonlinestore\\hardwareonlinestore.dataaccess.providers.relational.wrappers.orm.implementations.ado\\adoentitywrapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7C816D2C-F602-43EC-9900-5A05008A6315}|HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO.csproj|solutionrelative:hardwareonlinestore.dataaccess.providers.relational.wrappers.orm.implementations.ado\\adoentitywrapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -22,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,39 +42,52 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OrderEntity.cs",
+              "DocumentMoniker": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Entities\\Order\\OrderEntity.cs",
+              "RelativeDocumentMoniker": "HardwareOnlineStore.Entities\\Order\\OrderEntity.cs",
+              "ToolTip": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Entities\\Order\\OrderEntity.cs",
+              "RelativeToolTip": "HardwareOnlineStore.Entities\\Order\\OrderEntity.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T15:23:04.431Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "DbExtensions.cs",
               "DocumentMoniker": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\Extensions\\DbExtensions.cs",
               "RelativeDocumentMoniker": "HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\Extensions\\DbExtensions.cs",
               "ToolTip": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\Extensions\\DbExtensions.cs*",
               "RelativeToolTip": "HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\Extensions\\DbExtensions.cs*",
-              "ViewState": "AQIAAFYAAAAAAAAAAAAMwIQAAAAQAAAA",
+              "ViewState": "AQIAAHwAAAAAAAAAAAAqwIQAAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-22T15:55:09.196Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "ShoppingCartPresenter.cs",
               "DocumentMoniker": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart\\ShoppingCartPresenter.cs",
               "RelativeDocumentMoniker": "HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart\\ShoppingCartPresenter.cs",
               "ToolTip": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart\\ShoppingCartPresenter.cs",
               "RelativeToolTip": "HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart\\ShoppingCartPresenter.cs",
-              "ViewState": "AQIAAG4AAAAAAAAAAAAuwHkAAAAMAAAA",
+              "ViewState": "AQIAAFoAAAAAAAAAAAAmwGIAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-22T15:05:30.7Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ADOEntityWrapper.cs",
               "DocumentMoniker": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\ADOEntityWrapper.cs",
               "RelativeDocumentMoniker": "HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\ADOEntityWrapper.cs",
               "ToolTip": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\ADOEntityWrapper.cs",
               "RelativeToolTip": "HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\ADOEntityWrapper.cs",
-              "ViewState": "AQIAAKMBAAAAAAAAAAAuwK4BAAAMAAAA",
+              "ViewState": "AQIAAI8BAAAAAAAAAAAmwJcBAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-22T15:04:24.072Z",
               "EditorCaption": ""

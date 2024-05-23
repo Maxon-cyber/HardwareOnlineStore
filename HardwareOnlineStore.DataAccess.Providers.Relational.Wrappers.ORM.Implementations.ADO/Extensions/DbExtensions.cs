@@ -108,9 +108,9 @@ internal static class DbExtensions
 
     private static void AddEntityValuesRecursive(DbCommand command, object entity, string parameterPrefix, ref int countOfAddedValues)
     {
-        PropertyInfo[] properties = entity.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
-
-        PropertyInfo[] propertiesWithSetAccessor = properties.Where(p => p.CanWrite).ToArray();
+        IEnumerable<PropertyInfo> propertiesWithSetAccessor = entity.GetType()
+                                          .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                                          .Where(p => p.CanWrite);
 
         foreach (PropertyInfo property in propertiesWithSetAccessor)
         {
@@ -124,16 +124,32 @@ internal static class DbExtensions
             if (value.Equals(propertyType.IsValueType ? Activator.CreateInstance(propertyType) : null))
                 continue;
 
-            if (property.GetCustomAttribute<PointerToTable>() != null && property.GetCustomAttribute<SqlParameterAttribute>() == null)
-                AddEntityValuesRecursive(command, value, parameterPrefix, ref countOfAddedValues);
-            else if (value.GetType() == typeof(IEnumerable<Entity>))
-            {
-                IEnumerable<Entity> entities = ((IEnumerable<Entity>)value);
-                
-                DataTable productTable = new DataTable();
-                PropertyInfo[] propertyInfos = entities.First().GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty);
+            bool isCollection = typeof(IEnumerable).IsAssignableFrom(property.PropertyType);
 
-                PropertyInfo[] entityPropertiesWithSetAccessor = propertyInfos.Where(p => p.CanWrite).ToArray();
+            bool isColumn = property.GetCustomAttribute<ColumnDataAttribute>() != null;
+
+            if (property.GetCustomAttribute<PointerToTable>() != null && isColumn)
+                AddEntityValuesRecursive(command, value, parameterPrefix, ref countOfAddedValues);
+            if (isCollection && isColumn)
+            {
+                DataTable table = new DataTable();
+
+                IEnumerable entities = (IEnumerable)value;
+
+                Type? elementType = propertyType.IsArray
+                       ? propertyType.GetElementType()
+                       : propertyType.GetGenericArguments().FirstOrDefault();
+
+                if (elementType != null)
+                    if (!elementType.IsClass)
+                        continue;
+
+                IEnumerable<PropertyInfo> entityPropertiesWithSetAccessor = entities.Cast<object>()
+                                                       .First()
+                                                       .GetType()
+                                                       .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty)
+                                                       .Where(p => p.CanWrite);
+
                 foreach (PropertyInfo propertyInfo in entityPropertiesWithSetAccessor)
                 {
                     SqlParameterAttribute? column = propertyInfo.GetCustomAttribute<SqlParameterAttribute>();
@@ -141,17 +157,17 @@ internal static class DbExtensions
                     if (column == null)
                         continue;
 
-                    productTable.Columns.Add($"{parameterPrefix}{column.ParameterName}", propertyInfo.PropertyType);
+                    table.Columns.Add($"{parameterPrefix}{column.ParameterName}", propertyInfo.PropertyType);
                 }
 
-                foreach (Entity obj in entities)
+                foreach (object obj in entities)
                 {
                     List<object?> values = [];
 
-                    foreach (PropertyInfo propertyInfo in propertyInfos.Where(p => p.CanWrite))
+                    foreach (PropertyInfo propertyInfo in entityPropertiesWithSetAccessor.Where(p => p.CanWrite))
                         values.Add(propertyInfo.GetValue(obj));
 
-                    productTable.Rows.Add([.. values]);
+                    table.Rows.Add([.. values]);
 
                     Interlocked.Increment(ref countOfAddedValues);
                 }
@@ -159,7 +175,7 @@ internal static class DbExtensions
                 DbParameter productParam = command.CreateParameter();
                 productParam.ParameterName = property.GetCustomAttribute<SqlParameterAttribute>()!.ParameterName;
                 productParam.Direction = ParameterDirection.Input;
-                productParam.Value = productTable;
+                productParam.Value = table;
 
                 command.Parameters.Add(productParam);
             }
@@ -244,7 +260,7 @@ internal static class DbExtensions
                 continue;
             }
 
-            if (typeof(IEnumerable).IsAssignableFrom(property.PropertyType) && property.GetCustomAttribute<PointerToTable>() != null)
+            if (typeof(IEnumerable).IsAssignableFrom(property.PropertyType))
             {
                 Type? elementType = property.PropertyType.IsArray
                        ? property.PropertyType.GetElementType()
