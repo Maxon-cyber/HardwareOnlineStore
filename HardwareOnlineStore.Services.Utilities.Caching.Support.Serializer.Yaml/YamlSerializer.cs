@@ -34,7 +34,7 @@ public sealed class YamlSerializer : IObjectSerializer
     public TObject Deserialize<TObject>(string[] input)
         where TObject : notnull
     {
-        string yaml = string.Join("\n", input.Where(c => !string.IsNullOrEmpty(c)));
+        string yaml = string.Join("\n", input);
         
         TObject result = _deserializer.Deserialize<TObject>(yaml);
 

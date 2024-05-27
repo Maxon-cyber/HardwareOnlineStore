@@ -46,91 +46,91 @@ public sealed partial class UserAccountControl
         // 
         // nameTextBox
         // 
-        nameTextBox.Location = new Point(46, 165);
+        nameTextBox.Location = new Point(127, 219);
         nameTextBox.Name = "nameTextBox";
         nameTextBox.Size = new Size(100, 23);
         nameTextBox.TabIndex = 0;
         // 
         // secondNameTextBox
         // 
-        secondNameTextBox.Location = new Point(46, 231);
+        secondNameTextBox.Location = new Point(127, 285);
         secondNameTextBox.Name = "secondNameTextBox";
         secondNameTextBox.Size = new Size(100, 23);
         secondNameTextBox.TabIndex = 1;
         // 
         // genderTextBox
         // 
-        genderTextBox.Location = new Point(188, 165);
+        genderTextBox.Location = new Point(269, 219);
         genderTextBox.Name = "genderTextBox";
         genderTextBox.Size = new Size(100, 23);
         genderTextBox.TabIndex = 2;
         // 
         // passwordTextBox
         // 
-        passwordTextBox.Location = new Point(329, 165);
+        passwordTextBox.Location = new Point(410, 219);
         passwordTextBox.Name = "passwordTextBox";
         passwordTextBox.Size = new Size(100, 23);
         passwordTextBox.TabIndex = 3;
         // 
         // ageTextBox
         // 
-        ageTextBox.Location = new Point(188, 231);
+        ageTextBox.Location = new Point(269, 285);
         ageTextBox.Name = "ageTextBox";
         ageTextBox.Size = new Size(100, 23);
         ageTextBox.TabIndex = 4;
         // 
         // loginTextBox
         // 
-        loginTextBox.Location = new Point(188, 298);
+        loginTextBox.Location = new Point(269, 352);
         loginTextBox.Name = "loginTextBox";
         loginTextBox.Size = new Size(100, 23);
         loginTextBox.TabIndex = 5;
         // 
         // patronymicTextBox
         // 
-        patronymicTextBox.Location = new Point(46, 298);
+        patronymicTextBox.Location = new Point(127, 352);
         patronymicTextBox.Name = "patronymicTextBox";
         patronymicTextBox.Size = new Size(100, 23);
         patronymicTextBox.TabIndex = 6;
         // 
         // cityTextBox
         // 
-        cityTextBox.Location = new Point(469, 165);
+        cityTextBox.Location = new Point(550, 219);
         cityTextBox.Name = "cityTextBox";
         cityTextBox.Size = new Size(100, 23);
         cityTextBox.TabIndex = 7;
         // 
         // houseNumberTextBox
         // 
-        houseNumberTextBox.Location = new Point(329, 231);
+        houseNumberTextBox.Location = new Point(410, 285);
         houseNumberTextBox.Name = "houseNumberTextBox";
         houseNumberTextBox.Size = new Size(100, 23);
         houseNumberTextBox.TabIndex = 8;
         // 
         // streetTextBox
         // 
-        streetTextBox.Location = new Point(329, 298);
+        streetTextBox.Location = new Point(410, 352);
         streetTextBox.Name = "streetTextBox";
         streetTextBox.Size = new Size(100, 23);
         streetTextBox.TabIndex = 9;
         // 
         // regionTextBox
         // 
-        regionTextBox.Location = new Point(469, 231);
+        regionTextBox.Location = new Point(550, 285);
         regionTextBox.Name = "regionTextBox";
         regionTextBox.Size = new Size(100, 23);
         regionTextBox.TabIndex = 10;
         // 
         // countryTextBox
         // 
-        countryTextBox.Location = new Point(469, 298);
+        countryTextBox.Location = new Point(550, 352);
         countryTextBox.Name = "countryTextBox";
         countryTextBox.Size = new Size(100, 23);
         countryTextBox.TabIndex = 11;
         // 
         // updateDataButton
         // 
-        updateDataButton.Location = new Point(264, 368);
+        updateDataButton.Location = new Point(345, 422);
         updateDataButton.Name = "updateDataButton";
         updateDataButton.Size = new Size(75, 23);
         updateDataButton.TabIndex = 12;
@@ -141,7 +141,7 @@ public sealed partial class UserAccountControl
         // nameLabel
         // 
         nameLabel.AutoSize = true;
-        nameLabel.Location = new Point(46, 147);
+        nameLabel.Location = new Point(127, 201);
         nameLabel.Name = "nameLabel";
         nameLabel.Size = new Size(31, 15);
         nameLabel.TabIndex = 13;
@@ -150,7 +150,7 @@ public sealed partial class UserAccountControl
         // label2
         // 
         label2.AutoSize = true;
-        label2.Location = new Point(46, 213);
+        label2.Location = new Point(127, 267);
         label2.Name = "label2";
         label2.Size = new Size(58, 15);
         label2.TabIndex = 14;
@@ -159,7 +159,7 @@ public sealed partial class UserAccountControl
         // label3
         // 
         label3.AutoSize = true;
-        label3.Location = new Point(46, 280);
+        label3.Location = new Point(127, 334);
         label3.Name = "label3";
         label3.Size = new Size(58, 15);
         label3.TabIndex = 15;
@@ -168,7 +168,7 @@ public sealed partial class UserAccountControl
         // label4
         // 
         label4.AutoSize = true;
-        label4.Location = new Point(188, 147);
+        label4.Location = new Point(269, 201);
         label4.Name = "label4";
         label4.Size = new Size(30, 15);
         label4.TabIndex = 16;
@@ -177,7 +177,7 @@ public sealed partial class UserAccountControl
         // label5
         // 
         label5.AutoSize = true;
-        label5.Location = new Point(188, 213);
+        label5.Location = new Point(269, 267);
         label5.Name = "label5";
         label5.Size = new Size(50, 15);
         label5.TabIndex = 17;
@@ -186,7 +186,7 @@ public sealed partial class UserAccountControl
         // label6
         // 
         label6.AutoSize = true;
-        label6.Location = new Point(188, 280);
+        label6.Location = new Point(269, 334);
         label6.Name = "label6";
         label6.Size = new Size(41, 15);
         label6.TabIndex = 18;
@@ -195,7 +195,7 @@ public sealed partial class UserAccountControl
         // label7
         // 
         label7.AutoSize = true;
-        label7.Location = new Point(330, 147);
+        label7.Location = new Point(411, 201);
         label7.Name = "label7";
         label7.Size = new Size(49, 15);
         label7.TabIndex = 19;
@@ -204,7 +204,7 @@ public sealed partial class UserAccountControl
         // label8
         // 
         label8.AutoSize = true;
-        label8.Location = new Point(330, 213);
+        label8.Location = new Point(411, 267);
         label8.Name = "label8";
         label8.Size = new Size(76, 15);
         label8.TabIndex = 20;
@@ -213,7 +213,7 @@ public sealed partial class UserAccountControl
         // label9
         // 
         label9.AutoSize = true;
-        label9.Location = new Point(330, 280);
+        label9.Location = new Point(411, 334);
         label9.Name = "label9";
         label9.Size = new Size(41, 15);
         label9.TabIndex = 21;
@@ -222,7 +222,7 @@ public sealed partial class UserAccountControl
         // label10
         // 
         label10.AutoSize = true;
-        label10.Location = new Point(469, 147);
+        label10.Location = new Point(550, 201);
         label10.Name = "label10";
         label10.Size = new Size(40, 15);
         label10.TabIndex = 22;
@@ -231,7 +231,7 @@ public sealed partial class UserAccountControl
         // label11
         // 
         label11.AutoSize = true;
-        label11.Location = new Point(469, 213);
+        label11.Location = new Point(550, 267);
         label11.Name = "label11";
         label11.Size = new Size(46, 15);
         label11.TabIndex = 23;
@@ -240,7 +240,7 @@ public sealed partial class UserAccountControl
         // label12
         // 
         label12.AutoSize = true;
-        label12.Location = new Point(469, 280);
+        label12.Location = new Point(550, 334);
         label12.Name = "label12";
         label12.Size = new Size(46, 15);
         label12.TabIndex = 24;
@@ -248,7 +248,7 @@ public sealed partial class UserAccountControl
         // 
         // userPhotoPictureBox
         // 
-        userPhotoPictureBox.Location = new Point(198, 15);
+        userPhotoPictureBox.Location = new Point(279, 69);
         userPhotoPictureBox.Name = "userPhotoPictureBox";
         userPhotoPictureBox.Size = new Size(190, 104);
         userPhotoPictureBox.TabIndex = 25;
@@ -258,6 +258,7 @@ public sealed partial class UserAccountControl
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
+        BackColor = SystemColors.Control;
         Controls.Add(userPhotoPictureBox);
         Controls.Add(label12);
         Controls.Add(label11);
@@ -285,7 +286,7 @@ public sealed partial class UserAccountControl
         Controls.Add(secondNameTextBox);
         Controls.Add(nameTextBox);
         Name = "UserAccountControl";
-        Size = new Size(618, 427);
+        Size = new Size(986, 559);
         Load += LoadAsync;
         ((System.ComponentModel.ISupportInitialize)userPhotoPictureBox).EndInit();
         ResumeLayout(false);

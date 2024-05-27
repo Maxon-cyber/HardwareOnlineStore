@@ -10,7 +10,7 @@ public interface ICache<TKey, TValue>
 
     bool IsEmpty { get; }
 
-    Task<IImmutableDictionary<TKey, TValue>?> ReadAsync();
+    Task<IImmutableDictionary<string, TValue>> ReadAsync();
 
     Task<TValue?> ReadByKeyAsync(TKey key);
 

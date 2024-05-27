@@ -2,6 +2,8 @@
 using HardwareOnlineStore.MVP.Views.Abstractions.MainWindow.Sections;
 using HardwareOnlineStore.MVP.Views.Abstractions.Shared;
 using HardwareOnlineStore.MVP.Views.MainWindow.Sections.ProductAndOrder;
+using HardwareOnlineStore.MVP.Views.MainWindow.Sections.ProductAndOrder.Common;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 
 namespace HardwareOnlineStore.MVP.Views.MainWindow.Sections;
@@ -19,7 +21,7 @@ public sealed partial class ProductShowcaseControl : UserControl, IProductShowca
 
     private async void LoadAsync(object sender, EventArgs e)
     {
-        ReadOnlyCollection<ProductModel>? products = await LoadProducts.Invoke()!;
+        ReadOnlyCollection<ProductModel>? products = await LoadProducts.Invoke();
 
         if (products == null)
             return;
@@ -44,13 +46,13 @@ public sealed partial class ProductShowcaseControl : UserControl, IProductShowca
 
                     ProductModel currentProduct = products[index];
 
-                    ProductControl productControl = new ProductControl(new Size(411, 179), currentProduct);
-                    productControl.AddButtonClicked += async (s, e) => await AddProduct.Invoke(currentProduct);
+                    ProductControl productControl = new ProductControl(currentProduct);
+                    productControl.Dock = DockStyle.Fill;
+                    productControl.AddButtonClicked += (s, e) => AddProduct.Invoke(currentProduct);
                     await productControl.CreateProductViewAsync();
 
                     viewProductsTLP.Controls.Add(productControl, column, row);
                 }
-                viewProductsTLP.ResumeLayout();
 
                 TableLayoutRowStyleCollection rowStyles = viewProductsTLP.RowStyles;
                 TableLayoutColumnStyleCollection columnStyles = viewProductsTLP.ColumnStyles;
@@ -63,15 +65,13 @@ public sealed partial class ProductShowcaseControl : UserControl, IProductShowca
                 for (int columnIndex = 0; columnIndex < columnTPL; columnIndex++)
                     columnStyles.Add(new ColumnStyle() { SizeType = SizeType.Percent });
 
-                viewProductsTLP.Invalidate();
+                viewProductsTLP.ResumeLayout();
             });
         });
     }
 
     private void BtnUpdate_Click(object sender, EventArgs e)
-    {
-
-    }
+        => LoadAsync(sender, e);
 
     private void BtnSearch_Click(object sender, EventArgs e)
     {

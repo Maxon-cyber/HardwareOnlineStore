@@ -1,5 +1,6 @@
 ﻿using HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.User;
 using HardwareOnlineStore.Entities.User;
+using System.Numerics;
 
 namespace HardwareOnlineStore.Services.Entity.SqlServerService.DataProcessing;
 
@@ -41,7 +42,7 @@ public sealed class UserService(UserRepository userRepository, FileLogger logger
         return users;
     }
 
-    public async Task<object?> ChangeUserAsync(TypeOfUpdateCommand typeOfCommand, UserEntity user)
+    public async Task<bool> ChangeUserAsync(TypeOfUpdateCommand typeOfCommand, UserEntity user)
     {
         string command = typeOfCommand switch
         {
@@ -71,10 +72,10 @@ public sealed class UserService(UserRepository userRepository, FileLogger logger
             }
         });
 
-        return result;
+        return Convert.ToBoolean(result);
     }
 
-    public async Task<ImmutableDictionary<string, object?>> ChangeUserAsync(TypeOfUpdateCommand typeOfCommand, IEnumerable<UserEntity> users)
+    public async Task<ImmutableDictionary<string, bool>> ChangeUserAsync(TypeOfUpdateCommand typeOfCommand, IEnumerable<UserEntity> users)
     {
         string command = typeOfCommand switch
         {
@@ -104,7 +105,11 @@ public sealed class UserService(UserRepository userRepository, FileLogger logger
             }
         });
 
-        return result;
+        Dictionary<string, bool> boolDictionary = result.ToDictionary(kvp => kvp.Key, kvp => Convert.ToBoolean(kvp.Value));
+
+        ImmutableDictionary<string, bool> immutableBoolDictionary = boolDictionary.ToImmutableDictionary();
+
+        return immutableBoolDictionary;
     }
 
     public new void Dispose()

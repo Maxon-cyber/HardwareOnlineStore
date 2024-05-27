@@ -67,7 +67,7 @@ public sealed class ProductService(ProductRepository repository, FileLogger logg
         return products;
     }
 
-    public async Task<object?> ChangeProductAsync(TypeOfUpdateCommand typeOfCommand, ProductEntity product)
+    public async Task<bool> ChangeProductAsync(TypeOfUpdateCommand typeOfCommand, ProductEntity product)
     {
         string command = typeOfCommand switch
         {
@@ -97,10 +97,10 @@ public sealed class ProductService(ProductRepository repository, FileLogger logg
             }
         });
 
-        return result;
+        return Convert.ToBoolean(result);
     }
 
-    public async Task<ImmutableDictionary<string, object?>> ChangeProductAsync(TypeOfUpdateCommand typeOfCommand, IEnumerable<ProductEntity> products)
+    public async Task<ImmutableDictionary<string, bool>> ChangeProductAsync(TypeOfUpdateCommand typeOfCommand, IEnumerable<ProductEntity> products)
     {
         string command = typeOfCommand switch
         {
@@ -129,8 +129,12 @@ public sealed class ProductService(ProductRepository repository, FileLogger logg
                 ParameterDirection = ParameterDirection.ReturnValue
             }
         });
-       
-        return result;
+
+        Dictionary<string, bool> boolDictionary = result.ToDictionary(kvp => kvp.Key, kvp => Convert.ToBoolean(kvp.Value));
+
+        ImmutableDictionary<string, bool> immutableBoolDictionary = boolDictionary.ToImmutableDictionary();
+
+        return immutableBoolDictionary;
     }
 
     public new void Dispose()

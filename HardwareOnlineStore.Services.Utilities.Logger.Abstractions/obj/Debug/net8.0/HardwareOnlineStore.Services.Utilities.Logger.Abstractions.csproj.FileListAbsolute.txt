@@ -1,0 +1,12 @@
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.Abstractions\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.Abstractions.deps.json
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.Abstractions\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.Abstractions.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.Abstractions\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.Abstractions.pdb
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.Abstractions\obj\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.Abstractions.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.Abstractions\obj\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.Abstractions.AssemblyInfoInputs.cache
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.Abstractions\obj\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.Abstractions.AssemblyInfo.cs
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.Abstractions\obj\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.Abstractions.csproj.CoreCompileInputs.cache
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.Abstractions\obj\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.Abstractions.sourcelink.json
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.Abstractions\obj\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.Abstractions.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.Abstractions\obj\Debug\net8.0\refint\HardwareOnlineStore.Services.Utilities.Logger.Abstractions.dll
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.Abstractions\obj\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.Abstractions.pdb
+C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.Abstractions\obj\Debug\net8.0\ref\HardwareOnlineStore.Services.Utilities.Logger.Abstractions.dll

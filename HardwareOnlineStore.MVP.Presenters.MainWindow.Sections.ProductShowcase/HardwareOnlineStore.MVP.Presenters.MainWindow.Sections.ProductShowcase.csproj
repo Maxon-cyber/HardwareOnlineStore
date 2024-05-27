@@ -13,7 +13,6 @@
     <ProjectReference Include="..\HardwareOnlineStore.MVP.Views.Abstractions.MainWindow\HardwareOnlineStore.MVP.Views.Abstractions.MainWindow.csproj" />
     <ProjectReference Include="..\HardwareOnlineStore.Services.Entity.Contracts\HardwareOnlineStore.Services.Entity.Contracts.csproj" />
     <ProjectReference Include="..\HardwareOnlineStore.Services.Entity.SqlServerService\HardwareOnlineStore.Services.Entity.SqlServerService.csproj" />
-    <ProjectReference Include="..\HardwareOnlineStore.Services.Utilities.Caching.File\HardwareOnlineStore.Services.Utilities.Caching.File.csproj" />
     <ProjectReference Include="..\HardwareOnlineStore.Services.Utilities.Caching.Memory\HardwareOnlineStore.Services.Utilities.Caching.Memory.csproj" />
   </ItemGroup>
 

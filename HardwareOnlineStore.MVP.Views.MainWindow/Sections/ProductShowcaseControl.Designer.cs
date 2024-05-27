@@ -30,17 +30,17 @@ public sealed partial class ProductShowcaseControl
         viewProductsTLP.ColumnCount = 2;
         viewProductsTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
         viewProductsTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-        viewProductsTLP.Location = new Point(0, 142);
+        viewProductsTLP.Location = new Point(0, 99);
         viewProductsTLP.Name = "viewProductsTLP";
         viewProductsTLP.RowCount = 2;
         viewProductsTLP.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
         viewProductsTLP.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-        viewProductsTLP.Size = new Size(834, 370);
+        viewProductsTLP.Size = new Size(1044, 509);
         viewProductsTLP.TabIndex = 0;
         // 
         // searchTextBox
         // 
-        searchTextBox.Location = new Point(40, 56);
+        searchTextBox.Location = new Point(19, 20);
         searchTextBox.Name = "searchTextBox";
         searchTextBox.PlaceholderText = "Поиск";
         searchTextBox.Size = new Size(451, 23);
@@ -48,7 +48,7 @@ public sealed partial class ProductShowcaseControl
         // 
         // searchButton
         // 
-        searchButton.Location = new Point(538, 56);
+        searchButton.Location = new Point(517, 20);
         searchButton.Name = "searchButton";
         searchButton.Size = new Size(75, 23);
         searchButton.TabIndex = 2;
@@ -70,7 +70,7 @@ public sealed partial class ProductShowcaseControl
         Controls.Add(searchTextBox);
         Controls.Add(viewProductsTLP);
         Name = "ProductShowcaseControl";
-        Size = new Size(834, 512);
+        Size = new Size(1044, 608);
         Load += LoadAsync;
         ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
         ResumeLayout(false);

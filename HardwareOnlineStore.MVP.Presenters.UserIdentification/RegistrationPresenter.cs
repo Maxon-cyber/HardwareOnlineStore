@@ -26,7 +26,7 @@ public sealed class RegistrationPresenter : Presenter<IRegistrationView>
 
     private async Task RegistrationAsync(RegistrationViewModel model)
     {
-        object? isAdded = await _userService.ChangeUserAsync(TypeOfUpdateCommand.Insert, new UserEntity()
+        bool isAdded = await _userService.ChangeUserAsync(TypeOfUpdateCommand.Insert, new UserEntity()
         {
             Name = model.Name,
             SecondName = model.SecondName,
@@ -46,7 +46,7 @@ public sealed class RegistrationPresenter : Presenter<IRegistrationView>
             Role = UserParameters.DEFAULT_ROLE
         });
 
-        if (!Convert.ToBoolean(isAdded))
+        if (isAdded)
             View.ShowMessage("Пользователь с таким логином уже зарегистрирован", "Предупреждение", MessageLevel.Warning);
         else
         {

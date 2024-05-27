@@ -27,14 +27,14 @@ public sealed partial class ProductControl
         contentProductPanel.Dock = DockStyle.Fill;
         contentProductPanel.Location = new Point(0, 0);
         contentProductPanel.Name = "contentProductPanel";
-        contentProductPanel.Size = new Size(411, 179);
+        contentProductPanel.Size = new Size(516, 248);
         contentProductPanel.TabIndex = 0;
         // 
         // productPictureBox
         // 
         productPictureBox.Location = new Point(0, 0);
         productPictureBox.Name = "productPictureBox";
-        productPictureBox.Size = new Size(411, 125);
+        productPictureBox.Size = new Size(516, 248);
         productPictureBox.TabIndex = 0;
         productPictureBox.TabStop = false;
         // 
@@ -44,7 +44,7 @@ public sealed partial class ProductControl
         AutoScaleMode = AutoScaleMode.Font;
         Controls.Add(contentProductPanel);
         Name = "ProductControl";
-        Size = new Size(411, 179);
+        Size = new Size(516, 248);
         contentProductPanel.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)productPictureBox).EndInit();
         ResumeLayout(false);

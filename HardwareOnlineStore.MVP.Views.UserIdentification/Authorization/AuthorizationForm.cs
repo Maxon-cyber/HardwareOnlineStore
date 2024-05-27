@@ -81,5 +81,5 @@ public sealed partial class AuthorizationForm : Form, IAuthorizationView
          });
 
     void IView.Close()
-        => base.Close();
+        => Close();
 }

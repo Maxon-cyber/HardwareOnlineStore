@@ -848,7 +848,6 @@
           "HardwareOnlineStore.MVP.Views.Abstractions.MainWindow": "1.0.0",
           "HardwareOnlineStore.Services.Entity.Contracts": "1.0.0",
           "HardwareOnlineStore.Services.Entity.SqlServerService": "1.0.0",
-          "HardwareOnlineStore.Services.Utilities.Caching.File": "1.0.0",
           "HardwareOnlineStore.Services.Utilities.Caching.Memory": "1.0.0"
         },
         "compile": {
@@ -983,7 +982,8 @@
           "HardwareOnlineStore.Services.Utilities.Caching.Abstractions": "1.0.0",
           "HardwareOnlineStore.Services.Utilities.Caching.Support.Serializer.Yaml": "1.0.0",
           "HardwareOnlineStore.Services.Utilities.Templates": "1.0.0",
-          "SixLabors.ImageSharp": "3.1.4"
+          "SixLabors.ImageSharp": "3.1.4",
+          "System.Collections.Immutable": "8.0.0"
         },
         "compile": {
           "bin/placeholder/HardwareOnlineStore.Services.Utilities.Caching.File.dll": {}

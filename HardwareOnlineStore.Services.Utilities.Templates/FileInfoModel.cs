@@ -16,8 +16,6 @@ public sealed class FileInfoModel
 
     public long Size => _fileInfo.Length;
 
-    public long SizeLimit => 4096L;
-
     public string Extension => _fileInfo.Extension;
 
     public DateTime LastAccessTime => _fileInfo.LastAccessTime;
@@ -29,9 +27,9 @@ public sealed class FileInfoModel
 
     public async Task<string[]> ReadAsync()
     {
-        string[]? content = await File.ReadAllLinesAsync(FullName);
+        string[] content = await File.ReadAllLinesAsync(FullName);
 
-        return content ?? [];
+        return content;
     }
 
     public async Task<string[]> ReadByAsync(string key, string endString)
@@ -44,7 +42,7 @@ public sealed class FileInfoModel
         if (fileStream.Length == 0)
             return [];
 
-        List<string> lines = new List<string>();
+        List<string> lines = [];
 
         using StreamReader streamReader = new StreamReader(fileStream);
 
@@ -88,7 +86,7 @@ public sealed class FileInfoModel
         switch (writeMode)
         {
             case WriteMode.Append:
-                await File.WriteAllLinesAsync(FullName, content);
+                await File.AppendAllLinesAsync(FullName, content);
                 _fileInfo.Refresh();
                 break;
             case WriteMode.WriteAll:
@@ -104,5 +102,12 @@ public sealed class FileInfoModel
     { 
         await File.WriteAllTextAsync(FullName, string.Empty);
         _fileInfo.Refresh();
+    }
+
+    public bool Contains(string path)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(path);
+
+        return File.Exists(path);
     }
 }

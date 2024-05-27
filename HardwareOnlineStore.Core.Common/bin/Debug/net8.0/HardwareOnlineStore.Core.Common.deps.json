@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "HardwareOnlineStore.Core.Common/1.0.0": {
+        "dependencies": {
+          "HardwareOnlineStore.MVP.Presenters.Common": "1.0.0"
+        },
+        "runtime": {
+          "HardwareOnlineStore.Core.Common.dll": {}
+        }
+      },
+      "HardwareOnlineStore.MVP.Presenters.Common/1.0.0": {
+        "runtime": {
+          "HardwareOnlineStore.MVP.Presenters.Common.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "HardwareOnlineStore.Core.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HardwareOnlineStore.MVP.Presenters.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

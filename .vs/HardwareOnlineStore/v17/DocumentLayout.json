@@ -3,20 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7C816D2C-F602-43EC-9900-5A05008A6315}|HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO.csproj|c:\\users\\\u0440\u0441\\source\\repos\\hardwareonlinestore\\hardwareonlinestore.dataaccess.providers.relational.wrappers.orm.implementations.ado\\extensions\\dbextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7C816D2C-F602-43EC-9900-5A05008A6315}|HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO.csproj|solutionrelative:hardwareonlinestore.dataaccess.providers.relational.wrappers.orm.implementations.ado\\extensions\\dbextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1DF150B8-F24C-41D7-ABB8-5BEFBE717294}|HardwareOnlineStore.Core\\HardwareOnlineStore.Core.csproj|c:\\users\\\u0440\u0441\\source\\repos\\hardwareonlinestore\\hardwareonlinestore.core\\applicationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1DF150B8-F24C-41D7-ABB8-5BEFBE717294}|HardwareOnlineStore.Core\\HardwareOnlineStore.Core.csproj|solutionrelative:hardwareonlinestore.core\\applicationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4738C6A8-6AC9-4588-8A60-F609621E8A3A}|HardwareOnlineStore.Entities\\HardwareOnlineStore.Entities.csproj|c:\\users\\\u0440\u0441\\source\\repos\\hardwareonlinestore\\hardwareonlinestore.entities\\order\\orderentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4738C6A8-6AC9-4588-8A60-F609621E8A3A}|HardwareOnlineStore.Entities\\HardwareOnlineStore.Entities.csproj|solutionrelative:hardwareonlinestore.entities\\order\\orderentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{109055F7-E557-4E6C-8F50-67A187D5846F}|HardwareOnlineStore.MVP.Views.MainWindow\\HardwareOnlineStore.MVP.Views.MainWindow.csproj|C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\hardwareonlinestore.mvp.views.mainwindow\\sections\\productandorder\\productcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{109055F7-E557-4E6C-8F50-67A187D5846F}|HardwareOnlineStore.MVP.Views.MainWindow\\HardwareOnlineStore.MVP.Views.MainWindow.csproj|solutionrelative:hardwareonlinestore.mvp.views.mainwindow\\sections\\productandorder\\productcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C816D2C-F602-43EC-9900-5A05008A6315}|HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO.csproj|c:\\users\\\u0440\u0441\\source\\repos\\hardwareonlinestore\\hardwareonlinestore.dataaccess.providers.relational.wrappers.orm.implementations.ado\\adoentitywrapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7C816D2C-F602-43EC-9900-5A05008A6315}|HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO.csproj|solutionrelative:hardwareonlinestore.dataaccess.providers.relational.wrappers.orm.implementations.ado\\adoentitywrapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{109055F7-E557-4E6C-8F50-67A187D5846F}|HardwareOnlineStore.MVP.Views.MainWindow\\HardwareOnlineStore.MVP.Views.MainWindow.csproj|C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\hardwareonlinestore.mvp.views.mainwindow\\sections\\productandorder\\common\\productdetailsmodalform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{109055F7-E557-4E6C-8F50-67A187D5846F}|HardwareOnlineStore.MVP.Views.MainWindow\\HardwareOnlineStore.MVP.Views.MainWindow.csproj|solutionrelative:hardwareonlinestore.mvp.views.mainwindow\\sections\\productandorder\\common\\productdetailsmodalform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E4FBD93C-3B88-4BCD-8F75-D62D5F8B0525}|HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart\\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart.csproj|c:\\users\\\u0440\u0441\\source\\repos\\hardwareonlinestore\\hardwareonlinestore.mvp.presenters.mainwindow.sections.shoppingcart\\shoppingcartpresenter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E4FBD93C-3B88-4BCD-8F75-D62D5F8B0525}|HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart\\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart.csproj|solutionrelative:hardwareonlinestore.mvp.presenters.mainwindow.sections.shoppingcart\\shoppingcartpresenter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{109055F7-E557-4E6C-8F50-67A187D5846F}|HardwareOnlineStore.MVP.Views.MainWindow\\HardwareOnlineStore.MVP.Views.MainWindow.csproj|C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\hardwareonlinestore.mvp.views.mainwindow\\sections\\productshowcasecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{109055F7-E557-4E6C-8F50-67A187D5846F}|HardwareOnlineStore.MVP.Views.MainWindow\\HardwareOnlineStore.MVP.Views.MainWindow.csproj|solutionrelative:hardwareonlinestore.mvp.views.mainwindow\\sections\\productshowcasecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{109055F7-E557-4E6C-8F50-67A187D5846F}|HardwareOnlineStore.MVP.Views.MainWindow\\HardwareOnlineStore.MVP.Views.MainWindow.csproj|C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\hardwareonlinestore.mvp.views.mainwindow\\sections\\shoppingcartcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{109055F7-E557-4E6C-8F50-67A187D5846F}|HardwareOnlineStore.MVP.Views.MainWindow\\HardwareOnlineStore.MVP.Views.MainWindow.csproj|solutionrelative:hardwareonlinestore.mvp.views.mainwindow\\sections\\shoppingcartcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,55 +46,63 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "OrderEntity.cs",
-              "DocumentMoniker": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Entities\\Order\\OrderEntity.cs",
-              "RelativeDocumentMoniker": "HardwareOnlineStore.Entities\\Order\\OrderEntity.cs",
-              "ToolTip": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Entities\\Order\\OrderEntity.cs",
-              "RelativeToolTip": "HardwareOnlineStore.Entities\\Order\\OrderEntity.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-23T15:23:04.431Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DbExtensions.cs",
-              "DocumentMoniker": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\Extensions\\DbExtensions.cs",
-              "RelativeDocumentMoniker": "HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\Extensions\\DbExtensions.cs",
-              "ToolTip": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\Extensions\\DbExtensions.cs*",
-              "RelativeToolTip": "HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\Extensions\\DbExtensions.cs*",
-              "ViewState": "AQIAAHwAAAAAAAAAAAAqwIQAAAAhAAAA",
+              "Title": "ApplicationController.cs",
+              "DocumentMoniker": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Core\\ApplicationController.cs",
+              "RelativeDocumentMoniker": "HardwareOnlineStore.Core\\ApplicationController.cs",
+              "ToolTip": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Core\\ApplicationController.cs",
+              "RelativeToolTip": "HardwareOnlineStore.Core\\ApplicationController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-22T15:55:09.196Z",
+              "WhenOpened": "2024-05-27T13:59:29.413Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ShoppingCartPresenter.cs",
-              "DocumentMoniker": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart\\ShoppingCartPresenter.cs",
-              "RelativeDocumentMoniker": "HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart\\ShoppingCartPresenter.cs",
-              "ToolTip": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart\\ShoppingCartPresenter.cs",
-              "RelativeToolTip": "HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart\\ShoppingCartPresenter.cs",
-              "ViewState": "AQIAAFoAAAAAAAAAAAAmwGIAAAAEAAAA",
+              "DocumentIndex": 1,
+              "Title": "ProductControl.cs",
+              "DocumentMoniker": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.MVP.Views.MainWindow\\Sections\\ProductAndOrder\\ProductControl.cs",
+              "RelativeDocumentMoniker": "HardwareOnlineStore.MVP.Views.MainWindow\\Sections\\ProductAndOrder\\ProductControl.cs",
+              "ToolTip": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.MVP.Views.MainWindow\\Sections\\ProductAndOrder\\ProductControl.cs",
+              "RelativeToolTip": "HardwareOnlineStore.MVP.Views.MainWindow\\Sections\\ProductAndOrder\\ProductControl.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-22T15:05:30.7Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-26T23:41:22.305Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "ADOEntityWrapper.cs",
-              "DocumentMoniker": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\ADOEntityWrapper.cs",
-              "RelativeDocumentMoniker": "HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\ADOEntityWrapper.cs",
-              "ToolTip": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\ADOEntityWrapper.cs",
-              "RelativeToolTip": "HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\\ADOEntityWrapper.cs",
-              "ViewState": "AQIAAI8BAAAAAAAAAAAmwJcBAAAEAAAA",
+              "Title": "ProductDetailsModalForm.cs",
+              "DocumentMoniker": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.MVP.Views.MainWindow\\Sections\\ProductAndOrder\\Common\\ProductDetailsModalForm.cs",
+              "RelativeDocumentMoniker": "HardwareOnlineStore.MVP.Views.MainWindow\\Sections\\ProductAndOrder\\Common\\ProductDetailsModalForm.cs",
+              "ToolTip": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.MVP.Views.MainWindow\\Sections\\ProductAndOrder\\Common\\ProductDetailsModalForm.cs",
+              "RelativeToolTip": "HardwareOnlineStore.MVP.Views.MainWindow\\Sections\\ProductAndOrder\\Common\\ProductDetailsModalForm.cs",
+              "ViewState": "AQIAAFcAAAAAAAAAAAAowGIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-22T15:04:24.072Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-26T23:40:57.756Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ShoppingCartControl.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435]",
+              "DocumentMoniker": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.MVP.Views.MainWindow\\Sections\\ShoppingCartControl.cs",
+              "RelativeDocumentMoniker": "HardwareOnlineStore.MVP.Views.MainWindow\\Sections\\ShoppingCartControl.cs",
+              "ToolTip": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.MVP.Views.MainWindow\\Sections\\ShoppingCartControl.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435]",
+              "RelativeToolTip": "HardwareOnlineStore.MVP.Views.MainWindow\\Sections\\ShoppingCartControl.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-26T23:31:27.092Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductShowcaseControl.cs",
+              "DocumentMoniker": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.MVP.Views.MainWindow\\Sections\\ProductShowcaseControl.cs",
+              "RelativeDocumentMoniker": "HardwareOnlineStore.MVP.Views.MainWindow\\Sections\\ProductShowcaseControl.cs",
+              "ToolTip": "C:\\Users\\\u0440\u0441\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.MVP.Views.MainWindow\\Sections\\ProductShowcaseControl.cs",
+              "RelativeToolTip": "HardwareOnlineStore.MVP.Views.MainWindow\\Sections\\ProductShowcaseControl.cs",
+              "ViewState": "AQIAACkAAAAAAAAAAAAowDIAAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-26T19:51:15.51Z"
             }
           ]
         },

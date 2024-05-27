@@ -15,12 +15,12 @@ namespace HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.UserAccount;
 public sealed class UserAccountPresenter : Presenter<IUserAccountView>
 {
     private readonly UserService _service;
-    private readonly MemoryCache<UserEntity> _cache;
+    private readonly MemoryCache<UserEntity> _memoryCache;
 
     public UserAccountPresenter(IApplicationController controller, IUserAccountView view, SqlServerService service)
         : base(controller, view)
     {
-        _cache = MemoryCache<UserEntity>.Instance;
+        _memoryCache = MemoryCache<UserEntity>.Instance;
         _service = service.User;
 
         View.LoadUserData += LoadUserDataAsync;
@@ -29,11 +29,11 @@ public sealed class UserAccountPresenter : Presenter<IUserAccountView>
 
     private async Task<UserAccountModel?> LoadUserDataAsync()
     {
-        UserEntity? user = await _cache.ReadByKeyAsync("User");
+        UserEntity? user = await _memoryCache.ReadByKeyAsync("User");
 
         if (user == null)
         {
-            View.ShowMessage("Не удалось загрузить данные", "Ошибка", MessageLevel.Error);
+            View.ShowMessage("Не удалось загрузить данные", "Ой...", MessageLevel.Error);
             return await Task.FromResult<UserAccountModel?>(null);
         }
 
@@ -58,7 +58,7 @@ public sealed class UserAccountPresenter : Presenter<IUserAccountView>
 
     private async Task UpdateDataAsync(UserAccountModel model)
     {
-        object? result = await _service.ChangeUserAsync(TypeOfUpdateCommand.Insert, new UserEntity()
+        bool result = await _service.ChangeUserAsync(TypeOfUpdateCommand.Insert, new UserEntity()
         {
             Name = model.Name,
             SecondName = model.SecondName,
@@ -77,8 +77,8 @@ public sealed class UserAccountPresenter : Presenter<IUserAccountView>
             },
         });
 
-        if (!Convert.ToBoolean(result))
-            View.ShowMessage("Не удалось обновить данные", "Ошибка", MessageLevel.Error);
+        if (result)
+            View.ShowMessage("Не удалось обновить данные", "Ой...", MessageLevel.Error);
         else
             View.ShowMessage("Данные успешно обновлены", "Успех", MessageLevel.Info);
     }

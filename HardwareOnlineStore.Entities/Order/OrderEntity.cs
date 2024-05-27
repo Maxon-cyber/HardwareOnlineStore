@@ -27,7 +27,7 @@ public sealed class OrderEntity() : Entity
 
     [ColumnData("last_access_time", DbType.DateTime2)]
     [SqlParameter("last_access_time", DbType.DateTime2)]
-    public DateTime LastAccessTime { get; }
+    public DateTime LastAccessTime { get; init; }
 }
 
 public sealed class OrderItem()

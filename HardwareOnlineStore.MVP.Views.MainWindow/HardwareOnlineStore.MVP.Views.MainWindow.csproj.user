@@ -4,6 +4,12 @@
     <Compile Update="MainWindowForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Sections\ProductAndOrder\Common\ProductDetailsModalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Sections\ProductAndOrder\OrderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Sections\ProductShowcaseControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -7,6 +7,7 @@ namespace HardwareOnlineStore.Services.Utilities.Logger.File;
 public sealed class FileLogger : ILogger
 {
     private FileInfoModel _fileInfo;
+    private static readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 20);
 
     public DirectoryInfoModel Directory { get; }
 
@@ -14,7 +15,7 @@ public sealed class FileLogger : ILogger
 
     public string Separator { get; } = new string('=', 100);
 
-    private static readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 20);
+    public long SizeLimit => 8_192L;
 
     public FileLogger(string path)
         => Directory = new DirectoryInfoModel(path);
@@ -31,8 +32,8 @@ public sealed class FileLogger : ILogger
     {
         await _semaphore.WaitAsync();
 
-        if (_fileInfo.Size >= _fileInfo.SizeLimit)
-            while (_fileInfo.Size > _fileInfo.SizeLimit / 2)
+        if (_fileInfo.Size >= SizeLimit)
+            while (_fileInfo.Size > SizeLimit / 2)
             {
                 string[] lines = await _fileInfo.ReadAsync();
 
@@ -48,8 +49,8 @@ public sealed class FileLogger : ILogger
     {
         await _semaphore.WaitAsync();
 
-        if (_fileInfo.Size >= _fileInfo.SizeLimit)
-            while (_fileInfo.Size > _fileInfo.SizeLimit / 2)
+        if (_fileInfo.Size >= SizeLimit)
+            while (_fileInfo.Size > SizeLimit / 2)
             {
                 string[] lines = await _fileInfo.ReadAsync();
 
@@ -62,11 +63,11 @@ public sealed class FileLogger : ILogger
 
         await _fileInfo.WriteAsync("Доп. данные об ошибке:", WriteMode.Append);
 
-        string additionalData = null!;
+        string exceptionData = null!;
         foreach (DictionaryEntry data in exception.Data)
-            additionalData += $"\t{data.Key} - {data.Value}";
+            exceptionData += $"\t{data.Key} - {data.Value}";
 
-        await _fileInfo.WriteAsync(additionalData, WriteMode.Append);
+        await _fileInfo.WriteAsync(exceptionData, WriteMode.Append);
 
         _semaphore.Release();
     }
@@ -84,8 +85,8 @@ public sealed class FileLogger : ILogger
     {
         await _semaphore.WaitAsync();
 
-        if (_fileInfo.Size >= _fileInfo.SizeLimit)
-            while (_fileInfo.Size > _fileInfo.SizeLimit / 2)
+        if (_fileInfo.Size >= SizeLimit)
+            while (_fileInfo.Size > SizeLimit / 2)
             {
                 string[] lines = await _fileInfo.ReadAsync();
 

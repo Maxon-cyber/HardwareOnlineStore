@@ -7,9 +7,8 @@ using HardwareOnlineStore.MVP.Views.Abstractions.MainWindow.Sections;
 using HardwareOnlineStore.MVP.Views.Abstractions.Shared;
 using HardwareOnlineStore.Services.Entity.SqlServerService;
 using HardwareOnlineStore.Services.Entity.SqlServerService.DataProcessing;
-using HardwareOnlineStore.Services.Utilities.Caching.File;
 using HardwareOnlineStore.Services.Utilities.Caching.Memory;
-using System.Collections.Immutable;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 
 namespace HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ProductShowcase;
@@ -17,15 +16,13 @@ namespace HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ProductShowcase
 public sealed class ProductShowcasePresenter : Presenter<IProductShowcaseView>
 {
     private readonly ProductService _service;
-    private readonly MemoryCache<ProductModel> _cache;
-    private readonly CachedFileManager<ProductModel> _cachedFile;
+    private readonly MemoryCache<ProductModel> _memoryCache;
 
-    public ProductShowcasePresenter(IApplicationController controller, IProductShowcaseView view, SqlServerService service, CachedFileManager<ProductModel> cachedFile)
+    public ProductShowcasePresenter(IApplicationController controller, IProductShowcaseView view, SqlServerService service)
         : base(controller, view)
     {
         _service = service.Product;
-        _cache = MemoryCache<ProductModel>.Instance;
-        _cachedFile = cachedFile.SetFile("Product");
+        _memoryCache = MemoryCache<ProductModel>.Instance;
 
         View.LoadProducts += LoadProductsAsync;
         View.AddProduct += AddProduct;
@@ -35,31 +32,24 @@ public sealed class ProductShowcasePresenter : Presenter<IProductShowcaseView>
     {
         if (!UserParameters.Internet.IsAvailable())
         {
-            IImmutableDictionary<string, ProductModel>? productFromCache = await _cachedFile.ReadAsync();
-
-            if (productFromCache == null)
-            {
-                View.ShowMessage("Не удалось загрузить продукты", "Ошибка", MessageLevel.Error);
-                return await Task.FromResult<ReadOnlyCollection<ProductModel>?>(null);
-            }
-
-            return await Task.FromResult<ReadOnlyCollection<ProductModel>?>(productFromCache.Values.ToList().AsReadOnly());
+            View.ShowMessage("Не удалось загрузить продукты\nПроверьте подключение к интернету", "Ой...", MessageLevel.Error);
+            return await Task.FromResult<ReadOnlyCollection<ProductModel>?>(null);
         }
 
         IEnumerable<ProductEntity>? products = await _service.SelectProductsAsync();
 
         if (products == null)
         {
-            View.ShowMessage("Не удалось загрузить продукты", "Ошибка", MessageLevel.Error);
+            View.ShowMessage("Не удалось загрузить продукты\nПопробуйте позже", "Ой...", MessageLevel.Error);
             return await Task.FromResult<ReadOnlyCollection<ProductModel>?>(null);
         }
 
-        ProductEntity[] arrayProducts = products.ToArray();
-        List<ProductModel> productModels = [];
+        ConcurrentBag<ProductModel> productModels = [];
+        ProductEntity[] arrayProducts = [.. products];
 
-        for (int index = 0; index < arrayProducts.Length; index++)
+        for (int productIndex = 0; productIndex < arrayProducts.Length; productIndex++)
         {
-            ProductEntity currentProduct = arrayProducts[index];
+            ProductEntity currentProduct = arrayProducts[productIndex];
             productModels.Add(new ProductModel()
             {
                 Id = currentProduct.Id,
@@ -71,11 +61,11 @@ public sealed class ProductShowcasePresenter : Presenter<IProductShowcaseView>
             });
         }
 
-        ReadOnlyCollection<ProductModel> readOnlyProducts = new ReadOnlyCollection<ProductModel>(productModels);
+        ReadOnlyCollection<ProductModel> readOnlyProducts = new ReadOnlyCollection<ProductModel>([.. productModels]);
 
         return readOnlyProducts;
     }
 
     private async Task AddProduct(ProductModel product)
-        => await _cache.WriteAsync(product.Name, product);
+        => await _memoryCache.WriteAsync(product.Name, product);
 }

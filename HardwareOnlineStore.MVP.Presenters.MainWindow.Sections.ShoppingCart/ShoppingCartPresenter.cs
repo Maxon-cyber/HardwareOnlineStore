@@ -5,6 +5,7 @@ using HardwareOnlineStore.Entities.User;
 using HardwareOnlineStore.MVP.Presenters.Contracts;
 using HardwareOnlineStore.MVP.ViewModels.MainWindow;
 using HardwareOnlineStore.MVP.Views.Abstractions.MainWindow.Sections;
+using HardwareOnlineStore.MVP.Views.Abstractions.Shared;
 using HardwareOnlineStore.Services.Entity.Contracts;
 using HardwareOnlineStore.Services.Entity.SqlServerService;
 using HardwareOnlineStore.Services.Entity.SqlServerService.DataProcessing;
@@ -18,21 +19,21 @@ namespace HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart;
 
 public sealed class ShoppingCartPresenter : Presenter<IShoppingCartView>
 {
-    private readonly MemoryCache<ProductModel> _cache;
-    private readonly CachedFileManager<OrderModel> _cachedFile;
+    private readonly MemoryCache<ProductModel> _memoryCache;
+    private readonly FileCache<OrderModel> _fileCache;
     private readonly OrderService _orderService;
     private readonly ProductService _productService;
 
-    public ShoppingCartPresenter(IApplicationController controller, IShoppingCartView view, SqlServerService service, CachedFileManager<OrderModel> cachedFile)
+    public ShoppingCartPresenter(IApplicationController controller, IShoppingCartView view, SqlServerService service, FileCache<OrderModel> cachedFile)
         : base(controller, view)
     {
         _orderService = service.Order;
         _productService = service.Product;
 
-        _cache = MemoryCache<ProductModel>.Instance;
-        _cachedFile = cachedFile.SetFile("Order");
+        _memoryCache = MemoryCache<ProductModel>.Instance;
+        _fileCache = cachedFile.SetFile("Order");
 
-        _cache.CacheChanged += Cache_Changed!;
+        _memoryCache.CacheChanged += Cache_Changed!;
 
         View.Order += Order;
         View.LoadOrders += LoadOrders;
@@ -40,12 +41,15 @@ public sealed class ShoppingCartPresenter : Presenter<IShoppingCartView>
 
     private async Task<ReadOnlyCollection<OrderModel>?> LoadOrders()
     {
-        if (!UserParameters.Internet.IsAvailable())
+        if (!_fileCache.IsEmpty)
         {
-            IImmutableDictionary<string, OrderModel>? orderModels = await _cachedFile.ReadAsync();
+            IImmutableDictionary<string, OrderModel> orderModels = await _fileCache.ReadAsync();
 
-            if (orderModels == null)
+            if (orderModels.Count == 0)
+            {
+                View.ShowMessage("Нет заказов", "Ой...", MessageLevel.Error);
                 return await Task.FromResult<ReadOnlyCollection<OrderModel>?>(null);
+            }
 
             return await Task.FromResult<ReadOnlyCollection<OrderModel>?>(orderModels.Values.ToList().AsReadOnly());
         }
@@ -53,7 +57,10 @@ public sealed class ShoppingCartPresenter : Presenter<IShoppingCartView>
         IEnumerable<OrderEntity>? orders = await _orderService.SelectOrdersAsync();
 
         if (orders == null)
+        {
+            View.ShowMessage("Нет заказов", "Ой...", MessageLevel.Error);
             return await Task.FromResult<ReadOnlyCollection<OrderModel>?>(null);
+        }
 
         List<OrderModel> orderList = [];
 
@@ -61,12 +68,6 @@ public sealed class ShoppingCartPresenter : Presenter<IShoppingCartView>
         {
             List<Guid> ids = order.Items.Select(o => o.ProductId).ToList();
             IEnumerable<ProductEntity>? products = await _productService.GetProductsByIdsAsync(ids);
-
-            if (products == null)
-            {
-                View.ShowMessage("Не удалось загрузить данные о продуктов", "Ошибка", Views.Abstractions.Shared.MessageLevel.Error);
-                return await Task.FromResult<ReadOnlyCollection<OrderModel>?>(null);
-            }
 
             List<ProductModel> productModels = [];
 
@@ -97,6 +98,12 @@ public sealed class ShoppingCartPresenter : Presenter<IShoppingCartView>
 
     private async Task Order(ICollection<ProductModel> products)
     {
+        if (products.Count == 0)
+        {
+            View.ShowMessage("Что бы оформить заказ нужно добавить продукты", "Ошибка", MessageLevel.Error);
+            return;
+        }
+
         var groupedProducts = products.GroupBy(p => p.Id)
                                       .Select(g => new
                                       {
@@ -106,7 +113,7 @@ public sealed class ShoppingCartPresenter : Presenter<IShoppingCartView>
 
         OrderEntity orderEntity = new OrderEntity()
         {
-            UserId = _cache.Of<UserEntity>()!.FirstOrDefault()!.Id,
+            UserId = _memoryCache.Of<UserEntity>()!.FirstOrDefault()!.Id,
             Items = groupedProducts.Select(gp => new OrderItem()
             {
                 ProductId = gp.ProductId,
@@ -119,9 +126,12 @@ public sealed class ShoppingCartPresenter : Presenter<IShoppingCartView>
 
         if (UserParameters.Internet.IsAvailable())
         {
-            object? result = await _orderService.ChangeOrderAsync(TypeOfUpdateCommand.Insert, orderEntity);
+            bool isAdded = await _orderService.ChangeOrderAsync(TypeOfUpdateCommand.Insert, orderEntity);
 
-            View.ShowMessage("Заказ успешно оформлен", "Успех", Views.Abstractions.Shared.MessageLevel.Info);
+            if (isAdded)
+                View.ShowMessage("Заказ успешно оформлен", "Успех", MessageLevel.Info);
+            else
+                View.ShowMessage("Заказ не оформлен", "Ой...", MessageLevel.Warning);
         }
 
         OrderModel orderModel = new OrderModel()
@@ -138,13 +148,13 @@ public sealed class ShoppingCartPresenter : Presenter<IShoppingCartView>
             {
                 Id = product.Id,
                 Name = product.Name,
-                Image = _cachedFile.SaveImage((product.Image as byte[])!, product.Name, true),
+                Image = await _fileCache.SaveImageAsync((product.Image as byte[])!, true),
                 Category = product.Category,
                 Price = product.Price,
                 Quantity = product.Quantity
             });
 
-        await _cachedFile.WriteAsync($"{orderModel.UserId}. Order Date: {orderModel.OrderDate}", orderModel);
+        await _fileCache.WriteAsync($"{orderModel.UserId}. Order Date: {orderModel.OrderDate}", orderModel);
     }
 
     private void Cache_Changed(object sender, CacheChangedEventArgs<string, ProductModel> cacheChanged)

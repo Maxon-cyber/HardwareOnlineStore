@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "dgSpecHash": "BdPSgM1W7Vhk7CaHh9sO6rtYT8yk+sRo0M17UqC/vDWDNXRrZClwoHQZygOdJHiBV8/MTmjsbK85Ez3E+C1m4A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\рс\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Core.Initialization.Configuration.Microsoft\\HardwareOnlineStore.Core.Initialization.Configuration.Microsoft.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\рс\\.nuget\\packages\\microsoft.extensions.configuration\\8.0.0\\microsoft.extensions.configuration.8.0.0.nupkg.sha512",
+    "C:\\Users\\рс\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\рс\\.nuget\\packages\\microsoft.extensions.configuration.environmentvariables\\8.0.0\\microsoft.extensions.configuration.environmentvariables.8.0.0.nupkg.sha512",
+    "C:\\Users\\рс\\.nuget\\packages\\microsoft.extensions.configuration.fileextensions\\2.0.0\\microsoft.extensions.configuration.fileextensions.2.0.0.nupkg.sha512",
+    "C:\\Users\\рс\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\2.0.0\\microsoft.extensions.fileproviders.abstractions.2.0.0.nupkg.sha512",
+    "C:\\Users\\рс\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\2.0.0\\microsoft.extensions.fileproviders.physical.2.0.0.nupkg.sha512",
+    "C:\\Users\\рс\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\2.0.0\\microsoft.extensions.filesystemglobbing.2.0.0.nupkg.sha512",
+    "C:\\Users\\рс\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "C:\\Users\\рс\\.nuget\\packages\\netescapades.configuration.yaml\\3.1.0\\netescapades.configuration.yaml.3.1.0.nupkg.sha512",
+    "C:\\Users\\рс\\.nuget\\packages\\yamldotnet\\13.0.1\\yamldotnet.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

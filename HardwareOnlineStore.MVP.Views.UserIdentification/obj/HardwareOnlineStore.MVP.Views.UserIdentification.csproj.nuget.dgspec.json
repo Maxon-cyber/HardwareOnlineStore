@@ -1260,9 +1260,6 @@
               "C:\\Users\\рс\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Services.Entity.SqlServerService\\HardwareOnlineStore.Services.Entity.SqlServerService.csproj": {
                 "projectPath": "C:\\Users\\рс\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Services.Entity.SqlServerService\\HardwareOnlineStore.Services.Entity.SqlServerService.csproj"
               },
-              "C:\\Users\\рс\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Services.Utilities.Caching.File\\HardwareOnlineStore.Services.Utilities.Caching.File.csproj": {
-                "projectPath": "C:\\Users\\рс\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Services.Utilities.Caching.File\\HardwareOnlineStore.Services.Utilities.Caching.File.csproj"
-              },
               "C:\\Users\\рс\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Services.Utilities.Caching.Memory\\HardwareOnlineStore.Services.Utilities.Caching.Memory.csproj": {
                 "projectPath": "C:\\Users\\рс\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Services.Utilities.Caching.Memory\\HardwareOnlineStore.Services.Utilities.Caching.Memory.csproj"
               }
@@ -2459,6 +2456,10 @@
             "SixLabors.ImageSharp": {
               "target": "Package",
               "version": "[3.1.4, )"
+            },
+            "System.Collections.Immutable": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             }
           },
           "imports": [

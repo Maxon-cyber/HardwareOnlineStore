@@ -87,16 +87,20 @@ public sealed class MemoryCache<TValue> : ICache<string, TValue>
         return isContains;
     }
 
-    public async Task<IImmutableDictionary<string, TValue>?> ReadAsync()
+    public async Task<IImmutableDictionary<string, TValue>> ReadAsync()
     {
         await _semaphore.WaitAsync();
 
-        ImmutableDictionary<string, TValue> cache = CacheStorage.Cache
+        ImmutableDictionary<string, TValue> result = CacheStorage.Cache
                                                                 .Where(kvp => kvp.Value is TValue)
                                                                 .ToImmutableDictionary(kvp => kvp.Key, kvp => (TValue)kvp.Value);
+
+        if (result.Count == 0)
+            return await Task.FromResult<IImmutableDictionary<string, TValue>>(ImmutableDictionary<string, TValue>.Empty);
+
         _semaphore.Release();
 
-        return cache;
+        return result;
     }
 
     public async Task<TValue?> ReadByKeyAsync(string key)

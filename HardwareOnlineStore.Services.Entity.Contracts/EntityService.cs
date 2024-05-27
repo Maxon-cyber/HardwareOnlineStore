@@ -299,8 +299,6 @@ public abstract class EntityService<TEntity>(IRepository<TEntity> repository, IL
 
         for (int index = 0; index < responsesArray.Length; index++)
         {
-            DbResponse<TEntity> current = responsesArray[index];
-
             result.Add($"Сущность: {index}", null);
 
             DbResponse<TEntity> response = responsesArray[index];

@@ -53,7 +53,7 @@ public sealed class OrderService(OrderRepository orderRepository, FileLogger log
         return orders;
     }
 
-    public async Task<object?> ChangeOrderAsync(TypeOfUpdateCommand typeOfCommand, OrderEntity order)
+    public async Task<bool> ChangeOrderAsync(TypeOfUpdateCommand typeOfCommand, OrderEntity order)
     {
         string command = typeOfCommand switch
         {
@@ -83,10 +83,10 @@ public sealed class OrderService(OrderRepository orderRepository, FileLogger log
             }
         });
 
-        return result;
+        return Convert.ToBoolean(result);
     }
 
-    public async Task<ImmutableDictionary<string, object?>> ChangeOrderAsync(TypeOfUpdateCommand typeOfCommand, IEnumerable<OrderEntity> orders)
+    public async Task<ImmutableDictionary<string, bool>> ChangeOrderAsync(TypeOfUpdateCommand typeOfCommand, IEnumerable<OrderEntity> orders)
     {
         string command = typeOfCommand switch
         {
@@ -116,8 +116,11 @@ public sealed class OrderService(OrderRepository orderRepository, FileLogger log
             }
         });
 
-       
-        return result;
+        Dictionary<string, bool> boolDictionary = result.ToDictionary(kvp => kvp.Key, kvp => Convert.ToBoolean(kvp.Value));
+
+        ImmutableDictionary<string, bool> immutableBoolDictionary = boolDictionary.ToImmutableDictionary();
+
+        return immutableBoolDictionary;
     }
 
     public new void Dispose()

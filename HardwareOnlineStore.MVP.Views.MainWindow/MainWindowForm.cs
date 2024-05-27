@@ -68,5 +68,5 @@ public sealed partial class MainWindowForm : Form, IMainWindowView
         });
 
     void IView.Close()
-        => base.Close();
+        => Close();
 }

@@ -31,17 +31,17 @@ public sealed partial class ShoppingCartControl
         viewProductsTLP.ColumnCount = 2;
         viewProductsTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
         viewProductsTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-        viewProductsTLP.Location = new Point(0, 139);
+        viewProductsTLP.Location = new Point(0, 110);
         viewProductsTLP.Name = "viewProductsTLP";
         viewProductsTLP.RowCount = 2;
         viewProductsTLP.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
         viewProductsTLP.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-        viewProductsTLP.Size = new Size(864, 370);
+        viewProductsTLP.Size = new Size(1044, 498);
         viewProductsTLP.TabIndex = 1;
         // 
         // searchButton
         // 
-        searchButton.Location = new Point(440, 50);
+        searchButton.Location = new Point(452, 13);
         searchButton.Name = "searchButton";
         searchButton.Size = new Size(75, 23);
         searchButton.TabIndex = 2;
@@ -51,7 +51,7 @@ public sealed partial class ShoppingCartControl
         // 
         // orderButton
         // 
-        orderButton.Location = new Point(730, 25);
+        orderButton.Location = new Point(840, 13);
         orderButton.Name = "orderButton";
         orderButton.Size = new Size(107, 64);
         orderButton.TabIndex = 3;
@@ -61,7 +61,7 @@ public sealed partial class ShoppingCartControl
         // 
         // searchTextBox
         // 
-        searchTextBox.Location = new Point(29, 51);
+        searchTextBox.Location = new Point(20, 13);
         searchTextBox.Name = "searchTextBox";
         searchTextBox.PlaceholderText = "Поиск";
         searchTextBox.Size = new Size(385, 23);
@@ -76,12 +76,13 @@ public sealed partial class ShoppingCartControl
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
+        BackColor = SystemColors.Control;
         Controls.Add(searchTextBox);
         Controls.Add(orderButton);
         Controls.Add(searchButton);
         Controls.Add(viewProductsTLP);
         Name = "ShoppingCartControl";
-        Size = new Size(867, 512);
+        Size = new Size(1044, 608);
         Load += LoadOrderProducts;
         ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
         ResumeLayout(false);

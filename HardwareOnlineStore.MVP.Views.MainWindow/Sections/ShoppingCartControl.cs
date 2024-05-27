@@ -47,14 +47,15 @@ public sealed partial class ShoppingCartControl : UserControl, IShoppingCartView
                 {
                     int column = orderIndex % columnTPL;
                     int row = orderIndex / columnTPL;
-                    OrderModel currentOrder = orders[orderIndex];
 
-                    ProductModel[] products = currentOrder.Products.ToArray();
+                    OrderModel currentOrder = orders[orderIndex];
+                    ProductModel[] products = [.. currentOrder.Products];
                     for (int productIndex = 0; productIndex < products.Length; productIndex++)
                     {
                         ProductModel currentProduct = products[productIndex];
 
-                        ProductControl productControl = new ProductControl(new Size(411, 179), currentProduct);
+                        ProductControl productControl = new ProductControl(currentProduct);
+                        productControl.Dock = DockStyle.Fill;
                         productControl.DeleteButtonClicked += (s, e) =>
                         {
                             ProductControl? product = viewProductsTLP.Controls
@@ -94,7 +95,8 @@ public sealed partial class ShoppingCartControl : UserControl, IShoppingCartView
     {
         async void Action()
         {
-            ProductControl productControl = new ProductControl(new Size(411, 179), product);
+            ProductControl productControl = new ProductControl(product);
+            productControl.Dock = DockStyle.Fill;
             productControl.DeleteButtonClicked += (s, e) =>
             {
                 ProductControl? findProduct = viewProductsTLP.Controls
@@ -128,7 +130,8 @@ public sealed partial class ShoppingCartControl : UserControl, IShoppingCartView
             return;
         }
 
-        Control? needControl = viewProductsTLP.Controls.OfType<ProductControl>().FirstOrDefault(p => searchTextBox.Text.Equals(p.Tag?.ToString(), StringComparison.CurrentCultureIgnoreCase));
+        Control? needControl = viewProductsTLP.Controls.OfType<ProductControl>()
+                                                       .FirstOrDefault(p => searchTextBox.Text.Equals(p.Tag?.ToString(), StringComparison.CurrentCultureIgnoreCase));
 
         if (needControl == null)
         {

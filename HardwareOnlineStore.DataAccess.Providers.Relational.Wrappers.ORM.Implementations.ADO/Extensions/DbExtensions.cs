@@ -73,10 +73,10 @@ internal static class DbExtensions
         ArgumentException.ThrowIfNullOrWhiteSpace(parameter.Name);
         ArgumentException.ThrowIfNullOrWhiteSpace(prefix);
 
-        string name = string.Empty;
+        string name = parameter.Name;
 
-        if (!parameter.Name.Contains(prefix))
-            name = parameter.Name.Insert(0, prefix);
+        if (!name.Contains(prefix))
+            name = name.Insert(0, prefix);
 
         dbParameter = command.CreateParameter();
         dbParameter.ParameterName = name;
@@ -124,13 +124,14 @@ internal static class DbExtensions
             if (value.Equals(propertyType.IsValueType ? Activator.CreateInstance(propertyType) : null))
                 continue;
 
-            bool isCollection = typeof(IEnumerable).IsAssignableFrom(property.PropertyType);
-
+            bool isCollection = typeof(IEnumerable).IsAssignableFrom(propertyType) && propertyType != typeof(string);
             bool isColumn = property.GetCustomAttribute<ColumnDataAttribute>() != null;
 
-            if (property.GetCustomAttribute<PointerToTable>() != null && isColumn)
+            DbParameter parameter = command.CreateParameter();
+
+            if (property.GetCustomAttribute<PointerToTable>() != null && !isCollection)
                 AddEntityValuesRecursive(command, value, parameterPrefix, ref countOfAddedValues);
-            if (isCollection && isColumn)
+            if (isCollection && !isColumn)
             {
                 DataTable table = new DataTable();
 
@@ -140,9 +141,8 @@ internal static class DbExtensions
                        ? propertyType.GetElementType()
                        : propertyType.GetGenericArguments().FirstOrDefault();
 
-                if (elementType != null)
-                    if (!elementType.IsClass)
-                        continue;
+                if (elementType == null)
+                    continue;
 
                 IEnumerable<PropertyInfo> entityPropertiesWithSetAccessor = entities.Cast<object>()
                                                        .First()
@@ -164,38 +164,31 @@ internal static class DbExtensions
                 {
                     List<object?> values = [];
 
-                    foreach (PropertyInfo propertyInfo in entityPropertiesWithSetAccessor.Where(p => p.CanWrite))
+                    foreach (PropertyInfo propertyInfo in entityPropertiesWithSetAccessor)
                         values.Add(propertyInfo.GetValue(obj));
 
                     table.Rows.Add([.. values]);
-
-                    Interlocked.Increment(ref countOfAddedValues);
                 }
 
-                DbParameter productParam = command.CreateParameter();
-                productParam.ParameterName = property.GetCustomAttribute<SqlParameterAttribute>()!.ParameterName;
-                productParam.Direction = ParameterDirection.Input;
-                productParam.Value = table;
-
-                command.Parameters.Add(productParam);
+                parameter.Value = table;
             }
-            else
-            {
-                SqlParameterAttribute? sqlParameter = property.GetCustomAttribute<SqlParameterAttribute>();
 
-                if (sqlParameter == null)
-                    continue;
+            SqlParameterAttribute? sqlParameter = property.GetCustomAttribute<SqlParameterAttribute>();
 
-                DbParameter parameter = command.CreateParameter();
-                parameter.ParameterName = @$"{parameterPrefix}{sqlParameter.ParameterName}";
+            if (sqlParameter == null)
+                continue;
+
+            parameter.ParameterName = @$"{parameterPrefix}{sqlParameter.ParameterName}";
+            
+            if (sqlParameter.DbType != DbType.Object)
                 parameter.DbType = sqlParameter.DbType;
-                parameter.Direction = ParameterDirection.Input;
-                parameter.Value = value;
+            
+            parameter.Direction = ParameterDirection.Input;
+            parameter.Value ??= value;
 
-                command.Parameters.Add(parameter);
+            command.Parameters.Add(parameter);
 
-                Interlocked.Increment(ref countOfAddedValues);
-            }
+            Interlocked.Increment(ref countOfAddedValues);
         }
     }
 
