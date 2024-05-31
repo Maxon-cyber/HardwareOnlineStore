@@ -863,7 +863,6 @@
           "HardwareOnlineStore.MVP.Presenters.Contracts": "1.0.0",
           "HardwareOnlineStore.MVP.ViewModels.MainWindow": "1.0.0",
           "HardwareOnlineStore.MVP.Views.Abstractions.MainWindow": "1.0.0",
-          "HardwareOnlineStore.Services.Entity.Contracts": "1.0.0",
           "HardwareOnlineStore.Services.Entity.SqlServerService": "1.0.0",
           "HardwareOnlineStore.Services.Utilities.Caching.Memory": "1.0.0"
         },
@@ -902,7 +901,6 @@
           "HardwareOnlineStore.Entities": "1.0.0",
           "HardwareOnlineStore.MVP.Presenters.Contracts": "1.0.0",
           "HardwareOnlineStore.MVP.Views.Abstractions.MainWindow": "1.0.0",
-          "HardwareOnlineStore.Services.Entity.Contracts": "1.0.0",
           "HardwareOnlineStore.Services.Entity.SqlServerService": "1.0.0",
           "HardwareOnlineStore.Services.Utilities.Caching.Memory": "1.0.0"
         },
@@ -2579,9 +2577,7 @@
       "HardwareOnlineStore.MVP.Presenters.Contracts >= 1.0.0",
       "HardwareOnlineStore.MVP.Presenters.MainWindow >= 1.0.0",
       "HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification >= 1.0.0",
-      "HardwareOnlineStore.Services.Entity.Contracts >= 1.0.0",
-      "HardwareOnlineStore.Services.Entity.SqlServerService >= 1.0.0",
-      "HardwareOnlineStore.Services.Utilities.Caching.Memory >= 1.0.0"
+      "HardwareOnlineStore.Services.Entity.SqlServerService >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2629,14 +2625,8 @@
             "C:\\Users\\рс\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification\\HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification.csproj": {
               "projectPath": "C:\\Users\\рс\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification\\HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification.csproj"
             },
-            "C:\\Users\\рс\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Services.Entity.Contracts\\HardwareOnlineStore.Services.Entity.Contracts.csproj": {
-              "projectPath": "C:\\Users\\рс\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Services.Entity.Contracts\\HardwareOnlineStore.Services.Entity.Contracts.csproj"
-            },
             "C:\\Users\\рс\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Services.Entity.SqlServerService\\HardwareOnlineStore.Services.Entity.SqlServerService.csproj": {
               "projectPath": "C:\\Users\\рс\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Services.Entity.SqlServerService\\HardwareOnlineStore.Services.Entity.SqlServerService.csproj"
-            },
-            "C:\\Users\\рс\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Services.Utilities.Caching.Memory\\HardwareOnlineStore.Services.Utilities.Caching.Memory.csproj": {
-              "projectPath": "C:\\Users\\рс\\source\\repos\\HardwareOnlineStore\\HardwareOnlineStore.Services.Utilities.Caching.Memory\\HardwareOnlineStore.Services.Utilities.Caching.Memory.csproj"
             }
           }
         }

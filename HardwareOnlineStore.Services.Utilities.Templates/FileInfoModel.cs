@@ -22,8 +22,12 @@ public sealed class FileInfoModel
 
     public DateTime LastWriteTime => _fileInfo.LastWriteTime;
 
-    internal FileInfoModel(string fileName)
-        => _fileInfo = new FileInfo(fileName);
+    public FileInfoModel(string path)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(path);
+
+        _fileInfo = new FileInfo(path);
+    }
 
     public async Task<string[]> ReadAsync()
     {
@@ -52,7 +56,7 @@ public sealed class FileInfoModel
         {
             if (line.Trim().StartsWith(key))
                 keyIsFound = true;
-            
+
             if (keyIsFound)
             {
                 lines.Add(line);
@@ -99,12 +103,12 @@ public sealed class FileInfoModel
     }
 
     public async Task ClearAsync()
-    { 
+    {
         await File.WriteAllTextAsync(FullName, string.Empty);
         _fileInfo.Refresh();
     }
 
-    public bool Contains(string path)
+    public static bool Exists(string path)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
 

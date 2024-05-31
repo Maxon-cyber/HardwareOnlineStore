@@ -4,9 +4,9 @@ using System.Collections;
 
 namespace HardwareOnlineStore.Services.Utilities.Logger.File;
 
-public sealed class FileLogger : ILogger
+public sealed class FileLogger(string path) : ILogger
 {
-    private FileInfoModel _fileInfo;
+    private readonly FileInfoModel _fileInfo = new FileInfoModel(path);
     private static readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 20);
 
     public DirectoryInfoModel Directory { get; }
@@ -17,28 +17,11 @@ public sealed class FileLogger : ILogger
 
     public long SizeLimit => 8_192L;
 
-    public FileLogger(string path)
-        => Directory = new DirectoryInfoModel(path);
-
-    public FileLogger SetFile(string fileName)
-    {
-        _fileInfo = Directory[fileName]
-            ?? throw new FileNotFoundException($"Файл {Path.Combine(Directory.FullName, fileName)} не найден");
-
-        return this;
-    }
-
     public async Task LogInfoAsync(string message)
     {
         await _semaphore.WaitAsync();
 
-        if (_fileInfo.Size >= SizeLimit)
-            while (_fileInfo.Size > SizeLimit / 2)
-            {
-                string[] lines = await _fileInfo.ReadAsync();
-
-                await _fileInfo.WriteAsync(lines.Skip(Array.IndexOf(lines, Separator) + 1).ToArray(), WriteMode.WriteAll);
-            }
+        await Clear();
 
         await _fileInfo.WriteAsync(string.Format(MessagePattern, DateTime.Now, "Info", message), WriteMode.Append);
 
@@ -49,13 +32,7 @@ public sealed class FileLogger : ILogger
     {
         await _semaphore.WaitAsync();
 
-        if (_fileInfo.Size >= SizeLimit)
-            while (_fileInfo.Size > SizeLimit / 2)
-            {
-                string[] lines = await _fileInfo.ReadAsync();
-
-                await _fileInfo.WriteAsync(lines.Skip(Array.IndexOf(lines, Separator) + 1).ToArray(), WriteMode.WriteAll);
-            }
+        await Clear();
 
         await _fileInfo.WriteAsync(string.Format(MessagePattern, DateTime.Now, "Error", message), WriteMode.Append);
 
@@ -85,6 +62,15 @@ public sealed class FileLogger : ILogger
     {
         await _semaphore.WaitAsync();
 
+        await Clear();
+
+        await _fileInfo.WriteAsync(message, WriteMode.Append);
+
+        _semaphore.Release();
+    }
+
+    private async Task Clear()
+    {
         if (_fileInfo.Size >= SizeLimit)
             while (_fileInfo.Size > SizeLimit / 2)
             {
@@ -92,9 +78,5 @@ public sealed class FileLogger : ILogger
 
                 await _fileInfo.WriteAsync(lines.Skip(Array.IndexOf(lines, Separator) + 1).ToArray(), WriteMode.WriteAll);
             }
-
-        await _fileInfo.WriteAsync(message, WriteMode.Append);
-
-        _semaphore.Release();
     }
 }

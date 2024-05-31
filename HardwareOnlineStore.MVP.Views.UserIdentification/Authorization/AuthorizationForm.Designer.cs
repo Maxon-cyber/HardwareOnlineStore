@@ -22,12 +22,14 @@ public sealed partial class AuthorizationForm
         loginTextBox = new TextBox();
         loginButton = new Button();
         errorProvider = new ErrorProvider(components);
+        rememberMeCheckBox = new CheckBox();
         contentPanel.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
         SuspendLayout();
         // 
         // contentPanel
         // 
+        contentPanel.Controls.Add(rememberMeCheckBox);
         contentPanel.Controls.Add(registrationButton);
         contentPanel.Controls.Add(passwordTextBox);
         contentPanel.Controls.Add(loginTextBox);
@@ -80,6 +82,16 @@ public sealed partial class AuthorizationForm
         // 
         errorProvider.ContainerControl = this;
         // 
+        // rememberMeCheckBox
+        // 
+        rememberMeCheckBox.AutoSize = true;
+        rememberMeCheckBox.Location = new Point(95, 387);
+        rememberMeCheckBox.Name = "rememberMeCheckBox";
+        rememberMeCheckBox.Size = new Size(118, 19);
+        rememberMeCheckBox.TabIndex = 4;
+        rememberMeCheckBox.Text = "Запомнить меня";
+        rememberMeCheckBox.UseVisualStyleBackColor = true;
+        // 
         // AuthorizationForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -102,4 +114,5 @@ public sealed partial class AuthorizationForm
     private ErrorProvider errorProvider;
     private System.ComponentModel.IContainer components;
     private Button registrationButton;
+    private CheckBox rememberMeCheckBox;
 }

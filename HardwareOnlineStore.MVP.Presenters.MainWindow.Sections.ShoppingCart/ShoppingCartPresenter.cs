@@ -6,7 +6,6 @@ using HardwareOnlineStore.MVP.Presenters.Contracts;
 using HardwareOnlineStore.MVP.ViewModels.MainWindow;
 using HardwareOnlineStore.MVP.Views.Abstractions.MainWindow.Sections;
 using HardwareOnlineStore.MVP.Views.Abstractions.Shared;
-using HardwareOnlineStore.Services.Entity.Contracts;
 using HardwareOnlineStore.Services.Entity.SqlServerService;
 using HardwareOnlineStore.Services.Entity.SqlServerService.DataProcessing;
 using HardwareOnlineStore.Services.Utilities.Caching.Abstractions;
@@ -126,7 +125,7 @@ public sealed class ShoppingCartPresenter : Presenter<IShoppingCartView>
 
         if (UserParameters.Internet.IsAvailable())
         {
-            bool isAdded = await _orderService.ChangeOrderAsync(TypeOfUpdateCommand.Insert, orderEntity);
+            bool isAdded = await _orderService.ChangeOrderAsync(TypeOfCommand.Insert, orderEntity);
 
             if (isAdded)
                 View.ShowMessage("Заказ успешно оформлен", "Успех", MessageLevel.Info);

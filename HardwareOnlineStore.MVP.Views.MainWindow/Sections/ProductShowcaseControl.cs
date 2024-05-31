@@ -2,8 +2,6 @@
 using HardwareOnlineStore.MVP.Views.Abstractions.MainWindow.Sections;
 using HardwareOnlineStore.MVP.Views.Abstractions.Shared;
 using HardwareOnlineStore.MVP.Views.MainWindow.Sections.ProductAndOrder;
-using HardwareOnlineStore.MVP.Views.MainWindow.Sections.ProductAndOrder.Common;
-using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 
 namespace HardwareOnlineStore.MVP.Views.MainWindow.Sections;

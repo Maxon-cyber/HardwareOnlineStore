@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("0f45e40f-0b09-4897-a6ff-c62911b6c4fd")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("HardwareOnlineStore.MVP.Views.UserIdentification")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c94cb5a5835cd91a23dd849ad970dccb849e6386")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c3202ac11249b320089e797c40a05c1e718636c")]
 [assembly: System.Reflection.AssemblyProductAttribute("HardwareOnlineStore.MVP.Views.UserIdentification")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HardwareOnlineStore.MVP.Views.UserIdentification")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

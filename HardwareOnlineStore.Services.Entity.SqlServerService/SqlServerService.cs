@@ -5,9 +5,9 @@ namespace HardwareOnlineStore.Services.Entity.SqlServerService;
 
 public sealed class SqlServerService(SqlServerRepository sqlServerRepository, FileLogger logger) : IDisposable, IAsyncDisposable
 {
-    private readonly Lazy<UserService> _userService = new Lazy<UserService>(() => new UserService(sqlServerRepository.UserRepository, logger.SetFile("AppLog")));
-    private readonly Lazy<ProductService> _productService = new Lazy<ProductService>(() => new ProductService(sqlServerRepository.ProductRepository, logger.SetFile("AppLog")));
-    private readonly Lazy<OrderService> _orderService = new Lazy<OrderService>(() => new OrderService(sqlServerRepository.Order, logger.SetFile("AppLog")));
+    private readonly Lazy<UserService> _userService = new Lazy<UserService>(() => new UserService(sqlServerRepository.UserRepository, logger));
+    private readonly Lazy<ProductService> _productService = new Lazy<ProductService>(() => new ProductService(sqlServerRepository.ProductRepository, logger));
+    private readonly Lazy<OrderService> _orderService = new Lazy<OrderService>(() => new OrderService(sqlServerRepository.Order, logger));
 
     public UserService User => _userService.Value;
 

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<InfoWarnings>
+  <Info>Begin full analysis with NDepend v2024.1.0 on 31 May 2024 00:05:14</Info>
+  <Info>Visual Studio solution file resolved to absolute file path: from    {.\HardwareOnlineStore.sln}    to    {C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.sln}</Info>
+  <Info>Output directory resolved to absolute directory path: C:\Users\рс\source\repos\HardwareOnlineStore\NDependOut</Info>
+  <Info>Compare with analysis result obtained on 27 May 2024 17:27:11  (which is the analysis result with date closest to 30 days ago)</Info>
+  <Info>.NET Assemblies resolved from the Visual Studio solution file {C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.sln} [ 0 , 19 ]
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.UserIdentification\bin\Debug\net8.0-windows\HardwareOnlineStore.MVP.Views.UserIdentification.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification\bin\Debug\net8.0\HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.Abstractions.Shared\bin\Debug\net8.0\HardwareOnlineStore.MVP.Views.Abstractions.Shared.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.ViewModels.UserIdentification\bin\Debug\net8.0\HardwareOnlineStore.MVP.ViewModels.UserIdentification.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.Abstractions.MainWindow\bin\Debug\net8.0\HardwareOnlineStore.MVP.Views.Abstractions.MainWindow.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.ViewModels.MainWindow\bin\Debug\net8.0\HardwareOnlineStore.MVP.ViewModels.MainWindow.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Views.MainWindow\bin\Debug\net8.0-windows\HardwareOnlineStore.MVP.Views.MainWindow.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.UserIdentification\bin\Debug\net8.0\HardwareOnlineStore.MVP.Presenters.UserIdentification.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.Common\bin\Debug\net8.0\HardwareOnlineStore.MVP.Presenters.Common.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.Contracts\bin\Debug\net8.0\HardwareOnlineStore.MVP.Presenters.Contracts.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core\bin\Debug\net8.0\HardwareOnlineStore.Core.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core.Common\bin\Debug\net8.0\HardwareOnlineStore.Core.Common.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core.Initialization.Configuration.Abstractions\bin\Debug\net8.0\HardwareOnlineStore.Core.Initialization.Configuration.Abstractions.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core.Initialization.IoC.Abstractions\bin\Debug\net8.0\HardwareOnlineStore.Core.Initialization.IoC.Abstractions.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core.Initialization.IoC.Autofac\bin\Debug\net8.0\HardwareOnlineStore.Core.Initialization.IoC.Autofac.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Core.Initialization.Configuration.Microsoft\bin\Debug\net8.0\HardwareOnlineStore.Core.Initialization.Configuration.Microsoft.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Entities\bin\Debug\net8.0\HardwareOnlineStore.Entities.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.DataAccess.Providers.Relational.Abstractions\bin\Debug\net8.0\HardwareOnlineStore.DataAccess.Providers.Relational.Abstractions.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Abstractions\bin\Debug\net8.0\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Abstractions.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.DataAccess.Providers.Relational.Models\bin\Debug\net8.0\HardwareOnlineStore.DataAccess.Providers.Relational.Models.dll</Info>
+  <Info>.NET Assemblies resolved from the Visual Studio solution file {C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.sln} [ 20 , 38 ]
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO\bin\Debug\net8.0\HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.DataAccess.Providers.Relational.Implementations.SqlServer\bin\Debug\net8.0\HardwareOnlineStore.DataAccess.Providers.Relational.Implementations.SqlServer.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer\bin\Debug\net8.0\HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.DataAccess.Repositories.Relational.Abstractions\bin\Debug\net8.0\HardwareOnlineStore.DataAccess.Repositories.Relational.Abstractions.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Caching.Abstractions\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Caching.Abstractions.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Caching.File\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Caching.File.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Templates\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Templates.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Caching.Memory\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Caching.Memory.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Caching.Support.Serializer.Abstractions\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Caching.Support.Serializer.Abstractions.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Caching.Support.Serializer.Yaml\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Caching.Support.Serializer.Yaml.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Entity.Contracts\bin\Debug\net8.0\HardwareOnlineStore.Services.Entity.Contracts.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.Abstractions\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.Abstractions.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Utilities.Logger.File\bin\Debug\net8.0\HardwareOnlineStore.Services.Utilities.Logger.File.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.Services.Entity.SqlServerService\bin\Debug\net8.0\HardwareOnlineStore.Services.Entity.SqlServerService.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.MainWindow\bin\Debug\net8.0\HardwareOnlineStore.MVP.Presenters.MainWindow.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ProductShowcase\bin\Debug\net8.0\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ProductShowcase.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart\bin\Debug\net8.0\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.ShoppingCart.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.UserAccount\bin\Debug\net8.0\HardwareOnlineStore.MVP.Presenters.MainWindow.Sections.UserAccount.dll
+   C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.DataAccess.Attributes\bin\Debug\net8.0\HardwareOnlineStore.DataAccess.Attributes.dll</Info>
+  <Info>No .NET Assembly filtered out from the Visual Studio solution file {C:\Users\рс\source\repos\HardwareOnlineStore\HardwareOnlineStore.sln}.</Info>
+  <Info>Concurrent mode</Info>
+  <Info>.NET Assemblies loaded from {C:\Program Files\dotnet\shared\Microsoft.NETCore.App\8.0.2} 
+   System.Runtime.dll   v8.0.0.0
+   System.ComponentModel.Primitives.dll   v8.0.0.0
+   System.Collections.dll   v8.0.0.0
+   System.Threading.dll   v8.0.0.0
+   System.ComponentModel.TypeConverter.dll   v8.0.0.0
+   System.Drawing.Primitives.dll   v8.0.0.0
+   System.Linq.dll   v8.0.0.0
+   System.Threading.ThreadPool.dll   v8.0.0.0
+   System.Data.Common.dll   v8.0.0.0
+   System.Collections.Immutable.dll   v8.0.0.0
+   System.Collections.Concurrent.dll   v8.0.0.0</Info>
+  <Info>.NET Assemblies loaded from {C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\8.0.2} 
+   System.Windows.Forms.dll   v8.0.0.0
+   System.Windows.Forms.Primitives.dll   v8.0.0.0
+   System.Drawing.Common.dll   v8.0.0.0</Info>
+  <Info>88 source files parsed ; 1 source file not found ; all source files in-sync with PDB</Info>
+  <Info>0 code rule has been extracted from code.</Info>
+  <Info>No issue have been imported. No directory that contains issue files have been resolved from the project HardwareOnlineStore</Info>
+  <Info>No dependency cycle detected in assemblies referencement graph.</Info>
+  <Info>Do merge code generated by compiler into application code.</Info>
+  <Info>No SuppressMessageAttribute found in the analyzed code base. Since NDepend v2018.2 SuppressMessageAttribute can be used to suppress NDepend issues. Don't forget to set in your projects the compilation symbol CODE_ANALYSIS to use this attribute to suppress NDepend issues.</Info>
+  <Info>Persisting code model snapshot in {C:\Users\рс\source\repos\HardwareOnlineStore\NDependOut\NDependAnalysisResult_HardwareOnlineStore_2024May31_00h05m08.ndar}</Info>
+  <Info>Start log trend metrics values out-of-process.</Info>
+  <Info>NDepend analysis done. Duration: 00:56.597</Info>
+</InfoWarnings>

@@ -10,7 +10,7 @@ public sealed partial class AuthorizationForm : Form, IAuthorizationView
     private bool _isRunable = false;
     private readonly ApplicationContext _context;
 
-    public event Func<AuthorizationViewModel, Task> Authorization;
+    public event Func<AuthorizationViewModel, bool, Task> Authorization;
     public event Func<IRegistrationView> Registration;
 
     public AuthorizationForm(ApplicationContext context)
@@ -49,7 +49,7 @@ public sealed partial class AuthorizationForm : Form, IAuthorizationView
         {
             Login = loginTextBox.Text,
             Password = passwordTextBox.Text
-        });
+        }, rememberMeCheckBox.Checked);
 
         loginButton.Enabled = true;
     }

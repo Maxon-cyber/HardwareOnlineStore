@@ -4,7 +4,6 @@ using HardwareOnlineStore.MVP.Presenters.Contracts;
 using HardwareOnlineStore.MVP.ViewModels.MainWindow;
 using HardwareOnlineStore.MVP.Views.Abstractions.MainWindow.Sections;
 using HardwareOnlineStore.MVP.Views.Abstractions.Shared;
-using HardwareOnlineStore.Services.Entity.Contracts;
 using HardwareOnlineStore.Services.Entity.SqlServerService;
 using HardwareOnlineStore.Services.Entity.SqlServerService.DataProcessing;
 using HardwareOnlineStore.Services.Utilities.Caching.Memory;
@@ -58,7 +57,7 @@ public sealed class UserAccountPresenter : Presenter<IUserAccountView>
 
     private async Task UpdateDataAsync(UserAccountModel model)
     {
-        bool result = await _service.ChangeUserAsync(TypeOfUpdateCommand.Insert, new UserEntity()
+        bool result = await _service.ChangeUserAsync(TypeOfCommand.Insert, new UserEntity()
         {
             Name = model.Name,
             SecondName = model.SecondName,

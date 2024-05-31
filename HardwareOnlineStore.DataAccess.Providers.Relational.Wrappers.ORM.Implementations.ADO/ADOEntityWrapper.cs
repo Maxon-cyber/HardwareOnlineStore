@@ -4,7 +4,6 @@ using HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implement
 using HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO.Extensions;
 using HardwareOnlineStore.Entities;
 using System.Data.Common;
-using System.Xml.Linq;
 
 namespace HardwareOnlineStore.DataAccess.Providers.Relational.Wrappers.ORM.Implementations.ADO;
 
@@ -47,7 +46,7 @@ public sealed class ADOEntityWrapper<TEntity> : IEntityWrapper<TEntity>
         _dbCommand = dbCommand ?? throw new ArgumentNullException(nameof(dbCommand));
     }
 
-    public async Task<DbResponse<TEntity>> GetByIdAsync(QueryParameters query, string? name, Guid? id, CancellationToken token)
+    public async ValueTask<DbResponse<TEntity>> GetByIdAsync(QueryParameters query, string? name, Guid? id, CancellationToken token)
     {
         DbResponse<TEntity> response = new DbResponse<TEntity>();
 
@@ -119,7 +118,7 @@ public sealed class ADOEntityWrapper<TEntity> : IEntityWrapper<TEntity>
         return response;
     }
 
-    public async Task<DbResponse<TEntity>> GetByIdsAsync(QueryParameters query, string? name, ICollection<Guid>? ids, CancellationToken token)
+    public async ValueTask<DbResponse<TEntity>> GetByIdsAsync(QueryParameters query, string? name, ICollection<Guid>? ids, CancellationToken token)
     {
         DbResponse<TEntity> response = new DbResponse<TEntity>();
 
@@ -193,7 +192,7 @@ public sealed class ADOEntityWrapper<TEntity> : IEntityWrapper<TEntity>
         return response;
     }
 
-    public async Task<DbResponse<TEntity>> GetByAsync(QueryParameters query, TEntity condition, CancellationToken token)
+    public async ValueTask<DbResponse<TEntity>> GetByAsync(QueryParameters query, TEntity condition, CancellationToken token)
     {
         DbResponse<TEntity> response = new DbResponse<TEntity>();
 
@@ -264,7 +263,7 @@ public sealed class ADOEntityWrapper<TEntity> : IEntityWrapper<TEntity>
         return response;
     }
 
-    public async Task<DbResponse<TEntity>> SelectAsync(QueryParameters query, CancellationToken token)
+    public async ValueTask<DbResponse<TEntity>> SelectAsync(QueryParameters query, CancellationToken token)
     {
         DbResponse<TEntity> response = new DbResponse<TEntity>();
 
@@ -333,7 +332,7 @@ public sealed class ADOEntityWrapper<TEntity> : IEntityWrapper<TEntity>
         return response;
     }
 
-    public async Task<DbResponse<TEntity>> SelectByAsync(QueryParameters query, TEntity condition, CancellationToken token)
+    public async ValueTask<DbResponse<TEntity>> SelectByAsync(QueryParameters query, TEntity condition, CancellationToken token)
     {
         DbResponse<TEntity> response = new DbResponse<TEntity>();
 
@@ -404,7 +403,7 @@ public sealed class ADOEntityWrapper<TEntity> : IEntityWrapper<TEntity>
         return response;
     }
 
-    public async Task<DbResponse<TEntity>> UpdateAsync(QueryParameters query, TEntity entity, CancellationToken token)
+    public async ValueTask<DbResponse<TEntity>> UpdateAsync(QueryParameters query, TEntity entity, CancellationToken token)
     {
         DbResponse<TEntity> response = new DbResponse<TEntity>();
 
@@ -468,7 +467,7 @@ public sealed class ADOEntityWrapper<TEntity> : IEntityWrapper<TEntity>
         return response;
     }
 
-    public async Task<IEnumerable<DbResponse<TEntity>>> UpdateAsync(QueryParameters query, IEnumerable<TEntity> entities, CancellationToken token)
+    public async ValueTask<IEnumerable<DbResponse<TEntity>>> UpdateAsync(QueryParameters query, IEnumerable<TEntity> entities, CancellationToken token)
     {
         List<DbResponse<TEntity>> responses = [];
 

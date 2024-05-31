@@ -1,6 +1,5 @@
 ﻿using HardwareOnlineStore.DataAccess.Repositories.Relational.SqlServer.User;
 using HardwareOnlineStore.Entities.User;
-using System.Numerics;
 
 namespace HardwareOnlineStore.Services.Entity.SqlServerService.DataProcessing;
 
@@ -14,7 +13,7 @@ public sealed class UserService(UserRepository userRepository, FileLogger logger
             CommandType = CommandType.StoredProcedure,
             TransactionManagementOnDbServer = true,
         });
-
+    
         return user;
     }
 
@@ -42,13 +41,13 @@ public sealed class UserService(UserRepository userRepository, FileLogger logger
         return users;
     }
 
-    public async Task<bool> ChangeUserAsync(TypeOfUpdateCommand typeOfCommand, UserEntity user)
+    public async Task<bool> ChangeUserAsync(TypeOfCommand typeOfCommand, UserEntity user)
     {
         string command = typeOfCommand switch
         {
-            TypeOfUpdateCommand.Insert => SqlServerStoredProcedureList.AddUser,
-            TypeOfUpdateCommand.Update => SqlServerStoredProcedureList.UpadateUser,
-            TypeOfUpdateCommand.Delete => SqlServerStoredProcedureList.DropUser,
+            TypeOfCommand.Insert => SqlServerStoredProcedureList.AddUser,
+            TypeOfCommand.Update => SqlServerStoredProcedureList.UpadateUser,
+            TypeOfCommand.Delete => SqlServerStoredProcedureList.DropUser,
             _ => throw new NotImplementedException(),
         };
 
@@ -75,13 +74,13 @@ public sealed class UserService(UserRepository userRepository, FileLogger logger
         return Convert.ToBoolean(result);
     }
 
-    public async Task<ImmutableDictionary<string, bool>> ChangeUserAsync(TypeOfUpdateCommand typeOfCommand, IEnumerable<UserEntity> users)
+    public async Task<ImmutableDictionary<string, bool>> ChangeUserAsync(TypeOfCommand typeOfCommand, IEnumerable<UserEntity> users)
     {
         string command = typeOfCommand switch
         {
-            TypeOfUpdateCommand.Insert => SqlServerStoredProcedureList.AddUser,
-            TypeOfUpdateCommand.Update => SqlServerStoredProcedureList.AddUser,
-            TypeOfUpdateCommand.Delete => SqlServerStoredProcedureList.DropUser,
+            TypeOfCommand.Insert => SqlServerStoredProcedureList.AddUser,
+            TypeOfCommand.Update => SqlServerStoredProcedureList.AddUser,
+            TypeOfCommand.Delete => SqlServerStoredProcedureList.DropUser,
             _ => throw new NotImplementedException(),
         };
 

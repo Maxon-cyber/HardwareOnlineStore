@@ -846,7 +846,6 @@
           "HardwareOnlineStore.MVP.Presenters.Contracts": "1.0.0",
           "HardwareOnlineStore.MVP.ViewModels.MainWindow": "1.0.0",
           "HardwareOnlineStore.MVP.Views.Abstractions.MainWindow": "1.0.0",
-          "HardwareOnlineStore.Services.Entity.Contracts": "1.0.0",
           "HardwareOnlineStore.Services.Entity.SqlServerService": "1.0.0",
           "HardwareOnlineStore.Services.Utilities.Caching.Memory": "1.0.0"
         },
@@ -885,7 +884,6 @@
           "HardwareOnlineStore.Entities": "1.0.0",
           "HardwareOnlineStore.MVP.Presenters.Contracts": "1.0.0",
           "HardwareOnlineStore.MVP.Views.Abstractions.MainWindow": "1.0.0",
-          "HardwareOnlineStore.Services.Entity.Contracts": "1.0.0",
           "HardwareOnlineStore.Services.Entity.SqlServerService": "1.0.0",
           "HardwareOnlineStore.Services.Utilities.Caching.Memory": "1.0.0"
         },

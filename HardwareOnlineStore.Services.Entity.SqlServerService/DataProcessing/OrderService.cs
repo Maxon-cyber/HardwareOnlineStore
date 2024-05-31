@@ -53,13 +53,13 @@ public sealed class OrderService(OrderRepository orderRepository, FileLogger log
         return orders;
     }
 
-    public async Task<bool> ChangeOrderAsync(TypeOfUpdateCommand typeOfCommand, OrderEntity order)
+    public async Task<bool> ChangeOrderAsync(TypeOfCommand typeOfCommand, OrderEntity order)
     {
         string command = typeOfCommand switch
         {
-            TypeOfUpdateCommand.Insert => SqlServerStoredProcedureList.AddOrder,
-            TypeOfUpdateCommand.Update => SqlServerStoredProcedureList.UpadateOrder,
-            TypeOfUpdateCommand.Delete => SqlServerStoredProcedureList.DropOrder,
+            TypeOfCommand.Insert => SqlServerStoredProcedureList.AddOrder,
+            TypeOfCommand.Update => SqlServerStoredProcedureList.UpadateOrder,
+            TypeOfCommand.Delete => SqlServerStoredProcedureList.DropOrder,
             _ => throw new NotImplementedException(),
         };
 
@@ -86,13 +86,13 @@ public sealed class OrderService(OrderRepository orderRepository, FileLogger log
         return Convert.ToBoolean(result);
     }
 
-    public async Task<ImmutableDictionary<string, bool>> ChangeOrderAsync(TypeOfUpdateCommand typeOfCommand, IEnumerable<OrderEntity> orders)
+    public async Task<ImmutableDictionary<string, bool>> ChangeOrderAsync(TypeOfCommand typeOfCommand, IEnumerable<OrderEntity> orders)
     {
         string command = typeOfCommand switch
         {
-            TypeOfUpdateCommand.Insert => SqlServerStoredProcedureList.AddOrder,
-            TypeOfUpdateCommand.Update => SqlServerStoredProcedureList.UpadateOrder,
-            TypeOfUpdateCommand.Delete => SqlServerStoredProcedureList.DropOrder,
+            TypeOfCommand.Insert => SqlServerStoredProcedureList.AddOrder,
+            TypeOfCommand.Update => SqlServerStoredProcedureList.UpadateOrder,
+            TypeOfCommand.Delete => SqlServerStoredProcedureList.DropOrder,
             _ => throw new NotImplementedException(),
         };
 

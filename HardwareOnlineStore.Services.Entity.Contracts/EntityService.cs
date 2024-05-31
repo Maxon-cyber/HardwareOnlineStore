@@ -7,13 +7,6 @@ using EntityObject = HardwareOnlineStore.Entities.Entity;
 
 namespace HardwareOnlineStore.Services.Entity.Contracts;
 
-public enum TypeOfUpdateCommand
-{
-    Insert = 0,
-    Update = 1,
-    Delete = 2
-}
-
 public abstract class EntityService<TEntity>(IRepository<TEntity> repository, ILogger logger)
     where TEntity : EntityObject, new()
 {

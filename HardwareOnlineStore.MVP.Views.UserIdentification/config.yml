@@ -11,7 +11,7 @@
         ConnectionTimeout: 00:00:15
         MaxPoolSize: 100
 Logging:
-    Path: C:\Users\рс\AppData\Local\Temp\HardwareOnlineStore\Logging
+    Path: C:\Users\рс\AppData\Local\Temp\HardwareOnlineStore\Logging\AppLog.txt
     ReadOnly: true
 Caching:
     Path: C:\Users\рс\AppData\Local\Temp\HardwareOnlineStore\Caching

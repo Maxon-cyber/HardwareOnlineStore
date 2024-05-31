@@ -7,6 +7,7 @@ using HardwareOnlineStore.MVP.Views.Abstractions.Shared;
 using HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification;
 using HardwareOnlineStore.Services.Entity.SqlServerService;
 using HardwareOnlineStore.Services.Entity.SqlServerService.DataProcessing;
+using HardwareOnlineStore.Services.Utilities.Caching.File;
 using HardwareOnlineStore.Services.Utilities.Caching.Memory;
 using System.Text;
 
@@ -15,19 +16,22 @@ namespace HardwareOnlineStore.MVP.Presenters.UserIdentification;
 public sealed class AuthorizationPresenter : Presenter<IAuthorizationView>
 {
     private readonly UserService _userService;
+    private readonly FileCache<UserEntity> _fileCache;
     private readonly MemoryCache<UserEntity> _memoryCache;
 
-    public AuthorizationPresenter(IApplicationController controller, IAuthorizationView view, SqlServerService service)
+
+    public AuthorizationPresenter(IApplicationController controller, IAuthorizationView view, FileCache<UserEntity> fileCache, SqlServerService service)
         : base(controller, view)
     {
         _userService = service.User;
+        _fileCache = fileCache.SetFile("User");
         _memoryCache = MemoryCache<UserEntity>.Instance;
 
         View.Authorization += LoginAsync;
         View.Registration += Registration;
     }
 
-    private async Task LoginAsync(AuthorizationViewModel model)
+    private async Task LoginAsync(AuthorizationViewModel model, bool rememberMe)
     {
         UserEntity? user = await _userService.GetUserByAsync(new UserEntity
         {
@@ -48,6 +52,10 @@ public sealed class AuthorizationPresenter : Presenter<IAuthorizationView>
             case Role.User:
                 Controller.Run<MainWindowPresenter>();
                 await _memoryCache.WriteAsync("User", user);
+
+                if (rememberMe)
+                    await _fileCache.WriteWithEncryptionAsync("User", user);
+
                 View.Close();
                 break;
             case Role.Admin:

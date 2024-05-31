@@ -86,6 +86,9 @@ internal static class Program
                                        .RegisterInstance<IApplicationController>(applicationController)
                                        .Build();
 
-        applicationController.Run<AuthorizationPresenter>();
+        if (Settings.Default.RememberMe)
+            applicationController.Run<MainWindowPresenter>();
+        else
+            applicationController.Run<AuthorizationPresenter>();
     }
 }

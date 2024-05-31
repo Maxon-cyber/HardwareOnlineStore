@@ -42,4 +42,11 @@ public sealed class DirectoryInfoModel
 
     public IReadOnlyCollection<FileInfoModel> GetFiles()
         => _files.AsReadOnly();
+
+    public static bool Exists(string path)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(path);
+
+        return Directory.Exists(path);
+    }
 }

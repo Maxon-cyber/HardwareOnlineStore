@@ -5,6 +5,6 @@ namespace HardwareOnlineStore.MVP.Views.Abstractions.UserIdentification;
 
 public interface IAuthorizationView : IView
 {
-    event Func<AuthorizationViewModel, Task> Authorization;
+    event Func<AuthorizationViewModel, bool, Task> Authorization;
     event Func<IRegistrationView> Registration;
 }
